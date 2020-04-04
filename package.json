@@ -1,0 +1,23 @@
+{
+  "name": "sonmi-451",
+  "version": "0.0.1",
+  "description": "A class Discord bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizvishak/sonmi-451.git"
+  },
+  "author": "Visahavel Parthasarathy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wizvishak/sonmi-451/issues"
+  },
+  "homepage": "https://github.com/wizvishak/sonmi-451#readme",
+  "dependencies": {
+    "discord.js": "^12.1.1",
+    "klasa": "github:dirigeants/klasa#master"
+  }
+}
