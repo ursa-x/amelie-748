@@ -1,0 +1,24 @@
+{
+	"name": "sonmi-450",
+	"version": "0.0.1",
+	"description": "A sample discord bot",
+	"main": "index.js",
+	"dependencies": {
+		"discord.js": "^12.1.1"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "npm test",
+		"start": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wizvishak/sonmi-450.git"
+	},
+	"author": "Visahavel Parthasarathy",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/wizvishak/sonmi-450/issues"
+	},
+	"homepage": "https://github.com/wizvishak/sonmi-450#readme"
+}
