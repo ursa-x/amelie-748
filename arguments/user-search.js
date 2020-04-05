@@ -1,5 +1,5 @@
 const { Argument, util: { regExpEsc } } = require("klasa");
-const { ID: REGEX_ID } = require('./../settings/general-settings');
+const { REGEX } = require('./../settings/general-settings');
 
 /* Possible user detection:
  * <@!679196603134902283> (Mention)
@@ -13,14 +13,20 @@ module.exports = class extends Argument {
 		super(...args, {aliases: ["usersearch"]});
 	}
 
+	getUID(completeUserID) {
+		return `${/(\d{17,21})/.exec(completeUserID)[0]}`;
+	}
+
 	async run(arg, possible, msg) {
 		let results = [];
 
 		if (arg === undefined) {
 			return msg.author;
-		} else if (REGEX_ID.test(arg)) {
-			let something = this.client.users.get(/(\d{17,21})/.exec(arg)[0]);
-			return something;
+		} else if (REGEX.ID.test(arg)) {
+			const userID = this.getUID(arg),
+			person = this.client.users.cache.get(userID);
+
+			return person;
 		}
 
 		if (msg.guild) {
