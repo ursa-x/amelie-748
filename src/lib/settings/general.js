@@ -1,5 +1,4 @@
 exports.DEPENDENCIES = {
-
 	nodeJs: {
 		packageName: 'node.js',
 		minVersion: '10.0.0'
@@ -21,7 +20,6 @@ exports.REGEX = {
 };
 
 exports.EXCLUDES = {
-
 	commandNames: [
 		'Admin/load',
 		'Admin/unload',
@@ -29,6 +27,5 @@ exports.EXCLUDES = {
 		'General/Chat Bot Info/info',
 		'General/Chat Bot Info/stats'
 	]
-
 };
 

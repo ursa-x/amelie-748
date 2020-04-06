@@ -1,14 +1,15 @@
 /* Gruntfile.js */
+
 module.exports = (grunt) => {
 	require('load-grunt-tasks')(grunt);
 
 	let options = {
 			config: {
 				pkg: grunt.file.readJSON('package.json'),
-				src: 'build/tasks/*.js'
+				src: 'grunt/tasks/*.js'
 			},
 			paths: {
-				config: './build',
+				config: './grunt',
 				appFile: 'app.js'
 			}
 		},

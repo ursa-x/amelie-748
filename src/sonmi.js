@@ -1,8 +1,8 @@
-const {Client} = require('klasa');
-const {Collection} = require('discord.js');
-const {commandRemover, checkEnvironment} = require('./utilities/general-util');
-const secret = require('./build/secrets.json');
-const config = require('./build/config.json');
+const { Client } = require('klasa');
+const { Collection } = require('discord.js');
+const { checkEnvironment } = require('./lib/util/general');
+const secret = require('./lib/secrets.json');
+const config = require('./lib/config.json');
 
 // Check if system is ready to run the bot
 checkEnvironment();

@@ -1,5 +1,5 @@
-const { Argument, util: { regExpEsc } } = require("klasa");
-const { REGEX } = require('./../settings/general-settings');
+const { Argument, util: { regExpEsc } } = require('klasa');
+const { REGEX } = require('./../lib/settings/general');
 
 /* Possible user detection:
  * <@!679196603134902283> (Mention)
@@ -10,7 +10,7 @@ const { REGEX } = require('./../settings/general-settings');
 
 module.exports = class extends Argument {
 	constructor(...args) {
-		super(...args, {aliases: ["usersearch"]});
+		super(...args, {aliases: ['usersearch']});
 	}
 
 	getUID(completeUserID) {
@@ -20,7 +20,7 @@ module.exports = class extends Argument {
 	async run(arg, possible, msg) {
 		let results = [];
 
-		if (arg === undefined) {
+		if (typeof arg === 'undefined') {
 			return msg.author;
 		} else if (REGEX.ID.test(arg)) {
 			const userID = this.getUID(arg),
@@ -30,12 +30,12 @@ module.exports = class extends Argument {
 		}
 
 		if (msg.guild) {
-			let regex = new RegExp(regExpEsc(arg), "i");
+			let regex = new RegExp(regExpEsc(arg), 'i');
 			results = msg.guild.members.filter(m => regex.test(m.user.username));
 		}
 
 		if (results.size === 0) {
-			msg.channel.send(this.client.speech(msg, ["func-system", "usersearch"]));
+			msg.channel.send(this.client.speech(msg, ['func-system', 'usersearch']));
 			return null;
 		}
 
