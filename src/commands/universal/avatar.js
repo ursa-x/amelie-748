@@ -1,14 +1,14 @@
-const { Command } = require("klasa");
+const { Command } = require('klasa');
 
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
-			name: "avatar",
+			name: 'avatar',
 			enabled: true,
-			runIn: ["text"],
-			requiredPermissions: ["ATTACH_FILES"],
+			runIn: ['text'],
+			requiredPermissions: ['ATTACH_FILES'],
 			description: "Fetch a user's avatar!",
-			usage: "[user:usersearch]"
+			usage: '[user:usersearch]'
 		});
 	}
 
@@ -16,6 +16,6 @@ module.exports = class extends Command {
 		if (user === null) {
 			return;
 		}
-		msg.channel.send("", {files: [user.displayAvatarURL()]});
+		msg.channel.send('', {files: [user.displayAvatarURL()]});
 	}
 };

@@ -4,7 +4,7 @@ module.exports = (grunt, options) => {
 			files: [
 				'app.js'
 			],
-			tasks: ['shell:build'],
+			tasks: ['shell:grunt'],
 			options: {
 				spawn: false,
 			},

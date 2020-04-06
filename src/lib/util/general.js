@@ -1,9 +1,8 @@
 /* Exports all needed utilities for the client */
-
 const { existsSync, unlinkSync} = require('fs');
 const { version: DISCORDJS_VERSION } = require('discord.js');
 const { version: KLASAJS_VERSION } = require('klasa');
-const { DEPENDENCIES, EXCLUDES } = require('./../settings/general-settings');
+const { DEPENDENCIES, EXCLUDES } = require('./../settings/general');
 const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('./../messages/error/general');
 
 /* Variables */
