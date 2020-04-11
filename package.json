@@ -1,24 +1,32 @@
 {
 	"name": "sonmi-450",
 	"version": "0.0.1",
-	"description": "A sample discord bot",
-	"main": "index.js",
-	"dependencies": {
-		"discord.js": "^12.1.1"
-	},
-	"devDependencies": {},
+	"description": "A classy Discord bot",
+	"main": "app.js",
 	"scripts": {
-		"test": "npm test",
-		"start": "node index.js"
+		"start": "node src/sonmi.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/wizvishak/sonmi-450.git"
+		"url": "git+https://github.com/wizvishak/sonmi-451.git"
 	},
 	"author": "Visahavel Parthasarathy",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/wizvishak/sonmi-450/issues"
+		"url": "https://github.com/wizvishak/sonmi-451/issues"
 	},
-	"homepage": "https://github.com/wizvishak/sonmi-450#readme"
+	"homepage": "https://github.com/wizvishak/sonmi-451#readme",
+	"dependencies": {
+		"discord.js": "github:discordjs/discord.js#master",
+		"fs": "0.0.1-security",
+		"klasa": "github:dirigeants/klasa#master"
+	},
+	"devDependencies": {
+		"grunt": "^1.1.0",
+		"grunt-contrib-watch": "^1.1.0",
+		"grunt-eslint": "^22.0.0",
+		"grunt-shell": "^3.0.1",
+		"load-grunt-configs": "^1.0.0",
+		"load-grunt-tasks": "^5.1.0"
+	}
 }

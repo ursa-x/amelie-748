@@ -1,2 +1,2 @@
 # sonmi-450
-Truth is singular. Its 'versions' are mistruths.
+A classy discord bot using klasa.js.
