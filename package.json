@@ -19,7 +19,9 @@
 	"dependencies": {
 		"discord.js": "github:discordjs/discord.js#master",
 		"fs": "0.0.1-security",
-		"klasa": "github:dirigeants/klasa#master"
+		"klasa": "github:dirigeants/klasa#master",
+		"node-fetch": "^2.6.0",
+		"voca": "^1.4.0"
 	},
 	"devDependencies": {
 		"grunt": "^1.1.0",
