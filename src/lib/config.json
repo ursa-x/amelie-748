@@ -1,3 +1,7 @@
 {
-	"prefix": "r+"
+	"prefix": "+",
+	"bot": {
+		"name": "Charlotte Balfour",
+		"iconURL": "assets/charlotte-balfour.png"
+	}
 }
