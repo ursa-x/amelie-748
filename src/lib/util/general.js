@@ -3,7 +3,7 @@ const { existsSync, unlinkSync} = require('fs');
 const { version: DISCORDJS_VERSION } = require('discord.js');
 const { version: KLASAJS_VERSION } = require('klasa');
 const { EXCLUDES } = require('./../settings/general');
-const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('./../messages/error/general');
+const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('../messages/error/general');
 const APP_CONFIG = require('./../config.json');
 
 /* Variables */

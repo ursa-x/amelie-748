@@ -1,8 +1,8 @@
 const {Command} = require('klasa');
 const fetch = require('node-fetch');
-const MADAM_NAZAR_API = require('../../lib/settings/api');
-const NazarLocationModel = require('../../lib/model/nazar');
-const NazarLocationView = require('../../lib/view/nazar');
+const MADAM_NAZAR_API = require('./../../lib/settings/api');
+const NazarLocationModel = require('./../../lib/model/nazar');
+const NazarLocationView = require('./../../lib/view/nazar');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			enabled: true,
 			runIn: ['text'],
 			subcommands: true,
-			description: 'Find useful Collector role info.',
+			description: language => language.get('COMMAND').MESSAGE.NAZAR_DESC,
 			usage: '<wya>'
 		});
 	}
