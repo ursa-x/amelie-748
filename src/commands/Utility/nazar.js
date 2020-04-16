@@ -33,7 +33,7 @@ module.exports = class extends Command {
 	}
 
 	async wya(message, params) {
-		fetch(MADAM_NAZAR_API.getCurrentLocation())
+		fetch(MADAM_NAZAR_API.currentLocationAPI())
 			.then(response => response.json())
 			.then(responseJson => this.reply(message, responseJson))
 			.catch(err => console.error(err));
