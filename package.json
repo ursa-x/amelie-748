@@ -2,9 +2,10 @@
 	"name": "sonmi-450",
 	"version": "0.0.1",
 	"description": "A classy Discord bot",
-	"main": "app.js",
+	"main": "src/sonmi.js",
 	"scripts": {
-		"start": "node src/sonmi.js"
+		"start": "node src/sonmi.js",
+		"bot:dev": "nodemon src/sonmi.js"
 	},
 	"repository": {
 		"type": "git",
@@ -25,7 +26,6 @@
 	},
 	"devDependencies": {
 		"grunt": "^1.1.0",
-		"grunt-contrib-watch": "^1.1.0",
 		"grunt-eslint": "^22.0.0",
 		"grunt-shell": "^3.0.1",
 		"load-grunt-configs": "^1.0.0",
