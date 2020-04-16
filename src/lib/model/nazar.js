@@ -1,4 +1,6 @@
+const moment = require('moment');
 const titleCase = require('voca/title_case');
+const { DATE } = require('../settings/formats');
 
 class Location {
 	constructor(locationJson) {
@@ -25,7 +27,10 @@ class Location {
 	}
 
 	get currentDate() {
-		return this.locationJson.dataFor;
+		const dateString = this.locationJson.dataFor,
+		nazarLocationCurrentDate = dateString ? moment(dateString, DATE.NAZAR.LOCATION_TODAY) : moment();
+
+		return nazarLocationCurrentDate.format(DATE.DAY_LL);
 	}
 }
 

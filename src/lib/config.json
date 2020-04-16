@@ -3,5 +3,19 @@
 	"bot": {
 		"name": "Charlotte Balfour",
 		"iconURL": "assets/charlotte-balfour.png"
+	},
+	"coreDependencies": {
+		"nodeJs": {
+			"packageName": "node.js",
+			"minVersion": "10.0.0"
+		},
+		"discordJs": {
+			"packageName": "discord.js",
+			"minVersion": "12.1.1"
+		},
+		"klasaJs": {
+			"packageName": "klasa.js",
+			"minVersion": "0.5.0-dev"
+		}
 	}
 }

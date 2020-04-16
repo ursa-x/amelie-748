@@ -2,8 +2,9 @@
 const { existsSync, unlinkSync} = require('fs');
 const { version: DISCORDJS_VERSION } = require('discord.js');
 const { version: KLASAJS_VERSION } = require('klasa');
-const { DEPENDENCIES, EXCLUDES } = require('./../settings/general');
-const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('./../messages/error/general');
+const { EXCLUDES } = require('./../settings/general');
+const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('../messages/error/general');
+const APP_CONFIG = require('./../config.json');
 
 /* Variables */
 const { commandNames: EXCLUDED_COMMAND_NAMES } = EXCLUDES;
@@ -11,7 +12,7 @@ const {
 	nodeJs,
 	discordJs,
 	klasaJs
-} = DEPENDENCIES;
+} = APP_CONFIG.coreDependencies;
 
 /* Methods */
 const getCommandPath = (commandName) => {
