@@ -8,11 +8,11 @@ module.exports = class extends Language {
 			enabled: true
 		});
 
-		this.loadLanguageLiterals(this);
+		this.loadLanguageLiterals();
 	}
 
-	loadLanguageLiterals(self) {
-		self.language = { COMMANDS };
+	loadLanguageLiterals() {
+		this.language = { COMMANDS };
 	}
 
 	async init() {

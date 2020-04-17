@@ -1,3 +1,7 @@
+/* eslint-disable */
+
+/* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
+
 /* Exports all needed utilities for the client */
 const { existsSync, unlinkSync} = require('fs');
 const { version: DISCORDJS_VERSION } = require('discord.js');

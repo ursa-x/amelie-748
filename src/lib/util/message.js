@@ -4,9 +4,10 @@ const MessageUtil = {
 	getCommandLiteral(path, message) {
 		const keys = path.split(KEY_DELIMITER);
 
-		return keys.reduce((previous, current) => {
-			return previous ? previous[current] : null;
-		}, message.language.get('COMMANDS'));
+		return keys.reduce(
+			(previous, current) => (previous ? previous[current] : null),
+			message.language.get('COMMANDS')
+		);
 	},
 
 	makeAttachmentString(imageName) {

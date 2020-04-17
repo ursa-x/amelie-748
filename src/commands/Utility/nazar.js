@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			enabled: true,
 			runIn: ['text'],
 			subcommands: true,
-			description: language => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
+			description: (language) => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
 			usage: '<wya>'
 		});
 	}
@@ -32,10 +32,10 @@ module.exports = class extends Command {
 		});
 	}
 
-	async wya(message, params) {
+	async wya(message) {
 		fetch(MADAM_NAZAR_API.currentLocationAPI())
-			.then(response => response.json())
-			.then(responseJson => this.reply(message, responseJson))
-			.catch(err => console.error(err));
+			.then((response) => response.json())
+			.then((responseJson) => this.reply(message, responseJson))
+			.catch((err) => console.error(err));
 	}
 };
