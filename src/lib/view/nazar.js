@@ -1,9 +1,16 @@
-const {MessageEmbed, MessageAttachment} = require('discord.js');
+const {
+	MessageEmbed,
+	MessageAttachment
+} = require('discord.js');
+const moment = require('moment');
+const MessageUtil = require('./../util/message');
+
 
 class LocationViewHelper {
-	constructor(message, locationModel) {
+	constructor(locationModel) {
 		this.model = locationModel;
-		this.footerText = message.author.name;
+		this.footerText = this.model.originUser.username;
+		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
 	}
 
 	getAuthor() {
@@ -14,33 +21,45 @@ class LocationViewHelper {
 	}
 
 	getDayField(inline = true) {
+		const self = this;
+
 		return {
-			name: 'Day',
-			value: this.model.currentDate,
+			name: self.getCommandLiteral('LABEL.DAY'),
+			value: self.model.currentDate,
 			inline
 		};
 	}
 
-	getRegionField(inline = true) {
+	getStateField(inline = true) {
+		const self = this;
+
 		return {
-			name: 'Region',
-			value: this.model.region,
+			name: self.getCommandLiteral('LABEL.STATE'),
+			value: self.model.state,
+			inline
+		}
+	}
+
+	getRegionField(inline = true) {
+		const self = this;
+
+		return {
+			name: self.getCommandLiteral('LABEL.REGION'),
+			value: self.model.region,
 			inline
 		}
 	}
 
 	getLandmarkField(inline = true) {
-		return {
-			name: 'Near By',
-			value: this.getNearByText(),
-			inline
-		};
-	}
+		const self = this,
+			getNearByText = (obj) => {
+				return obj.model.landmarks.join(', ');
+			};
 
-	getMapField() {
 		return {
-			name: 'Map',
-			value: 'Pinpointing the location in the world'
+			name: self.getCommandLiteral('LABEL.NEAR_BY'),
+			value: getNearByText(self),
+			inline
 		};
 	}
 
@@ -57,37 +76,39 @@ class LocationViewHelper {
 	}
 
 	getTitleText() {
-		return 'Where is Madam Nazar?';
+		return this.getCommandLiteral('MESSAGE.NAZAR_WYA_TITLE');
 	}
 
 	getDescriptionText() {
-		return `She has set up shop at ${this.model.region}, ${this.model.state} today.`;
-	}
+		const commandDescription = this.getCommandLiteral('MESSAGE.NAZAR_WYA_DESC');
 
-	getNearByText() {
-		return this.model.landmarks.join(', ');
+		return commandDescription(this.model.state);
 	}
 }
 
 class LocationView extends LocationViewHelper {
-	constructor(message, locationModel) {
-		super(message, locationModel);
+	constructor(locationModel) {
+		super(locationModel);
 	}
 
 	get messageEmbed() {
-		return new MessageEmbed({
+		const self = this,
+			LocationViewEmbed = new MessageEmbed({
 			color: 'RANDOM',
-			title: this.getTitleText(),
-			author: this.getAuthor(),
-			description: this.getDescriptionText(),
-			fields: [
-				this.getDayField(),
-				this.getMapField()
-			],
-			image: this.getImage(),
-			timestamp: new Date(),
-			footer: this.getFooter()
+			title: self.getTitleText(),
+			author: self.getAuthor(),
+			description: self.getDescriptionText(),
+			timestamp: moment().toDate(),
+			footer: self.getFooter()
 		});
+
+		return LocationViewEmbed
+			.addFields([
+				this.getRegionField(),
+				this.getStateField(),
+				this.getLandmarkField(false)
+			])
+			.setImage(this.getImage().url);
 	}
 
 	get imageAttachment() {

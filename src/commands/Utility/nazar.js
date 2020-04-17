@@ -1,4 +1,4 @@
-const {Command} = require('klasa');
+const { Command } = require('klasa');
 const fetch = require('node-fetch');
 const MADAM_NAZAR_API = require('./../../lib/settings/api');
 const NazarLocationModel = require('./../../lib/model/nazar');
@@ -11,14 +11,14 @@ module.exports = class extends Command {
 			enabled: true,
 			runIn: ['text'],
 			subcommands: true,
-			description: language => language.get('COMMAND').MESSAGE.NAZAR_DESC,
+			description: language => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
 			usage: '<wya>'
 		});
 	}
 
 	createNazarLocationEmbed(message, nazarLocationJson) {
-		const nazarLocationModel = new NazarLocationModel(nazarLocationJson),
-			nazarLocationView = new NazarLocationView(message, nazarLocationModel);
+		const nazarLocationModel = new NazarLocationModel(nazarLocationJson, message),
+			nazarLocationView = new NazarLocationView(nazarLocationModel);
 
 		return nazarLocationView;
 	}
