@@ -1,23 +1,36 @@
 const moment = require('moment');
-const titleCase = require('voca/title_case');
-const { DATE } = require('../settings/formats');
+const {
+	titleCase,
+	lowerCase
+} = require('voca');
 
-class Location {
-	constructor(locationJson) {
+const CoreModel = require('./core/model');
+const { DATE } = require('./../settings/formats');
+
+const fixTitleCase = (text) => titleCase(lowerCase(text));
+
+class Location extends CoreModel {
+	constructor(locationJson, message) {
+		super(message);
 		this.locationJson = locationJson;
 	}
 
 	get state() {
-		return titleCase(this.locationJson.data.location.region.name);
+		const regionName = this.locationJson.data.location.region.name;
+
+		return fixTitleCase(regionName);
 	}
 
 	get region() {
-		return titleCase(this.locationJson.data.location.region.precise);
+		const preciseRegion = this.locationJson.data.location.region.precise;
+
+		return fixTitleCase(preciseRegion);
 	}
 
 	get landmarks() {
 		const landmarksJson = this.locationJson.data.location.near_by,
-			landmarks = Array.isArray(landmarksJson) ? landmarksJson.map(titleCase) : landmarksJson;
+			fixedLandmarks = Array.isArray(landmarksJson) ? landmarksJson.map(lowerCase) : landmarksJson,
+			landmarks = fixedLandmarks.map(titleCase);
 
 		return landmarks;
 	}
@@ -28,7 +41,7 @@ class Location {
 
 	get currentDate() {
 		const dateString = this.locationJson.dataFor,
-		nazarLocationCurrentDate = dateString ? moment(dateString, DATE.NAZAR.LOCATION_TODAY) : moment();
+			nazarLocationCurrentDate = dateString ? moment(dateString, DATE.NAZAR.LOCATION_TODAY) : moment();
 
 		return nazarLocationCurrentDate.format(DATE.DAY_LL);
 	}
