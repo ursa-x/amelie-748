@@ -16,7 +16,6 @@
 			"error",
 			"never"
 		],
-		"class-methods-use-this": "off",
-		"import/no-useless-path-segments": "off"
+		"class-methods-use-this": "off"
 	}
 }

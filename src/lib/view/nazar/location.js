@@ -5,7 +5,7 @@ const {
 	MessageAttachment
 } = require('discord.js');
 const moment = require('moment');
-const MessageUtil = require('./../util/message');
+const MessageUtil = require('../../util/message');
 
 
 class LocationViewHelper {

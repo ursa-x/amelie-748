@@ -1,8 +1,11 @@
-const { Command } = require('klasa');
+const {Command} = require('klasa');
 const fetch = require('node-fetch');
-const MADAM_NAZAR_API = require('./../../lib/settings/api');
-const NazarLocationModel = require('./../../lib/model/nazar');
-const NazarLocationView = require('./../../lib/view/nazar');
+const MADAM_NAZAR_API = require('../../lib/settings/url');
+const {
+	Location: NazarLocationModel,
+	WeeklySets: WeeklySetsModel
+} = require('../../lib/model/nazar');
+const NazarLocationView = require('../../lib/view/nazar/location');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -12,7 +15,8 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
-			usage: '<wya>'
+			usage: '[wya|sets|set] [setName:...string]',
+			usageDelim: ' '
 		});
 	}
 
@@ -23,7 +27,14 @@ module.exports = class extends Command {
 		return nazarLocationView;
 	}
 
-	reply(message, locationJson) {
+	createWeeklySetsEmbed(message) {
+		const weeklySetsModel = new WeeklySetsModel(message),
+			weeklySetsView = new WeeklySetsView(weeklySetsModel);
+
+		return weeklySetsView;
+	}
+
+	wyaReply(message, locationJson) {
 		const nazarLocationReply = this.createNazarLocationEmbed(message, locationJson);
 
 		message.channel.send({
@@ -32,10 +43,35 @@ module.exports = class extends Command {
 		});
 	}
 
+	/* Tells you the location of Madam Nazar */
 	async wya(message) {
 		fetch(MADAM_NAZAR_API.currentLocationAPI())
 			.then((response) => response.json())
-			.then((responseJson) => this.reply(message, responseJson))
+			.then((responseJson) => this.wyaReply(message, responseJson))
 			.catch((err) => console.error(err));
+	}
+
+	/* Displays all of Madam Nazar's Weekly Sets */
+	sets(message) {
+		const weeklySetsEmbed = this.createWeeklySetsEmbed(message);
+
+		message.channel.send(weeklySetsEmbed);
+	}
+
+	/* Reveal the items for a given set name */
+	set(message, params) {
+		const self = this;
+
+		switch (params.length) {
+			case 0:
+				message.channel.send('Display all sets');
+				break;
+			case 1:
+				message.channel.send(`Display ${params[0]} set`);
+				break;
+			default:
+				message.channel.send("I don't understand");
+				break;
+		}
 	}
 };
