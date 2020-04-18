@@ -1,9 +1,11 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageEmbed,
+	MessageAttachment
+} = require('discord.js');
 const moment = require('moment');
 const MessageUtil = require('../../util/message');
-
 
 class WeeklySetsViewHelper {
 	constructor(weeklySetsModel) {
@@ -30,9 +32,7 @@ class WeeklySetsViewHelper {
 	}
 
 	getDescriptionText() {
-		const commandDescription = this.getCommandLiteral('MESSAGE.NAZAR_SETS_DESC');
-
-		return commandDescription(this.model.state);
+		return this.getCommandLiteral('MESSAGE.NAZAR_SETS_DESC');
 	}
 }
 
@@ -51,8 +51,8 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 			},
 			LocationViewEmbed = new MessageEmbed(embedOptions);
 
-		for(let [setName, items] of Object.entries(self.model.chests)) {
-			LocationViewEmbed.addFields( {
+		for (const [setName, items] of Object.entries(self.model.chests)) {
+			LocationViewEmbed.addFields({
 				name: setName,
 				value: items.join(DELIMITER_NEW_LINE),
 				inline
@@ -60,6 +60,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		}
 
 		return LocationViewEmbed;
+	}
+
+	get imageAttachment() {
+		return new MessageAttachment('./assets/charlotte-balfour.png');
 	}
 }
 

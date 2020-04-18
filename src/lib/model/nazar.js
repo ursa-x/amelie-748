@@ -1,34 +1,41 @@
+/* eslint max-classes-per-file: ["error", 2] */
+
 /* Module Imports */
 
 const moment = require('moment');
 const {
 	titleCase,
-	lowerCase
+	lowerCase,
+	upperCase
 } = require('voca');
-const CoreModel = require('core/model');
+const CoreModel = require('./core/model');
 const { DATE } = require('../settings/formats');
 const WEEKLY_SETS = require('../settings/nazar/weekly-sets');
 
 /* Common */
 
+/*
+	Emoji Reference
+	https://emoji.muan.co
+*/
 const COLLECTOR_ITEM_EMOJI = {
-	arrowhead: ':bow_and_arrow:',
-	bottle: ':champagne:',
-	coin: ':secret:',
-	egg: ':egg:',
-	flower: ':white_flower:',
-	heirlooms: ':gem:',
-	bracelets: ':o:',
-	earring: '',
-	ring: ':ring:',
-	cups: ':flower_playing_cards:',
-	wands: ':flower_playing_cards:',
-	pentacles: ':flower_playing_cards:',
-	swords: ':flower_playing_cards:',
-	item: ':stopwatch:'
-};
-
-const fixTitleCase = (text) => titleCase(lowerCase(text));
+		ARROWHEAD: ':bow_and_arrow:',
+		BOTTLE: ':champagne:',
+		COIN: ':secret:',
+		EGG: ':egg:',
+		FLOWER: ':cherry_blossom:',
+		HEIRLOOMS: ':fleur_de_lis:',
+		BRACELET: ':o:',
+		EARRING: ':sparkles:',
+		RING: ':ring:',
+		NECKLACE: ':prayer_beads:',
+		CUPS: ':trophy:',
+		WANDS: ':crystal_ball:',
+		PENTACLES: ':trident:',
+		SWORDS: ':crossed_swords:',
+		ITEM: ':pick:'
+	},
+	fixTitleCase = (text) => titleCase(lowerCase(text));
 
 /* Model Definitions */
 
@@ -82,16 +89,26 @@ class WeeklySets extends CoreModel {
 
 	populateWeeklySets() {
 		const self = this,
-			itemSelector = 'items',
-			DELIMITER_ITEM_DESCRIPTOR = '-',
+			itemSelector = 'item',
+			DELIMITER_CODE_DESCRIPTOR = '_',
 			DELIMITER_SPACE = ' ',
 			SET_TYPE_POSITION = 0;
 
-		for (let [setName, itemObjects] of Object.entries(WEEKLY_SETS)) {
-			self.chests[setName] = itemObjects.map((itemObject) => {
-				const itemDescriptorParts = itemObject[itemSelector].split(DELIMITER_ITEM_DESCRIPTOR);
+		for (const [setCode, itemObjects] of Object.entries(WEEKLY_SETS)) {
+			const setName = titleCase(
+				setCode
+					.split(DELIMITER_CODE_DESCRIPTOR)
+					.join(DELIMITER_SPACE)
+			);
 
-				itemDescriptorParts[SET_TYPE_POSITION] = COLLECTOR_ITEM_EMOJI[itemDescriptorParts[SET_TYPE_POSITION]];
+			self.chests[setName] = itemObjects.map((itemObject) => {
+				const itemDescriptorParts = itemObject[itemSelector]
+					.split(DELIMITER_CODE_DESCRIPTOR)
+					.map(titleCase);
+
+				itemDescriptorParts[SET_TYPE_POSITION] = COLLECTOR_ITEM_EMOJI[upperCase(
+					itemDescriptorParts[SET_TYPE_POSITION]
+				)];
 
 				return itemDescriptorParts.join(DELIMITER_SPACE);
 			});
@@ -102,4 +119,4 @@ class WeeklySets extends CoreModel {
 module.exports = {
 	Location,
 	WeeklySets
-} ;
+};

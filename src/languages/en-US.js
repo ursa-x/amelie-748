@@ -1,5 +1,5 @@
 const { Language } = require('klasa');
-const COMMANDS = require('./../lib/messages/en-US/commands');
+const COMMANDS = require('../lib/messages/en-US/commands');
 
 module.exports = class extends Language {
 	constructor(...args) {

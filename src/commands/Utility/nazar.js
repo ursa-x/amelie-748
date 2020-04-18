@@ -1,4 +1,4 @@
-const {Command} = require('klasa');
+const { Command } = require('klasa');
 const fetch = require('node-fetch');
 const MADAM_NAZAR_API = require('../../lib/settings/url');
 const {
@@ -6,6 +6,7 @@ const {
 	WeeklySets: WeeklySetsModel
 } = require('../../lib/model/nazar');
 const NazarLocationView = require('../../lib/view/nazar/location');
+const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -15,7 +16,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
-			usage: '[wya|sets|set] [setName:...string]',
+			usage: '[wya|sets] [setName:...string]',
 			usageDelim: ' '
 		});
 	}
@@ -55,23 +56,26 @@ module.exports = class extends Command {
 	sets(message) {
 		const weeklySetsEmbed = this.createWeeklySetsEmbed(message);
 
-		message.channel.send(weeklySetsEmbed);
+		message.channel.send({
+			files: [weeklySetsEmbed.imageAttachment],
+			embed: weeklySetsEmbed.messageEmbed
+		});
 	}
 
 	/* Reveal the items for a given set name */
-	set(message, params) {
-		const self = this;
-
-		switch (params.length) {
-			case 0:
-				message.channel.send('Display all sets');
-				break;
-			case 1:
-				message.channel.send(`Display ${params[0]} set`);
-				break;
-			default:
-				message.channel.send("I don't understand");
-				break;
-		}
-	}
+	// set(message, params) {
+	// 	const self = this;
+	//
+	// 	switch (params.length) {
+	// 		case 0:
+	// 			message.channel.send('Display all sets');
+	// 			break;
+	// 		case 1:
+	// 			message.channel.send(`Display ${params[0]} set`);
+	// 			break;
+	// 		default:
+	// 			message.channel.send("I don't understand");
+	// 			break;
+	// 	}
+	// }
 };

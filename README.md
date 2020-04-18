@@ -29,13 +29,15 @@ Check out [An Idiot's Guide > Getting Started](https://anidiots.guide/getting-st
 }
 ```
 
-Then kickstart the bot with
+Then kickstart the bot with,
 
 `npm start`
 
 ### Credits
 
 - [@dirigeants/klasa](https://github.com/dirigeants/klasa)
+- [@jeanropke/RDR2CollectorsMap](https://github.com/jeanropke/RDR2CollectorsMap)
+- [@muan/emoji](https://github.com/muan/emoji/)
 
 ### License
 
