@@ -1,3 +1,5 @@
+/* eslint max-classes-per-file: ["error", 2] */
+
 const {
 	MessageEmbed,
 	MessageAttachment
@@ -37,7 +39,7 @@ class LocationViewHelper {
 			name: self.getCommandLiteral('LABEL.STATE'),
 			value: self.model.state,
 			inline
-		}
+		};
 	}
 
 	getRegionField(inline = true) {
@@ -47,14 +49,12 @@ class LocationViewHelper {
 			name: self.getCommandLiteral('LABEL.REGION'),
 			value: self.model.region,
 			inline
-		}
+		};
 	}
 
 	getLandmarkField(inline = true) {
 		const self = this,
-			getNearByText = (obj) => {
-				return obj.model.landmarks.join(', ');
-			};
+			getNearByText = (obj) => obj.model.landmarks.join(', ');
 
 		return {
 			name: self.getCommandLiteral('LABEL.NEAR_BY'),
@@ -66,7 +66,7 @@ class LocationViewHelper {
 	getImage() {
 		return {
 			url: this.model.imageURL
-		}
+		};
 	}
 
 	getFooter() {
@@ -87,20 +87,17 @@ class LocationViewHelper {
 }
 
 class LocationView extends LocationViewHelper {
-	constructor(locationModel) {
-		super(locationModel);
-	}
-
 	get messageEmbed() {
 		const self = this,
-			LocationViewEmbed = new MessageEmbed({
-			color: 'RANDOM',
-			title: self.getTitleText(),
-			author: self.getAuthor(),
-			description: self.getDescriptionText(),
-			timestamp: moment().toDate(),
-			footer: self.getFooter()
-		});
+			embedOptions = {
+				color: 'RANDOM',
+				title: self.getTitleText(),
+				author: self.getAuthor(),
+				description: self.getDescriptionText(),
+				timestamp: moment().toDate(),
+				footer: self.getFooter()
+			},
+			LocationViewEmbed = new MessageEmbed(embedOptions);
 
 		return LocationViewEmbed
 			.addFields([
@@ -114,6 +111,6 @@ class LocationView extends LocationViewHelper {
 	get imageAttachment() {
 		return new MessageAttachment('./assets/charlotte-balfour.png');
 	}
-};
+}
 
 module.exports = LocationView;

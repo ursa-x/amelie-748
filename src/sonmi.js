@@ -1,5 +1,4 @@
 const { Client } = require('klasa');
-const { Collection } = require('discord.js');
 const { checkEnvironment } = require('./lib/util/general');
 const secret = require('./lib/secrets.json');
 const config = require('./lib/config.json');
@@ -12,7 +11,5 @@ new Client({
 	prefix: config.prefix,
 	commandEditing: true,
 	typing: true,
-	readyMessage: (client) => {
-		return `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`
-	}
+	readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`
 }).login(secret.token);

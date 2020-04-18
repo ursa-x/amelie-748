@@ -2,6 +2,8 @@
 
 exports.SYSTEM = {
 	getPackageVersionErrorMessage: (packageName, requiredVersion) => {
-		return `You are not using the right ${packageName} version! Required version: ${requiredVersion}+`;
+		const errorMessage = `You are not using the right ${packageName} version! Required version: ${requiredVersion}+`;
+
+		return errorMessage;
 	}
 };

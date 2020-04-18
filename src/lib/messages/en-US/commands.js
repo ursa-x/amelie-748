@@ -1,3 +1,5 @@
+/* eslint one-var: "off" */
+
 const LABEL = {
 	/* Common */
 	DAY: 'Day',

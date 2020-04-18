@@ -41,7 +41,9 @@ class Location extends CoreModel {
 
 	get currentDate() {
 		const dateString = this.locationJson.dataFor,
-			nazarLocationCurrentDate = dateString ? moment(dateString, DATE.NAZAR.LOCATION_TODAY) : moment();
+			nazarLocationCurrentDate = dateString
+				? moment(dateString, DATE.NAZAR.LOCATION_TODAY)
+				: moment();
 
 		return nazarLocationCurrentDate.format(DATE.DAY_LL);
 	}

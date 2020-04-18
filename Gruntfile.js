@@ -9,8 +9,9 @@ module.exports = (grunt) => {
 				src: 'grunt/tasks/*.js'
 			},
 			paths: {
-				config: './grunt',
-				appFile: 'app.js'
+				config: 'grunt',
+				src: 'src/**/*.js',
+				appJs: 'src/sonmi.js'
 			}
 		},
 		configs = require('load-grunt-configs')(grunt, options);
