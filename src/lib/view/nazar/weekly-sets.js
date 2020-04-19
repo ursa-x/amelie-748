@@ -5,6 +5,7 @@ const {
 	MessageAttachment
 } = require('discord.js');
 const moment = require('moment');
+const {lowerCase} = require('voca');
 const MessageUtil = require('../../util/message');
 
 class WeeklySetsViewHelper {
@@ -37,19 +38,16 @@ class WeeklySetsViewHelper {
 }
 
 class WeeklySetsView extends WeeklySetsViewHelper {
-	get messageEmbed() {
+	constructor(weeklySetsModel, type) {
+		super(weeklySetsModel);
+
+		this.type = type;
+	}
+
+	makeWeeklySetsEmbed(LocationViewEmbed) {
 		const self = this,
 			inline = true,
-			DELIMITER_NEW_LINE = '\n',
-			embedOptions = {
-				color: 'RANDOM',
-				title: self.getTitleText(),
-				author: self.getAuthor(),
-				description: self.getDescriptionText(),
-				timestamp: moment().toDate(),
-				footer: self.getFooter()
-			},
-			LocationViewEmbed = new MessageEmbed(embedOptions);
+			DELIMITER_NEW_LINE = '\n';
 
 		for (const [setName, items] of Object.entries(self.model.chests)) {
 			LocationViewEmbed.addFields({
@@ -60,6 +58,72 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		}
 
 		return LocationViewEmbed;
+	}
+
+	makeWeeklySetEmbed(LocationViewEmbed, setName = 'current') {
+		const self = this,
+			inline = true,
+			DELIMITER_NEW_LINE = '\n',
+			cleanSetName = (setName) => lowerCase(setName.split(' ').join('')),
+			current = 'Night Watch Set';
+
+		if(setName === 'current') {
+			LocationViewEmbed
+				.setTitle(current)
+				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_CURRENT_DESC'))
+				.addFields({
+					name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
+					value: self.model.chests[current].join(DELIMITER_NEW_LINE),
+					inline
+				});
+		} else {
+			const chest = Object.entries(self.model.chests).find((chest) => {
+				return cleanSetName(chest[0]) === cleanSetName(`${setName}set`);
+			});
+
+			if (typeof chest !== 'undefined') {
+				LocationViewEmbed
+					.setTitle(chest[0])
+					.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_DESC'))
+					.addFields({
+						name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
+						value: chest[1].join(DELIMITER_NEW_LINE),
+						inline
+					});
+			} else {
+				LocationViewEmbed
+					.setTitle(current)
+					.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_CURRENT_DESC'))
+					.addFields({
+						name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
+						value: self.model.chests[current].join(DELIMITER_NEW_LINE),
+						inline
+					});
+			}
+		}
+
+		return LocationViewEmbed;
+	}
+
+	get messageEmbed() {
+		const self = this,
+			type = self.type,
+			embedOptions = {
+				color: 'RANDOM',
+				title: self.getTitleText(),
+				author: self.getAuthor(),
+				description: self.getDescriptionText(),
+				timestamp: moment().toDate(),
+				footer: self.getFooter()
+			},
+			LocationViewEmbed = new MessageEmbed(embedOptions);
+
+		switch (type) {
+			case 'all':
+				return self.makeWeeklySetsEmbed(LocationViewEmbed);
+			default:
+				return self.makeWeeklySetEmbed(LocationViewEmbed, type);
+		}
 	}
 
 	get imageAttachment() {

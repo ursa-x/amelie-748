@@ -1,5 +1,6 @@
-const { Command } = require('klasa');
+const {Command} = require('klasa');
 const fetch = require('node-fetch');
+const { lowerCase } = require('voca');
 const MADAM_NAZAR_API = require('../../lib/settings/url');
 const {
 	Location: NazarLocationModel,
@@ -16,7 +17,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
-			usage: '[wya|sets] [setName:...string]',
+			usage: '[wya|weekly] [setName:...string]',
 			usageDelim: ' '
 		});
 	}
@@ -28,9 +29,9 @@ module.exports = class extends Command {
 		return nazarLocationView;
 	}
 
-	createWeeklySetsEmbed(message) {
+	createWeeklySetEmbed(message, setName) {
 		const weeklySetsModel = new WeeklySetsModel(message),
-			weeklySetsView = new WeeklySetsView(weeklySetsModel);
+			weeklySetsView = new WeeklySetsView(weeklySetsModel, setName);
 
 		return weeklySetsView;
 	}
@@ -44,6 +45,10 @@ module.exports = class extends Command {
 		});
 	}
 
+	run(message, params) {
+		message.channel.send('Sorry I don\'t understand');
+	}
+
 	/* Tells you the location of Madam Nazar */
 	async wya(message) {
 		fetch(MADAM_NAZAR_API.currentLocationAPI())
@@ -52,9 +57,21 @@ module.exports = class extends Command {
 			.catch((err) => console.error(err));
 	}
 
+	weekly(message, params) {
+		const self = this;
+
+		if (params.length === 0) {
+			this.sendSet(message)
+		} else {
+			const cleanParams = lowerCase(params[0].trim().split(' ').join(''));
+
+			(cleanParams === 'all') ? this.sendAllSets(message) : this.sendSet(message, cleanParams);
+		}
+	}
+
 	/* Displays all of Madam Nazar's Weekly Sets */
-	sets(message) {
-		const weeklySetsEmbed = this.createWeeklySetsEmbed(message);
+	sendAllSets(message, setName = 'all') {
+		const weeklySetsEmbed = this.createWeeklySetEmbed(message, setName);
 
 		message.channel.send({
 			files: [weeklySetsEmbed.imageAttachment],
@@ -62,20 +79,12 @@ module.exports = class extends Command {
 		});
 	}
 
-	/* Reveal the items for a given set name */
-	// set(message, params) {
-	// 	const self = this;
-	//
-	// 	switch (params.length) {
-	// 		case 0:
-	// 			message.channel.send('Display all sets');
-	// 			break;
-	// 		case 1:
-	// 			message.channel.send(`Display ${params[0]} set`);
-	// 			break;
-	// 		default:
-	// 			message.channel.send("I don't understand");
-	// 			break;
-	// 	}
-	// }
+	sendSet(message, setName = 'current') {
+		const weeklySetsEmbed = this.createWeeklySetEmbed(message, setName);
+
+		message.channel.send({
+			files: [weeklySetsEmbed.imageAttachment],
+			embed: weeklySetsEmbed.messageEmbed
+		});
+	}
 };
