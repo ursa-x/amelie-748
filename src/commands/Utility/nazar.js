@@ -3,10 +3,8 @@ const fetch = require('node-fetch');
 const { lowerCase } = require('voca');
 
 const MADAM_NAZAR_API = require('../../lib/settings/url');
-const {
-	Location: NazarLocationModel,
-	WeeklySets: WeeklySetsModel
-} = require('../../lib/model/nazar');
+const NazarLocationModel = require('../../lib/model/nazar/location');
+const WeeklySetsModel = require('../../lib/model/nazar/weekly-sets');
 const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
 const { getCommandLiteral } = require('../../lib/util/message');

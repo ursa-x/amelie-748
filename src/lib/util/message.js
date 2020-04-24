@@ -1,3 +1,8 @@
+const {
+	titleCase,
+	lowerCase
+} = require('voca');
+
 const KEY_DELIMITER = '.';
 
 const MessageUtil = {
@@ -12,6 +17,10 @@ const MessageUtil = {
 
 	makeAttachmentString(imageName) {
 		return `attachment://${imageName}`;
+	},
+
+	fixTitleCase(text) {
+		return titleCase(lowerCase(text));
 	}
 };
 
