@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const { bot } = require('../../config');
 const MessageUtil = require('../../util/message');
 
@@ -36,6 +37,10 @@ class CoreView {
 
 	getDescriptionText() {
 		return this.getCommandLiteral('MESSAGE.EMPTY_DESC');
+	}
+
+	get messageEmbed() {
+		return new MessageEmbed(this.embedOptions);
 	}
 }
 

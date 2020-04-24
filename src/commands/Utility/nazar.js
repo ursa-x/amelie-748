@@ -5,9 +5,14 @@ const { lowerCase } = require('voca');
 const MADAM_NAZAR_API = require('../../lib/settings/url');
 const NazarLocationModel = require('../../lib/model/nazar/location');
 const WeeklySetsModel = require('../../lib/model/nazar/weekly-sets');
+const LoadingModel = require('../../lib/model/loading');
 const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
+const LoadingView = require('../../lib/view/loading');
 const { getCommandLiteral } = require('../../lib/util/message');
+
+const EMPTY_STRING = '';
+const DELIMITER_SPACE = ' ';
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -39,7 +44,7 @@ module.exports = class extends Command {
 	wyaReply(message, locationJson) {
 		const nazarLocationReply = this.createNazarLocationEmbed(message, locationJson);
 
-		message.channel.send({
+		message.edit({
 			files: [nazarLocationReply.imageAttachment],
 			embed: nazarLocationReply.messageEmbed
 		});
@@ -53,10 +58,16 @@ module.exports = class extends Command {
 
 	/* Tells you the location of Madam Nazar */
 	async wya(message) {
-		fetch(MADAM_NAZAR_API.currentLocationAPI())
-			.then((response) => response.json())
-			.then((responseJson) => this.wyaReply(message, responseJson))
-			.catch((err) => console.error(err));
+		const self = this,
+			getLocale = (key) => getCommandLiteral(key, message),
+			loadingView = new LoadingView(new LoadingModel(message)),
+			loadingEmbed = loadingView.messageEmbed
+				.setTitle(getLocale('MESSAGE.NAZAR_WYA_LOADING_TITLE'))
+				.setDescription(getLocale('MESSAGE.NAZAR_WYA_LOADING_DESC'));
+
+		message.channel
+			.send(loadingEmbed)
+			.then((msg) => self.fetchNazarLocation(msg));
 	}
 
 	/* Gives you details on Madam Nazar's Weekly Sets */
@@ -69,10 +80,22 @@ module.exports = class extends Command {
 		if (params.length === 0) {
 			self.sendSet(message);
 		} else {
-			const cleanParams = lowerCase(params[0].trim().split(' ').join(''));
+			const cleanParams = lowerCase(
+				params[0]
+					.trim()
+					.split(DELIMITER_SPACE)
+					.join(EMPTY_STRING)
+			);
 
 			reply(cleanParams, message);
 		}
+	}
+
+	fetchNazarLocation(message) {
+		fetch(MADAM_NAZAR_API.currentLocationAPI())
+			.then((response) => response.json())
+			.then((responseJson) => this.wyaReply(message, responseJson))
+			.catch((err) => console.error(err));
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
