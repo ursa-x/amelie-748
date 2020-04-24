@@ -4,30 +4,10 @@ const {
 	MessageEmbed,
 	MessageAttachment
 } = require('discord.js');
-const moment = require('moment');
-const {lowerCase} = require('voca');
-const MessageUtil = require('../../util/message');
+const { lowerCase } = require('voca');
+const CoreView = require('../core/view');
 
-class WeeklySetsViewHelper {
-	constructor(weeklySetsModel) {
-		this.model = weeklySetsModel;
-		this.footerText = this.model.originUser.username;
-		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
-	}
-
-	getAuthor() {
-		return {
-			name: 'Charlotte Balfour',
-			icon_url: 'attachment://charlotte-balfour.png'
-		};
-	}
-
-	getFooter() {
-		return {
-			text: this.footerText
-		};
-	}
-
+class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
 		return this.getCommandLiteral('MESSAGE.NAZAR_SETS_TITLE');
 	}
@@ -64,10 +44,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		const self = this,
 			inline = true,
 			DELIMITER_NEW_LINE = '\n',
-			cleanSetName = (setName) => lowerCase(setName.split(' ').join('')),
+			cleanSetName = (dirtySetName) => lowerCase(dirtySetName.split(' ').join('')),
 			current = 'Night Watch Set';
 
-		if(setName === 'current') {
+		if (setName === 'current') {
 			LocationViewEmbed
 				.setTitle(current)
 				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_CURRENT_DESC'))
@@ -77,8 +57,8 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 					inline
 				});
 		} else {
-			const chest = Object.entries(self.model.chests).find((chest) => {
-				return cleanSetName(chest[0]) === cleanSetName(`${setName}set`);
+			const chest = Object.entries(self.model.chests).find((nazarChest) => {
+				return cleanSetName(nazarChest[0]) === cleanSetName(`${setName}set`);
 			});
 
 			if (typeof chest !== 'undefined') {
@@ -107,16 +87,8 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 
 	get messageEmbed() {
 		const self = this,
-			type = self.type,
-			embedOptions = {
-				color: 'RANDOM',
-				title: self.getTitleText(),
-				author: self.getAuthor(),
-				description: self.getDescriptionText(),
-				timestamp: moment().toDate(),
-				footer: self.getFooter()
-			},
-			LocationViewEmbed = new MessageEmbed(embedOptions);
+			{ type } = self,
+			LocationViewEmbed = new MessageEmbed(this.embedOptions);
 
 		switch (type) {
 			case 'all':

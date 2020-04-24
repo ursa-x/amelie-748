@@ -4,24 +4,9 @@ const {
 	MessageEmbed,
 	MessageAttachment
 } = require('discord.js');
-const moment = require('moment');
-const MessageUtil = require('../../util/message');
+const CoreView = require('../core/view');
 
-
-class LocationViewHelper {
-	constructor(locationModel) {
-		this.model = locationModel;
-		this.footerText = this.model.originUser.username;
-		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
-	}
-
-	getAuthor() {
-		return {
-			name: 'Charlotte Balfour',
-			icon_url: 'attachment://charlotte-balfour.png'
-		};
-	}
-
+class LocationViewHelper extends CoreView {
 	getDayField(inline = true) {
 		const self = this;
 
@@ -89,23 +74,15 @@ class LocationViewHelper {
 class LocationView extends LocationViewHelper {
 	get messageEmbed() {
 		const self = this,
-			embedOptions = {
-				color: 'RANDOM',
-				title: self.getTitleText(),
-				author: self.getAuthor(),
-				description: self.getDescriptionText(),
-				timestamp: moment().toDate(),
-				footer: self.getFooter()
-			},
-			LocationViewEmbed = new MessageEmbed(embedOptions);
+			LocationViewEmbed = new MessageEmbed(this.embedOptions);
 
 		return LocationViewEmbed
 			.addFields([
-				this.getRegionField(),
-				this.getStateField(),
-				this.getLandmarkField(false)
+				self.getRegionField(),
+				self.getStateField(),
+				self.getLandmarkField(false)
 			])
-			.setImage(this.getImage().url);
+			.setImage(self.getImage().url);
 	}
 
 	get imageAttachment() {

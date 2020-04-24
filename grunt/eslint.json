@@ -16,6 +16,9 @@
 			"error",
 			"never"
 		],
-		"class-methods-use-this": "off"
+		"class-methods-use-this": "off",
+		"arrow-body-style": ["warn", "as-needed", {
+			"requireReturnForObjectLiteral": false
+		}]
 	}
 }

@@ -1,6 +1,7 @@
-const {Command} = require('klasa');
+const { Command } = require('klasa');
 const fetch = require('node-fetch');
 const { lowerCase } = require('voca');
+
 const MADAM_NAZAR_API = require('../../lib/settings/url');
 const {
 	Location: NazarLocationModel,
@@ -8,6 +9,7 @@ const {
 } = require('../../lib/model/nazar');
 const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
+const { getCommandLiteral } = require('../../lib/util/message');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -45,8 +47,10 @@ module.exports = class extends Command {
 		});
 	}
 
-	run(message, params) {
-		message.channel.send('Sorry I don\'t understand');
+	run(message) {
+		const cantUnderstandMessage = getCommandLiteral('MESSAGE.ERROR_GENERAL_REPLY', message);
+
+		message.channel.send(cantUnderstandMessage);
 	}
 
 	/* Tells you the location of Madam Nazar */
@@ -57,15 +61,19 @@ module.exports = class extends Command {
 			.catch((err) => console.error(err));
 	}
 
+	/* Gives you details on Madam Nazar's Weekly Sets */
 	weekly(message, params) {
-		const self = this;
+		const self = this,
+			reply = (option, activeMessage) => {
+				(option === 'all') ? self.sendAllSets(activeMessage) : self.sendSet(activeMessage, option);
+			};
 
 		if (params.length === 0) {
-			this.sendSet(message)
+			self.sendSet(message);
 		} else {
 			const cleanParams = lowerCase(params[0].trim().split(' ').join(''));
 
-			(cleanParams === 'all') ? this.sendAllSets(message) : this.sendSet(message, cleanParams);
+			reply(cleanParams, message);
 		}
 	}
 
@@ -79,6 +87,7 @@ module.exports = class extends Command {
 		});
 	}
 
+	/* Displays a Madam Nazar Weekly Set, current or specified */
 	sendSet(message, setName = 'current') {
 		const weeklySetsEmbed = this.createWeeklySetEmbed(message, setName);
 
