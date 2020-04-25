@@ -1,11 +1,9 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const {
-	MessageEmbed,
-	MessageAttachment
-} = require('discord.js');
 const { lowerCase } = require('voca');
 const CoreView = require('../core/view');
+
+const DELIMITER_NEW_LINE = '\n';
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
@@ -24,10 +22,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		this.type = type;
 	}
 
-	makeWeeklySetsEmbed(LocationViewEmbed) {
+	makeWeeklySetsEmbed() {
 		const self = this,
 			inline = true,
-			DELIMITER_NEW_LINE = '\n';
+			LocationViewEmbed = this.embed;
 
 		for (const [setName, items] of Object.entries(self.model.chests)) {
 			LocationViewEmbed.addFields({
@@ -40,10 +38,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		return LocationViewEmbed;
 	}
 
-	makeWeeklySetEmbed(LocationViewEmbed, setName = 'current') {
+	makeWeeklySetEmbed(setName = 'current') {
 		const self = this,
 			inline = true,
-			DELIMITER_NEW_LINE = '\n',
+			LocationViewEmbed = this.embed,
 			cleanSetName = (dirtySetName) => lowerCase(dirtySetName.split(' ').join('')),
 			current = 'Night Watch Set';
 
@@ -87,19 +85,14 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 
 	get messageEmbed() {
 		const self = this,
-			{ type } = self,
-			LocationViewEmbed = new MessageEmbed(this.embedOptions);
+			{ type } = self;
 
 		switch (type) {
 			case 'all':
-				return self.makeWeeklySetsEmbed(LocationViewEmbed);
+				return self.makeWeeklySetsEmbed();
 			default:
-				return self.makeWeeklySetEmbed(LocationViewEmbed, type);
+				return self.makeWeeklySetEmbed(type);
 		}
-	}
-
-	get imageAttachment() {
-		return new MessageAttachment('./assets/charlotte-balfour.png');
 	}
 }
 

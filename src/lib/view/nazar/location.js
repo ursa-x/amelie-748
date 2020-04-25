@@ -1,9 +1,5 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const {
-	MessageEmbed,
-	MessageAttachment
-} = require('discord.js');
 const CoreView = require('../core/view');
 
 class LocationViewHelper extends CoreView {
@@ -74,7 +70,7 @@ class LocationViewHelper extends CoreView {
 class LocationView extends LocationViewHelper {
 	get messageEmbed() {
 		const self = this,
-			LocationViewEmbed = new MessageEmbed(this.embedOptions);
+			LocationViewEmbed = this.embed;
 
 		return LocationViewEmbed
 			.addFields([
@@ -83,10 +79,6 @@ class LocationView extends LocationViewHelper {
 				self.getLandmarkField(false)
 			])
 			.setImage(self.getImage().url);
-	}
-
-	get imageAttachment() {
-		return new MessageAttachment('./assets/charlotte-balfour.png');
 	}
 }
 

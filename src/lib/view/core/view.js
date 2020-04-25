@@ -1,4 +1,7 @@
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageEmbed,
+	MessageAttachment
+} = require('discord.js');
 const { bot } = require('../../config');
 const MessageUtil = require('../../util/message');
 
@@ -16,6 +19,7 @@ class CoreView {
 			timestamp: this.model.createdTime,
 			footer: this.getFooter()
 		};
+		this.embed = new MessageEmbed(this.embedOptions);
 	}
 
 	getAuthor() {
@@ -40,7 +44,11 @@ class CoreView {
 	}
 
 	get messageEmbed() {
-		return new MessageEmbed(this.embedOptions);
+		return this.embed;
+	}
+
+	get imageAttachment() {
+		return new MessageAttachment(`./${bot.iconFolder}${bot.iconFile}`);
 	}
 }
 
