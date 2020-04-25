@@ -6,4 +6,15 @@ const MADAM_NAZAR_API = {
 	}
 };
 
-module.exports = MADAM_NAZAR_API;
+const COLLECTOR_MAP_API = {
+	DOMAIN: 'https://jeanropke.github.io',
+
+	getCurrentWeeklySetAPI() {
+		return `${this.DOMAIN}/RDR2CollectorsMap/data/weekly.json?nocache=1407`
+	}
+};
+
+module.exports = {
+	MADAM_NAZAR_API,
+	COLLECTOR_MAP_API
+};

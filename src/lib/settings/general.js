@@ -11,3 +11,9 @@ exports.EXCLUDES = {
 		'General/Chat Bot Info/stats'
 	]
 };
+
+exports.QUERY_TYPE = {
+	ALL: 'all',
+	SEARCH: 'search',
+	DEFAULT: 'default'
+};

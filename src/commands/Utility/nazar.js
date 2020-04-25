@@ -1,8 +1,6 @@
 const { Command } = require('klasa');
 const fetch = require('node-fetch');
-const { lowerCase } = require('voca');
 
-const MADAM_NAZAR_API = require('../../lib/settings/url');
 const NazarLocationModel = require('../../lib/model/nazar/location');
 const WeeklySetsModel = require('../../lib/model/nazar/weekly-sets');
 const LoadingModel = require('../../lib/model/loading');
@@ -10,9 +8,12 @@ const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
 const LoadingView = require('../../lib/view/loading');
 const { getCommandLiteral } = require('../../lib/util/message');
-
-const EMPTY_STRING = '';
-const DELIMITER_SPACE = ' ';
+const { cleanParams } = require('../../lib/util/argument');
+const { QUERY_TYPE } = require('../../lib/settings/general');
+const {
+	MADAM_NAZAR_API,
+	COLLECTOR_MAP_API
+} = require('../../lib/settings/url');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -34,9 +35,9 @@ module.exports = class extends Command {
 		return nazarLocationView;
 	}
 
-	createWeeklySetEmbed(message, setName) {
-		const weeklySetsModel = new WeeklySetsModel(message),
-			weeklySetsView = new WeeklySetsView(weeklySetsModel, setName);
+	createWeeklySetEmbed(options, message) {
+		const weeklySetsModel = new WeeklySetsModel(message, options),
+			weeklySetsView = new WeeklySetsView(weeklySetsModel);
 
 		return weeklySetsView;
 	}
@@ -71,23 +72,26 @@ module.exports = class extends Command {
 	}
 
 	/* Gives you details on Madam Nazar's Weekly Sets */
-	weekly(message, params) {
+	async weekly(message, params) {
 		const self = this,
-			reply = (option, activeMessage) => {
-				(option === 'all') ? self.sendAllSets(activeMessage) : self.sendSet(activeMessage, option);
-			};
+			currentSetName = await self.fetchCurrentWeeklySet();
 
 		if (params.length === 0) {
-			self.sendSet(message);
+			self.sendCurrentSet(message, currentSetName);
 		} else {
-			const cleanParams = lowerCase(
-				params[0]
-					.trim()
-					.split(DELIMITER_SPACE)
-					.join(EMPTY_STRING)
-			);
+			const tidyParams = cleanParams(params[0]),
+				reply = (option, activeMessage) => {
+					(option === QUERY_TYPE.ALL)
+						? self.sendAllSets(activeMessage)
+						: self.sendSet(activeMessage, {
+							queryType: QUERY_TYPE.SEARCH,
+							currentSetName,
+							searchSetName: option
+						});
+				};
 
-			reply(cleanParams, message);
+
+			reply(tidyParams, message);
 		}
 	}
 
@@ -99,22 +103,37 @@ module.exports = class extends Command {
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
-	sendAllSets(message, setName = 'all') {
-		const weeklySetsEmbed = this.createWeeklySetEmbed(message, setName);
+	sendAllSets(message, currentSetName) {
+		return this.sendSet(message, {
+			queryType: QUERY_TYPE.ALL,
+			currentSetName
+		});
+	}
 
-		message.channel.send({
+	sendCurrentSet(message, currentSetName) {
+		return this.sendSet(message, {
+			queryType: QUERY_TYPE.DEFAULT,
+			currentSetName
+		});
+	}
+
+	/* Displays a Madam Nazar Weekly Set, current or specified */
+	sendSet(message, options) {
+		const weeklySetsEmbed = this.createWeeklySetEmbed(options, message);
+
+		return message.channel.send({
 			files: [weeklySetsEmbed.imageAttachment],
 			embed: weeklySetsEmbed.messageEmbed
 		});
 	}
 
-	/* Displays a Madam Nazar Weekly Set, current or specified */
-	sendSet(message, setName = 'current') {
-		const weeklySetsEmbed = this.createWeeklySetEmbed(message, setName);
-
-		message.channel.send({
-			files: [weeklySetsEmbed.imageAttachment],
-			embed: weeklySetsEmbed.messageEmbed
-		});
+	fetchCurrentWeeklySet() {
+		return fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
+			.then((response) => response.json())
+			.then((responseJson) => responseJson.current)
+			.catch((err) => {
+				console.error(err);
+				return null;
+			});
 	}
 };

@@ -5,13 +5,29 @@ const {
 const CoreModel = require('../core/model');
 const WEEKLY_SETS = require('../../settings/nazar/weekly-sets');
 const COLLECTIBLE_EMOJI = require('../../settings/nazar/collectible');
+const { QUERY_TYPE } = require('../../settings/general');
 
 class WeeklySets extends CoreModel {
-	constructor(message) {
+	constructor(message, options) {
 		super(message);
 
-		this.chests = {};
+		this.setup();
 		this.populateWeeklySets();
+
+		if (typeof options !== 'undefined') {
+			// TODO: Use 'meta' prop to store options instead
+			this.options = options;
+			this.currentSetName = this.options.currentSetName;
+		}
+	}
+
+	setup() {
+		this.chests = {};
+		this.options = {
+			queryType: QUERY_TYPE.ALL,
+			currentSetName: null,
+			searchSetName: null
+		};
 	}
 
 	populateWeeklySets() {
@@ -41,6 +57,10 @@ class WeeklySets extends CoreModel {
 			});
 		}
 	}
+
+	// set current(setName) {
+	// 	this.currentSetName = setName;
+	// }
 }
 
 module.exports = WeeklySets;
