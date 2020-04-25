@@ -1,3 +1,5 @@
+/* eslint one-var: "off" */
+
 const { lowerCase } = require('voca');
 
 const EMPTY_STRING = '',

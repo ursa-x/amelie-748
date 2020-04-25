@@ -1,8 +1,7 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
 const CoreView = require('../core/view');
-const { cleanSetName } =require('../../util/argument');
-const ArgumentUtil =require('../../util/argument');
+const ArgumentUtil = require('../../util/argument');
 const { QUERY_TYPE } = require('../../settings/general');
 
 const DELIMITER_NEW_LINE = '\n';

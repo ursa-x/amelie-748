@@ -57,10 +57,6 @@ class WeeklySets extends CoreModel {
 			});
 		}
 	}
-
-	// set current(setName) {
-	// 	this.currentSetName = setName;
-	// }
 }
 
 module.exports = WeeklySets;
