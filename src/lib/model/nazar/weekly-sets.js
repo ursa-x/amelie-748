@@ -8,26 +8,27 @@ const COLLECTIBLE_EMOJI = require('../../settings/nazar/collectible');
 const { QUERY_TYPE } = require('../../settings/general');
 
 class WeeklySets extends CoreModel {
-	constructor(message, options) {
+	constructor(message, meta) {
 		super(message);
 
 		this.setup();
 		this.populateWeeklySets();
 
-		if (typeof options !== 'undefined') {
-			// TODO: Use 'meta' prop to store options instead
-			this.options = options;
-			this.currentSetName = this.options.currentSetName;
+		if (typeof meta !== 'undefined') {
+			this.meta = meta;
+			this.currentSetName = this.meta.currentSetName;
 		}
 	}
 
 	setup() {
-		this.chests = {};
-		this.options = {
+		const queryParams = {
 			queryType: QUERY_TYPE.ALL,
 			currentSetName: null,
 			searchSetName: null
 		};
+
+		this.chests = {};
+		this.meta = queryParams;
 	}
 
 	populateWeeklySets() {

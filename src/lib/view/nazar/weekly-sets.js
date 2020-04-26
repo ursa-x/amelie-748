@@ -34,12 +34,14 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		return LocationViewEmbed;
 	}
 
-	makeWeeklySetEmbed(options) {
+	makeWeeklySetEmbed(queryParams) {
 		const self = this,
 			inline = true,
 			LocationViewEmbed = self.embed,
-			currentSetName = self.model.currentSetName,
-			setName = (options.queryType === QUERY_TYPE.SEARCH) ? options.searchSetName : currentSetName,
+			{ currentSetName } = self.model,
+			setName = (queryParams.queryType === QUERY_TYPE.SEARCH)
+				? queryParams.searchSetName
+				: currentSetName,
 			lookupSetName = ArgumentUtil.cleanSetName(setName),
 			findChest = (chestName) => {
 				return Object.entries(self.model.chests).find((nazarChest) => {
@@ -76,14 +78,14 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 
 	get messageEmbed() {
 		const self = this,
-			{ options } = self.model,
-			{ queryType } = options;
+			{ meta: queryParams } = self.model,
+			{ queryType } = queryParams;
 
 		switch (queryType) {
 			case QUERY_TYPE.ALL:
 				return self.makeWeeklySetsEmbed();
 			default:
-				return self.makeWeeklySetEmbed(options);
+				return self.makeWeeklySetEmbed(queryParams);
 		}
 	}
 }
