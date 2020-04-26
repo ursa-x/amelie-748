@@ -17,6 +17,8 @@
 			"never"
 		],
 		"class-methods-use-this": "off",
-		"import/no-useless-path-segments": "off"
+		"arrow-body-style": ["warn", "as-needed", {
+			"requireReturnForObjectLiteral": false
+		}]
 	}
 }

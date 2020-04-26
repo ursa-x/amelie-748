@@ -3,11 +3,9 @@ const {
 	titleCase,
 	lowerCase
 } = require('voca');
-
-const CoreModel = require('./core/model');
-const { DATE } = require('./../settings/formats');
-
-const fixTitleCase = (text) => titleCase(lowerCase(text));
+const CoreModel = require('../core/model');
+const { fixTitleCase } = require('../../util/message');
+const { DATE } = require('../../settings/formats');
 
 class Location extends CoreModel {
 	constructor(locationJson, message) {
