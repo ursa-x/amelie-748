@@ -1,5 +1,14 @@
+exports.DELIMITER = {
+	SPACE: ' ',
+	EMPTY_STRING: '',
+	PERIOD: '.',
+	UNDERSCORE: '_',
+	NEW_LINE: '\n'
+};
+
 exports.REGEX = {
-	ID: /^((<@!)|())(\d{17,21})((>)|())$/
+	ID: /^((<@!)|())(\d{17,21})((>)|())$/,
+	SET: /set|\s|_/gi
 };
 
 exports.EXCLUDES = {
