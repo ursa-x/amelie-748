@@ -1,9 +1,9 @@
 {
 	"prefix": "+",
 	"bot": {
-		"name": "Charlotte Balfour",
+		"name": "Amelie Bellerose",
 		"iconFolder": "assets/",
-		"iconFile": "charlotte-balfour.png"
+		"iconFile": "amelie-bellerose.png"
 	},
 	"coreDependencies": {
 		"nodeJs": {

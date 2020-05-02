@@ -45,7 +45,7 @@ module.exports = class extends Command {
 	wyaReply(message, locationJson) {
 		const nazarLocationReply = this.createNazarLocationEmbed(message, locationJson);
 
-		message.edit({
+		return message.edit({
 			files: [nazarLocationReply.imageAttachment],
 			embed: nazarLocationReply.messageEmbed
 		});
@@ -66,8 +66,11 @@ module.exports = class extends Command {
 				.setTitle(getLocale('MESSAGE.NAZAR_WYA_LOADING_TITLE'))
 				.setDescription(getLocale('MESSAGE.NAZAR_WYA_LOADING_DESC'));
 
-		message.channel
-			.send(loadingEmbed)
+		return message.channel
+			.send({
+				files: [loadingView.imageAttachment],
+				embed: loadingEmbed
+			})
 			.then((msg) => self.fetchNazarLocation(msg));
 	}
 

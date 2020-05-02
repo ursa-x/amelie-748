@@ -4,12 +4,11 @@ const {
 	titleCase,
 	lowerCase
 } = require('voca');
-
-const KEY_DELIMITER = '.';
+const { DELIMITER } = require('../settings/general');
 
 const MessageUtil = {
 	getCommandLiteral(path, message) {
-		const keys = path.split(KEY_DELIMITER);
+		const keys = path.split(DELIMITER.PERIOD);
 
 		return keys.reduce(
 			(previous, current) => (previous ? previous[current] : null),

@@ -2,9 +2,10 @@
 
 const CoreView = require('../core/view');
 const ArgumentUtil = require('../../util/argument');
-const { QUERY_TYPE } = require('../../settings/general');
-
-const DELIMITER_NEW_LINE = '\n';
+const {
+	DELIMITER,
+	QUERY_TYPE
+} = require('../../settings/general');
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
@@ -26,7 +27,7 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		for (const [setName, items] of Object.entries(self.model.chests)) {
 			LocationViewEmbed.addFields({
 				name: setName,
-				value: items.join(DELIMITER_NEW_LINE),
+				value: items.join(DELIMITER.NEW_LINE),
 				inline
 			});
 		}
@@ -56,7 +57,7 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_DESC'))
 				.addFields({
 					name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
-					value: chest[1].join(DELIMITER_NEW_LINE),
+					value: chest[1].join(DELIMITER.NEW_LINE),
 					inline
 				});
 		} else {
@@ -68,7 +69,7 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_CURRENT_DESC'))
 				.addFields({
 					name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
-					value: currentChest[1].join(DELIMITER_NEW_LINE),
+					value: currentChest[1].join(DELIMITER.NEW_LINE),
 					inline
 				});
 		}
