@@ -12,7 +12,7 @@
 		},
 		"discordJs": {
 			"packageName": "discord.js",
-			"minVersion": "12.1.1"
+			"minVersion": "12.2.0"
 		},
 		"klasaJs": {
 			"packageName": "klasa.js",

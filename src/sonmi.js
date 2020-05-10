@@ -10,6 +10,12 @@ new Client({
 	fetchAllMembers: false,
 	prefix: config.prefix,
 	commandEditing: true,
+	commandLogging: true,
+	consoleEvents: {
+		log: true,
+		error: true
+	},
 	typing: true,
+	disabledCorePieces: ['commands'],
 	readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`
 }).login(secret.token);
