@@ -16,6 +16,12 @@ const MessageUtil = {
 		);
 	},
 
+	getKlasaLiteral(path, args, message) {
+		const params = (Array.isArray(args)) ? args : [];
+
+		return message.language.get(path, ...params);
+	},
+
 	makeAttachmentString(imageName) {
 		return `attachment://${imageName}`;
 	},
