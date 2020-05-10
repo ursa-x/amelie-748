@@ -1,6 +1,9 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
+const { MessageAttachment } = require('discord.js');
 const CoreView = require('../core/view');
+const { nazar } = require('../../settings/persona');
+const MessageUtil = require('../../util/message');
 
 class LocationViewHelper extends CoreView {
 	getDayField(inline = true) {
@@ -65,6 +68,12 @@ class LocationViewHelper extends CoreView {
 
 		return commandDescription(this.model.state);
 	}
+
+	getThumbnail() {
+		return {
+			url: MessageUtil.makeAttachmentString(nazar.iconFile)
+		};
+	}
 }
 
 class LocationView extends LocationViewHelper {
@@ -79,6 +88,15 @@ class LocationView extends LocationViewHelper {
 				self.getLandmarkField(false)
 			])
 			.setImage(self.getImage().url);
+	}
+
+	get messageAttachments() {
+		const { imageAttachments } = this,
+			nazarThumbnailAttachment = new MessageAttachment(`./${nazar.iconFolder}${nazar.iconFile}`);
+
+		imageAttachments.push(nazarThumbnailAttachment);
+
+		return imageAttachments;
 	}
 }
 

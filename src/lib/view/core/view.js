@@ -2,13 +2,14 @@ const {
 	MessageEmbed,
 	MessageAttachment
 } = require('discord.js');
-const { bot } = require('../../config');
+const { bot } = require('../../settings/persona');
 const MessageUtil = require('../../util/message');
 
 class CoreView {
 	constructor(model) {
 		this.model = model;
 		this.footerText = this.model.originUser.username;
+		this.imageAttachments = [];
 
 		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
 		this.embedOptions = {
@@ -21,6 +22,8 @@ class CoreView {
 			footer: this.getFooter()
 		};
 		this.embed = new MessageEmbed(this.embedOptions);
+
+		this.attachDefaultFiles();
 	}
 
 	getAuthor() {
@@ -50,12 +53,18 @@ class CoreView {
 		};
 	}
 
+	attachDefaultFiles() {
+		const botIconAttachment = new MessageAttachment(`./${bot.iconFolder}${bot.iconFile}`);
+
+		this.imageAttachments.push(botIconAttachment);
+	}
+
 	get messageEmbed() {
 		return this.embed;
 	}
 
-	get imageAttachment() {
-		return new MessageAttachment(`./${bot.iconFolder}${bot.iconFile}`);
+	get messageAttachments() {
+		return this.imageAttachments;
 	}
 }
 

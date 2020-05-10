@@ -1,10 +1,5 @@
 {
 	"prefix": "+",
-	"bot": {
-		"name": "Amelie Bellerose",
-		"iconFolder": "assets/",
-		"iconFile": "amelie-bellerose.png"
-	},
 	"coreDependencies": {
 		"nodeJs": {
 			"packageName": "node.js",

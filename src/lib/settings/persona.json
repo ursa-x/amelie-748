@@ -1,0 +1,14 @@
+{
+	"bot": {
+		"name": "Amelie Bellerose",
+		"nickName": "Amelie",
+		"iconFolder": "assets/",
+		"iconFile": "amelie-bellerose.png"
+	},
+	"nazar": {
+		"name": "Madam Nazar",
+		"nickName": "Nazar",
+		"iconFolder": "assets/",
+		"iconFile": "madam-nazar.png"
+	}
+}

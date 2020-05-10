@@ -1,4 +1,4 @@
-const CoreView = require('./core/view');
+const CoreView = require('./view');
 
 const LoadingView = class extends CoreView {
 

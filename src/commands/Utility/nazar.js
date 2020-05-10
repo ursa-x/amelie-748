@@ -46,7 +46,7 @@ module.exports = class extends Command {
 		const nazarLocationReply = this.createNazarLocationEmbed(message, locationJson);
 
 		return message.edit({
-			files: [nazarLocationReply.imageAttachment],
+			files: nazarLocationReply.messageAttachments,
 			embed: nazarLocationReply.messageEmbed
 		});
 	}
@@ -68,7 +68,7 @@ module.exports = class extends Command {
 
 		return message.channel
 			.send({
-				files: [loadingView.imageAttachment],
+				files: loadingView.messageAttachments,
 				embed: loadingEmbed
 			})
 			.then((msg) => self.fetchNazarLocation(msg));
@@ -125,7 +125,7 @@ module.exports = class extends Command {
 		const weeklySetsEmbed = this.createWeeklySetEmbed(options, message);
 
 		return message.channel.send({
-			files: [weeklySetsEmbed.imageAttachment],
+			files: weeklySetsEmbed.messageAttachments,
 			embed: weeklySetsEmbed.messageEmbed
 		});
 	}

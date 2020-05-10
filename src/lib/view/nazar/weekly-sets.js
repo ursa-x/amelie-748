@@ -1,7 +1,10 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
+const { MessageAttachment } = require('discord.js');
 const CoreView = require('../core/view');
+const { nazar } = require('../../settings/persona');
 const ArgumentUtil = require('../../util/argument');
+const MessageUtil = require('../../util/message');
 const {
 	DELIMITER,
 	QUERY_TYPE
@@ -14,6 +17,12 @@ class WeeklySetsViewHelper extends CoreView {
 
 	getDescriptionText() {
 		return this.getCommandLiteral('MESSAGE.NAZAR_SETS_DESC');
+	}
+
+	getThumbnail() {
+		return {
+			url: MessageUtil.makeAttachmentString(nazar.iconFile)
+		};
 	}
 }
 
@@ -88,6 +97,15 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 			default:
 				return self.makeWeeklySetEmbed(queryParams);
 		}
+	}
+
+	get messageAttachments() {
+		const { imageAttachments } = this,
+			nazarThumbnailAttachment = new MessageAttachment(`./${nazar.iconFolder}${nazar.iconFile}`);
+
+		imageAttachments.push(nazarThumbnailAttachment);
+
+		return imageAttachments;
 	}
 }
 
