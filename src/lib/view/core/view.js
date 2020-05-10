@@ -16,6 +16,7 @@ class CoreView {
 			title: this.getTitleText(),
 			author: this.getAuthor(),
 			description: this.getDescriptionText(),
+			thumbnail: this.getThumbnail(),
 			timestamp: this.model.createdTime,
 			footer: this.getFooter()
 		};
@@ -41,6 +42,12 @@ class CoreView {
 
 	getDescriptionText() {
 		return this.getCommandLiteral('MESSAGE.EMPTY_DESC');
+	}
+
+	getThumbnail() {
+		return {
+			url: MessageUtil.makeAttachmentString(bot.iconFile)
+		};
 	}
 
 	get messageEmbed() {
