@@ -2,6 +2,7 @@
 	"bot": {
 		"name": "Amelie Bellerose",
 		"nickName": "Amelie",
+		"tabloidName": "Amelie \"White Glove\" Bellerose",
 		"iconFolder": "assets/",
 		"iconFile": "amelie-bellerose.png"
 	},
