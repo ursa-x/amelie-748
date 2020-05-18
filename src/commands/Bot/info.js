@@ -4,8 +4,8 @@
 */
 
 const { Command } = require('klasa');
-const InfoView = require('../../lib/view/info');
 const CoreModel = require('../../lib/model/core/model');
+const InfoView = require('../../lib/view/info');
 
 module.exports = class extends Command {
 	constructor(...args) {

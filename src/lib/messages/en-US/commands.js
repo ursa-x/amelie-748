@@ -8,6 +8,8 @@ const LABEL = {
 	PREFIX: 'Prefix',
 	VERSION: 'Version',
 	CREDITS: 'Credits',
+	USAGE: 'Usage',
+	MORE: 'More',
 	CHARACTER_BY: 'Character By',
 	DAY: 'Day',
 	STATE: 'State',
