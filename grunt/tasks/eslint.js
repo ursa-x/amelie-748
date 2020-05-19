@@ -6,7 +6,7 @@ module.exports = (grunt, options) => {
 			},
 			src: [
 				'src/**/*.js',
-				'src/sonmi.js'
+				'src/amelie.js'
 			]
 		}
 	}

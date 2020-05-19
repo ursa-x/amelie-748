@@ -11,7 +11,7 @@ module.exports = (grunt) => {
 			paths: {
 				config: 'grunt',
 				src: 'src/**/*.js',
-				appJs: 'src/sonmi.js'
+				appJs: 'src/amelie.js'
 			}
 		},
 		configs = require('load-grunt-configs')(grunt, options);

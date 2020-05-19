@@ -1,8 +1,8 @@
-# sonmi-450
+# amelie-748
 
 [![discord.js](https://img.shields.io/badge/discord.js-v12.1.1-brightgreen)](https://www.npmjs.com/package/discord.js)
 
-> :robot: A classy discord bot using klasa.js.
+> :robot: A classy discord bot for Red Dead Online Gamers, using klasa.js.
 
 ### Pre-requisites
 - [Node](https://nodejs.org) `v.10.0.0+`
