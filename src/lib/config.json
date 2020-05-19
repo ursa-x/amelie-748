@@ -1,10 +1,5 @@
 {
 	"prefix": "+",
-	"bot": {
-		"name": "Amelie Bellerose",
-		"iconFolder": "assets/",
-		"iconFile": "amelie-bellerose.png"
-	},
 	"coreDependencies": {
 		"nodeJs": {
 			"packageName": "node.js",
@@ -12,11 +7,15 @@
 		},
 		"discordJs": {
 			"packageName": "discord.js",
-			"minVersion": "12.1.1"
+			"minVersion": "12.2.0"
 		},
 		"klasaJs": {
 			"packageName": "klasa.js",
 			"minVersion": "0.5.0-dev"
 		}
+	},
+	"author": {
+		"name" : "Cliftos",
+		"email": "hi.cliftos@gmail.com"
 	}
 }

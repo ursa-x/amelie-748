@@ -17,6 +17,7 @@
 			"never"
 		],
 		"class-methods-use-this": "off",
+		"no-underscore-dangle": "off",
 		"arrow-body-style": ["warn", "as-needed", {
 			"requireReturnForObjectLiteral": false
 		}]

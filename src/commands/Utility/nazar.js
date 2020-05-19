@@ -6,7 +6,7 @@ const WeeklySetsModel = require('../../lib/model/nazar/weekly-sets');
 const LoadingModel = require('../../lib/model/loading');
 const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
-const LoadingView = require('../../lib/view/loading');
+const LoadingView = require('../../lib/view/core/loading');
 const { getCommandLiteral } = require('../../lib/util/message');
 const { cleanParams } = require('../../lib/util/argument');
 const { QUERY_TYPE } = require('../../lib/settings/general');
@@ -46,7 +46,7 @@ module.exports = class extends Command {
 		const nazarLocationReply = this.createNazarLocationEmbed(message, locationJson);
 
 		return message.edit({
-			files: [nazarLocationReply.imageAttachment],
+			files: nazarLocationReply.messageAttachments,
 			embed: nazarLocationReply.messageEmbed
 		});
 	}
@@ -68,7 +68,7 @@ module.exports = class extends Command {
 
 		return message.channel
 			.send({
-				files: [loadingView.imageAttachment],
+				files: loadingView.messageAttachments,
 				embed: loadingEmbed
 			})
 			.then((msg) => self.fetchNazarLocation(msg));
@@ -125,7 +125,7 @@ module.exports = class extends Command {
 		const weeklySetsEmbed = this.createWeeklySetEmbed(options, message);
 
 		return message.channel.send({
-			files: [weeklySetsEmbed.imageAttachment],
+			files: weeklySetsEmbed.messageAttachments,
 			embed: weeklySetsEmbed.messageEmbed
 		});
 	}

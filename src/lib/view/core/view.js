@@ -2,13 +2,14 @@ const {
 	MessageEmbed,
 	MessageAttachment
 } = require('discord.js');
-const { bot } = require('../../config');
+const { bot } = require('../../settings/persona');
 const MessageUtil = require('../../util/message');
 
 class CoreView {
 	constructor(model) {
 		this.model = model;
 		this.footerText = this.model.originUser.username;
+		this.imageAttachments = [];
 
 		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
 		this.embedOptions = {
@@ -16,10 +17,13 @@ class CoreView {
 			title: this.getTitleText(),
 			author: this.getAuthor(),
 			description: this.getDescriptionText(),
+			thumbnail: this.getThumbnail(),
 			timestamp: this.model.createdTime,
 			footer: this.getFooter()
 		};
 		this.embed = new MessageEmbed(this.embedOptions);
+
+		this.attachDefaultFiles();
 	}
 
 	getAuthor() {
@@ -43,12 +47,24 @@ class CoreView {
 		return this.getCommandLiteral('MESSAGE.EMPTY_DESC');
 	}
 
+	getThumbnail() {
+		return {
+			url: MessageUtil.makeAttachmentString(bot.iconFile)
+		};
+	}
+
+	attachDefaultFiles() {
+		const botIconAttachment = new MessageAttachment(`./${bot.iconFolder}${bot.iconFile}`);
+
+		this.imageAttachments.push(botIconAttachment);
+	}
+
 	get messageEmbed() {
 		return this.embed;
 	}
 
-	get imageAttachment() {
-		return new MessageAttachment(`./${bot.iconFolder}${bot.iconFile}`);
+	get messageAttachments() {
+		return this.imageAttachments;
 	}
 }
 

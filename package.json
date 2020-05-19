@@ -1,22 +1,22 @@
 {
-	"name": "sonmi-450",
+	"name": "amelie-748",
 	"version": "0.0.1",
 	"description": "A classy Discord bot",
-	"main": "src/sonmi.js",
+	"main": "src/amelie.js",
 	"scripts": {
-		"start": "node src/sonmi.js",
-		"bot:dev": "nodemon src/sonmi.js"
+		"start": "node src/amelie.js",
+		"bot:dev": "nodemon src/amelie.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/wizvishak/sonmi-451.git"
+		"url": "git+https://github.com/wizvishak/amelie-748.git"
 	},
 	"author": "Visahavel Parthasarathy",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/wizvishak/sonmi-451/issues"
+		"url": "https://github.com/wizvishak/amelie-748/issues"
 	},
-	"homepage": "https://github.com/wizvishak/sonmi-451#readme",
+	"homepage": "https://github.com/wizvishak/amelie-748#readme",
 	"dependencies": {
 		"discord.js": "github:discordjs/discord.js#master",
 		"fs": "0.0.1-security",

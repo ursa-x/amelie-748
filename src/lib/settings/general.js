@@ -1,8 +1,21 @@
+const pkg = require('../../../package.json');
+const { bot } = require('./persona');
+
+exports.BOT = {
+	NAME: bot.name,
+	VERSION: pkg.version,
+	NICKNAME: bot.nickName,
+	TABLOID_NAME: bot.tabloidName
+};
+
 exports.DELIMITER = {
 	SPACE: ' ',
 	EMPTY_STRING: '',
 	PERIOD: '.',
 	UNDERSCORE: '_',
+	DOUBLE_UNDERSCORE: '__',
+	TILDE: '~',
+	HYPHEN: '-',
 	NEW_LINE: '\n'
 };
 

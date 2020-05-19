@@ -69,5 +69,7 @@ module.exports = {
 			console.log(missingDependencies.join('\n'));
 			process.exit();
 		}
-	}
+	},
+
+	has: (obj, key) => Object.prototype.hasOwnProperty.call(obj, key)
 };
