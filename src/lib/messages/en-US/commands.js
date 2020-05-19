@@ -32,20 +32,20 @@ const MESSAGE = {
 	EMPTY_FOOTER: '',
 
 	/* Commands */
-	HELP_TITLE: `Hello, there! :wave:`,
+	HELP_TITLE: 'Hello, there! :wave:',
 	HELP_DESC: (serverPrefix) => `To see what you may get out of a conversation, say \`${serverPrefix}help [word]\``,
 
 	INFO_TITLE: '',
 	INFO_DESC: '',
-	INFO_AMELIE_QUOTE: `> *Oh ain\'t it a lovely day to commit a perfect crime?*\n> ~ ${BOT.NAME}`,
-	INFO_AMELIE_BIO: `A lass too modern for 1898, the lively **${BOT.TABLOID_NAME}**, ` +
-		'is an orphan who learned to survive on the treacherous streets of Valentine.' +
-		'\n\nLittle does Marshal Davies know that the ghost in unsolved Case No. 1137, ' +
-		'that lifted *The Market Gardens of Saint Denis* and *Four Wapiti Women*, two coveted ' +
-		`works of eccentric artist Charles Châtenay, was none other than ${BOT.NICKNAME}.` +
-		'\n\nApart from being the cleanest pair of gloves in the Wild West, this pretty cat burglar ' +
-		'is a notorious gunslinger. When she is not plotting her next perfect heist, ' +
-		`${BOT.NICKNAME} is helping you out on here.`,
+	INFO_AMELIE_QUOTE: `> *Oh ain't it a lovely day to commit a perfect crime?*\n> ~ ${BOT.NAME}`,
+	INFO_AMELIE_BIO: `A lass too modern for 1898, the lively **${BOT.TABLOID_NAME}**, `
+		+ 'is an orphan who learned to survive on the treacherous streets of Valentine.'
+		+ '\n\nLittle does Marshal Davies know that the ghost in unsolved Case No. 1137, '
+		+ 'that lifted *The Market Gardens of Saint Denis* and *Four Wapiti Women*, two coveted '
+		+ `works of eccentric artist Charles Châtenay, was none other than ${BOT.NICKNAME}.`
+		+ '\n\nApart from being the cleanest pair of gloves in the Wild West, this pretty cat burglar '
+		+ 'is a notorious gunslinger. When she is not plotting her next perfect heist, '
+		+ `${BOT.NICKNAME} is helping you out on here.`,
 	INFO_HELP: (serverPrefix) => `To talk to ${BOT.NICKNAME}, type \`${serverPrefix}help\``,
 	INFO_AMELIE_DEDICATE: 'To the lovely folks at **Dark Company 1899**.',
 	INFO_AMELIE_CREATOR: `Made with :white_heart: by ${author.name}`,

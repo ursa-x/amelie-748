@@ -17,7 +17,7 @@ module.exports = class extends Command {
 			name: 'help',
 			aliases: ['commands'],
 			guarded: true,
-			description: language => language.get('COMMAND_HELP_DESCRIPTION'),
+			description: (language) => language.get('COMMAND_HELP_DESCRIPTION'),
 			usage: '(Command:command)'
 		});
 
@@ -70,34 +70,46 @@ module.exports = class extends Command {
 
 	async buildHelpCatalogue(message, clientData) {
 		const {
-			commands,
-			inhibitors
-		} = clientData;
-		let helpCatalogue = {};
+				commands,
+				inhibitors
+			} = clientData,
+			helpCatalogue = {};
 
 		helpCatalogue.__appendix = [];
 
-		await Promise.all(commands.map((command) =>
-			inhibitors.run(message, command, true)
-				.then(() => {
-					const {
-						category,
-						subCategory
-					} = command,
-					commandHelp = new CommandHelpModel(command, message);
+		await Promise.all(
+			commands.map(
+				// eslint-disable-next-line arrow-body-style
+				(command) => {
+					return inhibitors.run(message, command, true)
+						.then(() => {
+							const {
+									category,
+									subCategory
+								} = command,
+								commandHelp = new CommandHelpModel(command, message);
 
-					if (!has(helpCatalogue, category)) helpCatalogue[category] = {};
-					if (!has(helpCatalogue[category], subCategory)) helpCatalogue[category][subCategory] = [];
+							if (!has(helpCatalogue, category)) {
+								helpCatalogue[category] = {};
+							}
+							if (!has(helpCatalogue[category], subCategory)) {
+								helpCatalogue[category][subCategory] = [];
+							}
 
-					let categoryCommands = helpCatalogue[category][subCategory];
+							// eslint-disable-next-line one-var
+							const categoryCommands = helpCatalogue[category][subCategory];
 
-					helpCatalogue.__appendix.push(command);
-					categoryCommands.push(commandHelp);
-				})
-				.catch(() => {
-					// noop
-				})
-		));
+							helpCatalogue.__appendix.push(command);
+							categoryCommands.push(commandHelp);
+
+							return command;
+						})
+						.catch(() => {
+							// noop
+						});
+				}
+			)
+		);
 
 		return helpCatalogue;
 	}

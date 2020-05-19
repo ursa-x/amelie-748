@@ -1,3 +1,5 @@
+/* eslint max-classes-per-file: ["error", 2] */
+
 const CoreView = require('./core/view');
 const { DELIMITER } = require('../settings/general');
 
@@ -55,7 +57,7 @@ class CommandHelpView extends CommandHelpViewHelper {
 			CommandHelpEmbed = self.embed
 				.addField(...usageField);
 
-		if(self.hasExtendedHelp(self.model.extendedHelp)) {
+		if (self.hasExtendedHelp(self.model.extendedHelp)) {
 			const extendedHelpField = this.getExtendedHelpField();
 
 			CommandHelpEmbed.addField(...extendedHelpField);

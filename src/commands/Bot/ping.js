@@ -6,18 +6,18 @@ const { Command } = require('klasa');
 const { getKlasaLiteral } = require('../../lib/util/message');
 
 module.exports = class extends Command {
-
 	constructor(...args) {
 		super(...args, {
 			name: 'ping',
 			guarded: true,
-			description: language => language.get('COMMAND_PING_DESCRIPTION')
+			description: (language) => language.get('COMMAND_PING_DESCRIPTION')
 		});
 	}
 
 	async run(message) {
 		const heartbeat = () => Math.round(this.client.ws.ping),
-			messageTimeOf = (message) => message.editedTimestamp || message.createdTimestamp,
+			messageTimeOf = (originMessage) => originMessage.editedTimestamp
+				|| originMessage.createdTimestamp,
 			pongMessage = (diff, ping) => getKlasaLiteral('COMMAND_PINGPONG', [diff, ping], message),
 			pingMessage = await message.send(
 				getKlasaLiteral('COMMAND_PING', null, message)
@@ -26,10 +26,9 @@ module.exports = class extends Command {
 
 		return message.send(
 			pongMessage(
-			pingMessageTime - messageTimeOf(message),
+				pingMessageTime - messageTimeOf(message),
 				heartbeat()
 			)
 		);
 	}
-
 };

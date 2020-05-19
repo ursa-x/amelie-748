@@ -53,7 +53,9 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 				? queryParams.searchSetName
 				: currentSetName,
 			lookupSetName = ArgumentUtil.cleanSetName(setName),
+			// eslint-disable-next-line arrow-body-style
 			findChest = (chestName) => {
+				// eslint-disable-next-line arrow-body-style
 				return Object.entries(self.model.chests).find((nazarChest) => {
 					return ArgumentUtil.cleanSetName(nazarChest[0]) === chestName;
 				});

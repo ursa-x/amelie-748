@@ -1,3 +1,5 @@
+/* eslint max-classes-per-file: ["error", 2] */
+
 const CoreView = require('./core/view');
 const {
 	BOT,
@@ -78,8 +80,8 @@ class InfoView extends InfoViewHelper {
 			creditsField = this.getCreditsField(),
 			InfoEmbed = self.embed
 				.addFields([
-				 	this.getServerPrefixField(),
-				 	this.getVersionField(),
+					this.getServerPrefixField(),
+					this.getVersionField(),
 					this.getCharacterField()
 				])
 				.addField(...creditsField);

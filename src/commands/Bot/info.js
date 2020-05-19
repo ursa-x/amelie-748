@@ -14,7 +14,7 @@ module.exports = class extends Command {
 			runIn: ['text', 'dm'],
 			aliases: ['details', 'what'],
 			guarded: true,
-			description: language => language.get('COMMAND_INFO_DESCRIPTION')
+			description: (language) => language.get('COMMAND_INFO_DESCRIPTION')
 		});
 	}
 

@@ -1,3 +1,5 @@
+/* eslint max-classes-per-file: ["error", 2] */
+
 const CoreView = require('./core/view');
 const { has } = require('../util/general');
 const { DELIMITER } = require('../settings/general');
@@ -40,20 +42,19 @@ class HelpView extends HelpViewHelper {
 			maxCommandLength = _breathingSpace + serverPrefix.length;
 
 		for (const [category, subCategories] of Object.entries(catalogue)) {
-
 			// Ignore __appendix with list of all commands
-			if(!category.startsWith(DELIMITER.DOUBLE_UNDERSCORE)) {
+			if (!category.startsWith(DELIMITER.DOUBLE_UNDERSCORE)) {
 				const categoryName = has(CATEGORIES, category) ? CATEGORIES[category] : category;
 
 				// Iterate through each sub category; defaults fall under 'General'
+				// eslint-disable-next-line no-unused-vars
 				for (const [subCategory, commands] of Object.entries(subCategories)) {
 					const subCategoryCommandList = commands.reduce((commandListText, commandModel) => {
 						const commandName = `${serverPrefix}${commandModel.name}`,
-							formattedCommandName = commandName.padEnd(maxCommandLength) + TILDE,
+							formattedCommandName = `**${commandName.padEnd(maxCommandLength)}${TILDE}**`,
 							commandDescription = commandModel.description;
 
-						return commandListText
-							+ `\n**${formattedCommandName}** ${commandDescription}`
+						return `${commandListText}\n${formattedCommandName} ${commandDescription}`;
 					}, NEW_LINE);
 
 					HelpEmbed.addField(

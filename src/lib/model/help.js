@@ -23,7 +23,7 @@ class Help extends CoreModel {
 	}
 
 	getSubCategories(category) {
-		const { helpCatalogue }  = this;
+		const { helpCatalogue } = this;
 
 		return has(helpCatalogue, category)
 			? Object.keys(helpCatalogue[category])
