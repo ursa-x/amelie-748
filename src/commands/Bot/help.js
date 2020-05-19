@@ -3,15 +3,13 @@
  	General > Chat Bot Info > help.js
 */
 
-const {
-	Command,
-	util: { isFunction }
-} = require('klasa');
+const { Command } = require('klasa');
 const { DELIMITER } = require('../../lib/settings/general');
+const HelpModel = require('../../lib/model/help');
 const CommandHelpModel = require('../../lib/model/command-help');
+const HelpView = require('../../lib/view/help');
 const CommandHelpView = require('../../lib/view/command-help');
-
-const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+const { has } = require('../../lib/util/general');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -30,13 +28,6 @@ module.exports = class extends Command {
 		});
 	}
 
-	createCommandHelpEmbed(message, command) {
-		const model = new CommandHelpModel(command, message),
-			commandHelpEmbed = new CommandHelpView(model);
-
-		return commandHelpEmbed;
-	}
-
 	async run(message, [command]) {
 		if (command) {
 			const commandHelpReply = this.createCommandHelpEmbed(message, command);
@@ -46,46 +37,68 @@ module.exports = class extends Command {
 				embed: commandHelpReply.messageEmbed
 			});
 		}
-		const help = await this.buildHelp(message);
-		const categories = Object.keys(help);
-		const helpMessage = [];
-		for (let cat = 0; cat < categories.length; cat++) {
-			helpMessage.push(`**${categories[cat]} Commands**:`, '```asciidoc');
-			const subCategories = Object.keys(help[categories[cat]]);
-			for (let subCat = 0; subCat < subCategories.length; subCat++) helpMessage.push(`= ${subCategories[subCat]} =`, `${help[categories[cat]][subCategories[subCat]].join('\n')}\n`);
-			helpMessage.push('```', '\u200b');
-		}
 
-		return message.author.send(helpMessage, {split: {char: '\u200b'}})
-			.then(() => {
-				if (message.channel.type !== 'dm') message.sendLocale('COMMAND_HELP_DM');
-			})
-			.catch(() => {
-				if (message.channel.type !== 'dm') message.sendLocale('COMMAND_HELP_NODM');
-			});
+		const {
+				commands,
+				inhibitors
+			} = this.client,
+			catalogue = await this.buildHelpCatalogue(message, {
+				commands,
+				inhibitors
+			}),
+			helpReply =	this.createHelpEmbed(message, catalogue);
+
+		return message.send({
+			files: helpReply.messageAttachments,
+			embed: helpReply.messageEmbed
+		});
 	}
 
-	async buildHelp(message) {
-		const help = {};
+	createCommandHelpEmbed(message, command) {
+		const model = new CommandHelpModel(command, message),
+			commandHelpEmbed = new CommandHelpView(model);
 
-		const {prefix} = message.guildSettings;
-		const commandNames = [...this.client.commands.keys()];
-		const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+		return commandHelpEmbed;
+	}
 
-		await Promise.all(this.client.commands.map((command) =>
-			this.client.inhibitors.run(message, command, true)
+	createHelpEmbed(message, catalogue) {
+		const model = new HelpModel(catalogue, message),
+			helpEmbed = new HelpView(model);
+
+		return helpEmbed;
+	}
+
+	async buildHelpCatalogue(message, clientData) {
+		const {
+			commands,
+			inhibitors
+		} = clientData;
+		let helpCatalogue = {};
+
+		helpCatalogue.__appendix = [];
+
+		await Promise.all(commands.map((command) =>
+			inhibitors.run(message, command, true)
 				.then(() => {
-					if (!has(help, command.category)) help[command.category] = {};
-					if (!has(help[command.category], command.subCategory)) help[command.category][command.subCategory] = [];
-					const description = isFunction(command.description) ? command.description(message.language) : command.description;
-					help[command.category][command.subCategory].push(`${prefix}${command.name.padEnd(longest)} :: ${description}`);
+					const {
+						category,
+						subCategory
+					} = command,
+					commandHelp = new CommandHelpModel(command, message);
+
+					if (!has(helpCatalogue, category)) helpCatalogue[category] = {};
+					if (!has(helpCatalogue[category], subCategory)) helpCatalogue[category][subCategory] = [];
+
+					let categoryCommands = helpCatalogue[category][subCategory];
+
+					helpCatalogue.__appendix.push(command);
+					categoryCommands.push(commandHelp);
 				})
 				.catch(() => {
 					// noop
 				})
 		));
 
-		return help;
+		return helpCatalogue;
 	}
-
 };

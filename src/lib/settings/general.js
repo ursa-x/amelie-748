@@ -13,6 +13,9 @@ exports.DELIMITER = {
 	EMPTY_STRING: '',
 	PERIOD: '.',
 	UNDERSCORE: '_',
+	DOUBLE_UNDERSCORE: '__',
+	TILDE: '~',
+	HYPHEN: '-',
 	NEW_LINE: '\n'
 };
 

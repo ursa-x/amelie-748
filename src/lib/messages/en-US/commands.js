@@ -32,8 +32,11 @@ const MESSAGE = {
 	EMPTY_FOOTER: '',
 
 	/* Commands */
-	INFO_DESC: '',
+	HELP_TITLE: `Hello, there! :wave:`,
+	HELP_DESC: (serverPrefix) => `To see what you may get out of a conversation, say \`${serverPrefix}help [word]\``,
+
 	INFO_TITLE: '',
+	INFO_DESC: '',
 	INFO_AMELIE_QUOTE: `> *Oh ain\'t it a lovely day to commit a perfect crime?*\n> ~ ${BOT.NAME}`,
 	INFO_AMELIE_BIO: `A lass too modern for 1898, the lively **${BOT.TABLOID_NAME}**, ` +
 		'is an orphan who learned to survive on the treacherous streets of Valentine.' +

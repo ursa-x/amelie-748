@@ -7,7 +7,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'avatar',
-			enabled: true,
+			enabled: false,
 			runIn: ['text'],
 			requiredPermissions: ['ATTACH_FILES'],
 			description: "Fetch a user's avatar!",
