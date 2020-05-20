@@ -7,13 +7,14 @@ const LoadingModel = require('../../lib/model/loading');
 const NazarLocationView = require('../../lib/view/nazar/location');
 const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
 const LoadingView = require('../../lib/view/core/loading');
-const { getCommandLiteral } = require('../../lib/util/message');
 const { cleanParams } = require('../../lib/util/argument');
-const { QUERY_TYPE } = require('../../lib/settings/general');
+const { getCommandLiteral } = require('../../lib/util/message');
 const {
-	MADAM_NAZAR_API,
-	COLLECTOR_MAP_API
-} = require('../../lib/settings/url');
+	fetchNazarLocation,
+	fetchCurrentWeeklySet
+} = require('../../lib/util/nazar');
+const { QUERY_TYPE } = require('../../lib/settings/general');
+const { COLLECTOR_MAP_API } = require('../../lib/settings/url');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -71,13 +72,18 @@ module.exports = class extends Command {
 				files: loadingView.messageAttachments,
 				embed: loadingEmbed
 			})
-			.then((msg) => self.fetchNazarLocation(msg));
+			.then(async (msg) => {
+				self.wyaReply(
+					msg,
+					await self.getNazarsLocation()
+				);
+			});
 	}
 
 	/* Gives you details on Madam Nazar's Weekly Sets */
 	async weekly(message, params) {
 		const self = this,
-			currentSetName = await self.fetchCurrentWeeklySet();
+			currentSetName = await self.getCurrentWeeklySet();
 
 		if (params.length === 0) {
 			self.sendCurrentSet(message, currentSetName);
@@ -98,11 +104,10 @@ module.exports = class extends Command {
 		}
 	}
 
-	fetchNazarLocation(message) {
-		fetch(MADAM_NAZAR_API.currentLocationAPI())
-			.then((response) => response.json())
-			.then((responseJson) => this.wyaReply(message, responseJson))
-			.catch((err) => console.error(err));
+	async getNazarsLocation() {
+		if(!this.client._NAZAR.LOCATION) this.client._NAZAR.LOCATION = await fetchNazarLocation();
+
+		return this.client._NAZAR.LOCATION;
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
@@ -130,13 +135,9 @@ module.exports = class extends Command {
 		});
 	}
 
-	fetchCurrentWeeklySet() {
-		return fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
-			.then((response) => response.json())
-			.then((responseJson) => responseJson.current)
-			.catch((err) => {
-				console.error(err);
-				return null;
-			});
+	async getCurrentWeeklySet() {
+		if(!this.client._NAZAR.WEEKLY_SET) this.client._NAZAR.WEEKLY_SET = await fetchCurrentWeeklySet();
+
+		return this.client._NAZAR.WEEKLY_SET;
 	}
 };
