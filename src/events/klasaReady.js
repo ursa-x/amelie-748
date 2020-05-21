@@ -3,10 +3,10 @@
 	https://crontab.guru
 */
 
-const { Event } = require('klasa');
+import { Event } from 'klasa';
 
-// TODO: Log schedule success/failure?
-module.exports = class extends Event {
+// TODO: Log schedule success/failure
+export default class extends Event {
 	constructor(...args) {
 		super(...args, {
 			name: 'klasaReady',
@@ -38,7 +38,7 @@ module.exports = class extends Event {
 		const { tasks } = this.client.schedule,
 			nazarTaskName = 'fetchNazarLocation';
 
-		if (!tasks.some(task => task.taskName === nazarTaskName)) {
+		if (!tasks.some((task) => task.taskName === nazarTaskName)) {
 			await this.client.schedule.create(nazarTaskName, '15 7 * * *', {});
 		}
 	}
@@ -48,8 +48,8 @@ module.exports = class extends Event {
 		const { tasks } = this.client.schedule,
 			nazarTaskName = 'fetchNazarWeeklySet';
 
-		if (!tasks.some(task => task.taskName === nazarTaskName)) {
+		if (!tasks.some((task) => task.taskName === nazarTaskName)) {
 			await this.client.schedule.create(nazarTaskName, '30 6 * * 2', {});
 		}
 	}
-};
+}

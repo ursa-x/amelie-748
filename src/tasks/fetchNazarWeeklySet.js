@@ -1,5 +1,5 @@
-const { Task } = require('klasa');
-const { fetchCurrentWeeklySet } = require('../lib/util/nazar');
+import { Task } from 'klasa';
+import { fetchCurrentWeeklySet } from '../lib/util/nazar';
 
 class FetchNazarWeeklySet extends Task {
 	async run() {
@@ -22,4 +22,4 @@ class FetchNazarWeeklySet extends Task {
 	}
 }
 
-module.exports = FetchNazarWeeklySet;
+export default FetchNazarWeeklySet;

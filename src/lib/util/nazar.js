@@ -1,31 +1,26 @@
-const { KlasaConsole: console } = require('klasa');
-const fetch = require('node-fetch');
-const {
+/* eslint one-var: "off" */
+// TODO: Log the fetch success/failure?
+
+import { KlasaConsole as console } from 'klasa';
+import fetch from 'node-fetch';
+import {
 	MADAM_NAZAR_API,
 	COLLECTOR_MAP_API
-} = require('../settings/url');
+} from '../settings/url';
 
-// TODO: Log the fetch success/failure
-const NazarUtil = {
-	async fetchNazarLocation() {
-		return await fetch(MADAM_NAZAR_API.currentLocationAPI())
-			.then((response) => response.json())
-			.then((responseJson) => responseJson)
-			.catch((err) => {
-				console.error(err)
-				return null;
-			});
-	},
+export const fetchNazarLocation = async () => fetch(MADAM_NAZAR_API.currentLocationAPI())
+	.then((response) => response.json())
+	.then((responseJson) => responseJson)
+	.catch((err) => {
+		console.error(err);
+		return null;
+	});
 
-	async fetchCurrentWeeklySet() {
-		return await fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
-			.then((response) => response.json())
-			.then((responseJson) => responseJson.current)
-			.catch((err) => {
-				console.error(err);
-				return null;
-			});
-	}
-};
-
-module.exports = NazarUtil;
+// eslint-disable-next-line max-len
+export const fetchCurrentWeeklySet = async () => fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
+	.then((response) => response.json())
+	.then((responseJson) => responseJson.current)
+	.catch((err) => {
+		console.error(err);
+		return null;
+	});

@@ -1,5 +1,5 @@
-const { Task } = require('klasa');
-const { fetchNazarLocation } = require('../lib/util/nazar');
+import { Task } from 'klasa';
+import { fetchNazarLocation } from '../lib/util/nazar';
 
 class FetchNazarLocation extends Task {
 	async run() {
@@ -22,4 +22,4 @@ class FetchNazarLocation extends Task {
 	}
 }
 
-module.exports = FetchNazarLocation;
+export default FetchNazarLocation;
