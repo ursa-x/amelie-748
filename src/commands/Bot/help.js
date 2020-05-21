@@ -4,12 +4,12 @@
 */
 
 import { Command } from 'klasa';
-import { DELIMITER } from '../../lib/settings/general';
 import HelpModel from '../../lib/model/help';
 import CommandHelpModel from '../../lib/model/command-help';
 import HelpView from '../../lib/view/help';
 import CommandHelpView from '../../lib/view/command-help';
 import { has } from '../../lib/util/general';
+import { DELIMITER } from '../../lib/settings/general';
 
 module.exports = class extends Command {
 	constructor(...args) {

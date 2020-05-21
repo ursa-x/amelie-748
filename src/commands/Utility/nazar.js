@@ -15,7 +15,7 @@ import {
 	COLLECTOR_MAP_API
 } from '../../lib/settings/url';
 
-module.exports = class extends Command {
+export default class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'nazar',
@@ -78,13 +78,15 @@ module.exports = class extends Command {
 	async weekly(message, params) {
 		const self = this,
 			currentSetName = await self.fetchCurrentWeeklySet();
+		let response;
 
 		if (params.length === 0) {
-			self.sendCurrentSet(message, currentSetName);
+			response = await self.sendCurrentSet(message, currentSetName);
 		} else {
 			const tidyParams = cleanParams(params[0]),
+				// eslint-disable-next-line arrow-body-style
 				reply = (option, activeMessage) => {
-					(option === QUERY_TYPE.ALL)
+					return (option === QUERY_TYPE.ALL)
 						? self.sendAllSets(activeMessage)
 						: self.sendSet(activeMessage, {
 							queryType: QUERY_TYPE.SEARCH,
@@ -93,9 +95,10 @@ module.exports = class extends Command {
 						});
 				};
 
-
-			reply(tidyParams, message);
+			response = await reply(tidyParams, message);
 		}
+
+		return response;
 	}
 
 	fetchNazarLocation(message) {
@@ -139,4 +142,4 @@ module.exports = class extends Command {
 				return null;
 			});
 	}
-};
+}

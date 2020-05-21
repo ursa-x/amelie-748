@@ -3,7 +3,7 @@
 /* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
 import { Command } from 'klasa';
 
-module.exports = class extends Command {
+export default class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'avatar',

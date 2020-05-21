@@ -7,7 +7,7 @@ import { Command } from 'klasa';
 import CoreModel from '../../lib/model/core/model';
 import InfoView from '../../lib/view/info';
 
-module.exports = class extends Command {
+export default class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'info',
@@ -33,4 +33,4 @@ module.exports = class extends Command {
 			embed: botInfoReply.messageEmbed
 		});
 	}
-};
+}

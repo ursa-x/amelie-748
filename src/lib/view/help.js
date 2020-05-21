@@ -3,7 +3,7 @@
 import CoreView from './core/view';
 import { has } from '../util/general';
 import { DELIMITER } from '../settings/general';
-import { CATEGORIES } from '../settings/commands';
+import CATEGORIES from '../settings/commands';
 
 class HelpViewHelper extends CoreView {
 	getAuthor() {
@@ -74,4 +74,4 @@ class HelpView extends HelpViewHelper {
 	}
 }
 
-module.exports = HelpView;
+export default HelpView;

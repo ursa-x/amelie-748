@@ -90,4 +90,4 @@ class InfoView extends InfoViewHelper {
 	}
 }
 
-module.exports = InfoView;
+export default InfoView;

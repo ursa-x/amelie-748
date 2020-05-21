@@ -67,4 +67,4 @@ class CommandHelpView extends CommandHelpViewHelper {
 	}
 }
 
-module.exports = CommandHelpView;
+export default CommandHelpView;

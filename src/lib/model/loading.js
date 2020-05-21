@@ -5,4 +5,4 @@ const Loading = class extends CoreModel {
 
 };
 
-module.exports = Loading;
+export default Loading;

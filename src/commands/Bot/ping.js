@@ -5,7 +5,7 @@
 import { Command } from 'klasa';
 import { getKlasaLiteral } from '../../lib/util/message';
 
-module.exports = class extends Command {
+export default class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'ping',
@@ -31,4 +31,4 @@ module.exports = class extends Command {
 			)
 		);
 	}
-};
+}

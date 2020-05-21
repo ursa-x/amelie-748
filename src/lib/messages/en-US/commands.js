@@ -1,5 +1,5 @@
 /* eslint one-var: "off" */
-import { author } from '../../config';
+import { author } from '../../config.json';
 import { BOT } from '../../settings/general';
 
 const LABEL = {
@@ -72,4 +72,4 @@ const COMMANDS = {
 	GT
 };
 
-module.exports = COMMANDS;
+export default COMMANDS;

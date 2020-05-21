@@ -32,11 +32,7 @@ module.exports = (grunt) => {
 
 	grunt.registerTask('dev', ['shell:dev']);
 
-	grunt.registerTask('lint', [
-		// 'shell:terminal_reset',
-		// 'eslint:all'
-		'watch:js'
-	]);
+	grunt.registerTask('lint', ['watch:js']);
 
 	grunt.initConfig(configs);
 };

@@ -31,4 +31,4 @@ class Help extends CoreModel {
 	}
 }
 
-module.exports = Help;
+export default Help;

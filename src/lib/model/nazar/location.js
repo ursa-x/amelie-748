@@ -5,7 +5,7 @@ import {
 } from 'voca';
 import CoreModel from '../core/model';
 import { fixTitleCase } from '../../util/message';
-import { DATE } from '../../settings/formats';
+import DATE from '../../settings/formats';
 
 class Location extends CoreModel {
 	constructor(locationJson, message) {
@@ -47,4 +47,4 @@ class Location extends CoreModel {
 	}
 }
 
-module.exports = Location;
+export default Location;

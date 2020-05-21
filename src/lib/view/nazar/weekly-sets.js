@@ -2,13 +2,13 @@
 
 import { MessageAttachment } from 'discord.js';
 import CoreView from '../core/view';
-import { nazar } from '../../settings/persona';
-import ArgumentUtil from '../../util/argument';
-import MessageUtil from '../../util/message';
+import * as ArgumentUtil from '../../util/argument';
+import * as MessageUtil from '../../util/message';
 import {
 	DELIMITER,
 	QUERY_TYPE
 } from '../../settings/general';
+import { nazar } from '../../settings/persona.json';
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
@@ -94,10 +94,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 			{ queryType } = queryParams;
 
 		switch (queryType) {
-			case QUERY_TYPE.ALL:
-				return self.makeWeeklySetsEmbed();
-			default:
-				return self.makeWeeklySetEmbed(queryParams);
+		case QUERY_TYPE.ALL:
+			return self.makeWeeklySetsEmbed();
+		default:
+			return self.makeWeeklySetEmbed(queryParams);
 		}
 	}
 

@@ -2,8 +2,8 @@ import {
 	MessageEmbed,
 	MessageAttachment
 } from 'discord.js';
-import { bot } from '../../settings/persona';
-import MessageUtil from '../../util/message';
+import { bot } from '../../settings/persona.json';
+import * as MessageUtil from '../../util/message';
 
 class CoreView {
 	constructor(model) {
@@ -68,4 +68,4 @@ class CoreView {
 	}
 }
 
-module.exports = CoreView;
+export default CoreView;

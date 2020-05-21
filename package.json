@@ -1,7 +1,7 @@
 {
 	"name": "amelie-748",
 	"version": "0.0.1",
-	"description": "A classy Discord bot",
+	"description": "A classy discord bot for Red Dead Online Gamers",
 	"main": "src/amelie.js",
 	"scripts": {
 		"build": "rm -rf dist && broccoli build",
@@ -36,6 +36,7 @@
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",
 		"grunt": "^1.1.0",
+		"grunt-contrib-watch": "^1.1.0",
 		"grunt-eslint": "^22.0.0",
 		"grunt-shell": "^3.0.1",
 		"load-grunt-configs": "^1.0.0",

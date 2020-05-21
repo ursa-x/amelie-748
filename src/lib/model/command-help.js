@@ -45,4 +45,4 @@ class CommandHelp extends CoreModel {
 	}
 }
 
-module.exports = CommandHelp;
+export default CommandHelp;

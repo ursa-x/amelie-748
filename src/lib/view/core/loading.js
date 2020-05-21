@@ -5,4 +5,4 @@ const LoadingView = class extends CoreView {
 
 };
 
-module.exports = LoadingView;
+export default LoadingView;

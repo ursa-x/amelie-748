@@ -13,7 +13,7 @@ import { REGEX } from './../lib/settings/general';
 
 const { regExpEsc } = util;
 
-module.exports = class extends Argument {
+export default class extends Argument {
 	constructor(...args) {
 		super(...args, {aliases: ['usersearch']});
 	}

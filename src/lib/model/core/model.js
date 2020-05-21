@@ -13,4 +13,4 @@ class CoreModel {
 	}
 }
 
-module.exports = CoreModel;
+export default CoreModel;

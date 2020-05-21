@@ -3,7 +3,7 @@ import {
 	upperCase
 } from 'voca';
 import CoreModel from '../core/model';
-import WEEKLY_SETS from '../../settings/nazar/weekly-sets';
+import WEEKLY_SETS from '../../settings/nazar/weekly-sets.json';
 import COLLECTIBLE_EMOJI from '../../settings/nazar/collectible';
 import {
 	DELIMITER,
@@ -61,4 +61,4 @@ class WeeklySets extends CoreModel {
 	}
 }
 
-module.exports = WeeklySets;
+export default WeeklySets;
