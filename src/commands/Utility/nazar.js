@@ -1,5 +1,4 @@
 import { Command } from 'klasa';
-import fetch from 'node-fetch';
 
 import NazarLocationModel from '../../lib/model/nazar/location';
 import WeeklySetsModel from '../../lib/model/nazar/weekly-sets';
@@ -7,13 +6,13 @@ import LoadingModel from '../../lib/model/loading';
 import NazarLocationView from '../../lib/view/nazar/location';
 import WeeklySetsView from '../../lib/view/nazar/weekly-sets';
 import LoadingView from '../../lib/view/core/loading';
-import { getCommandLiteral } from '../../lib/util/message';
 import { cleanParams } from '../../lib/util/argument';
-import { QUERY_TYPE } from '../../lib/settings/general';
+import { getCommandLiteral } from '../../lib/util/message';
 import {
-	MADAM_NAZAR_API,
-	COLLECTOR_MAP_API
-} from '../../lib/settings/url';
+	fetchNazarLocation,
+	fetchCurrentWeeklySet
+} from '../../lib/util/nazar';
+import { QUERY_TYPE } from '../../lib/settings/general';
 
 export default class extends Command {
 	constructor(...args) {
@@ -71,13 +70,18 @@ export default class extends Command {
 				files: loadingView.messageAttachments,
 				embed: loadingEmbed
 			})
-			.then((msg) => self.fetchNazarLocation(msg));
+			.then(async (msg) => {
+				self.wyaReply(
+					msg,
+					await self.getNazarsLocation()
+				);
+			});
 	}
 
 	/* Gives you details on Madam Nazar's Weekly Sets */
 	async weekly(message, params) {
 		const self = this,
-			currentSetName = await self.fetchCurrentWeeklySet();
+			currentSetName = await self.getCurrentWeeklySet();
 		let response;
 
 		if (params.length === 0) {
@@ -101,11 +105,10 @@ export default class extends Command {
 		return response;
 	}
 
-	fetchNazarLocation(message) {
-		fetch(MADAM_NAZAR_API.currentLocationAPI())
-			.then((response) => response.json())
-			.then((responseJson) => this.wyaReply(message, responseJson))
-			.catch((err) => console.error(err));
+	async getNazarsLocation() {
+		if (!this.client._NAZAR.LOCATION) this.client._NAZAR.LOCATION = await fetchNazarLocation();
+
+		return this.client._NAZAR.LOCATION;
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
@@ -133,13 +136,10 @@ export default class extends Command {
 		});
 	}
 
-	fetchCurrentWeeklySet() {
-		return fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
-			.then((response) => response.json())
-			.then((responseJson) => responseJson.current)
-			.catch((err) => {
-				console.error(err);
-				return null;
-			});
+	async getCurrentWeeklySet() {
+		// eslint-disable-next-line max-len
+		if (!this.client._NAZAR.WEEKLY_SET) this.client._NAZAR.WEEKLY_SET = await fetchCurrentWeeklySet();
+
+		return this.client._NAZAR.WEEKLY_SET;
 	}
 }
