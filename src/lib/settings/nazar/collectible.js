@@ -20,4 +20,4 @@ const COLLECTIBLE_EMOJI = {
 	ITEM: ':pick:'
 };
 
-module.exports = COLLECTIBLE_EMOJI;
+export default COLLECTIBLE_EMOJI;

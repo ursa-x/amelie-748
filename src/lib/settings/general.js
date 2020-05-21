@@ -1,14 +1,19 @@
-const pkg = require('../../../package.json');
-const { bot } = require('./persona');
+/* eslint one-var: "off" */
 
-exports.BOT = {
+import path from 'path';
+import { bot } from './persona.json';
+
+// eslint-disable-next-line import/no-dynamic-require
+const pkg = require(path.resolve('package.json'));
+
+export const BOT = {
 	NAME: bot.name,
 	VERSION: pkg.version,
 	NICKNAME: bot.nickName,
 	TABLOID_NAME: bot.tabloidName
 };
 
-exports.DELIMITER = {
+export const DELIMITER = {
 	SPACE: ' ',
 	EMPTY_STRING: '',
 	PERIOD: '.',
@@ -19,12 +24,12 @@ exports.DELIMITER = {
 	NEW_LINE: '\n'
 };
 
-exports.REGEX = {
+export const REGEX = {
 	ID: /^((<@!)|())(\d{17,21})((>)|())$/,
 	SET: /set|\s|_/gi
 };
 
-exports.EXCLUDES = {
+export const EXCLUDES = {
 	commandNames: [
 		'Admin/load',
 		'Admin/unload',
@@ -34,7 +39,7 @@ exports.EXCLUDES = {
 	]
 };
 
-exports.QUERY_TYPE = {
+export const QUERY_TYPE = {
 	ALL: 'all',
 	SEARCH: 'search',
 	DEFAULT: 'default'

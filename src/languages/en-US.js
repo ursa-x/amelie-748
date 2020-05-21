@@ -1,7 +1,7 @@
-const { Language } = require('klasa');
-const COMMANDS = require('../lib/messages/en-US/commands');
+import { Language } from 'klasa';
+import COMMANDS from '../lib/messages/en-US/commands';
 
-module.exports = class extends Language {
+export default class extends Language {
 	constructor(...args) {
 		super(...args, {
 			name: 'en-US',
@@ -18,4 +18,4 @@ module.exports = class extends Language {
 	async init() {
 		await super.init();
 	}
-};
+}

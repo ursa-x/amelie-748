@@ -1,9 +1,9 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const { MessageAttachment } = require('discord.js');
-const CoreView = require('../core/view');
-const { nazar } = require('../../settings/persona');
-const MessageUtil = require('../../util/message');
+import { MessageAttachment } from 'discord.js';
+import CoreView from '../core/view';
+import { makeAttachmentString } from '../../util/message';
+import { nazar } from '../../settings/persona.json';
 
 class LocationViewHelper extends CoreView {
 	getDayField(inline = true) {
@@ -71,7 +71,7 @@ class LocationViewHelper extends CoreView {
 
 	getThumbnail() {
 		return {
-			url: MessageUtil.makeAttachmentString(nazar.iconFile)
+			url: makeAttachmentString(nazar.iconFile)
 		};
 	}
 }
@@ -100,4 +100,4 @@ class LocationView extends LocationViewHelper {
 	}
 }
 
-module.exports = LocationView;
+export default LocationView;

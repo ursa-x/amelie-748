@@ -1,9 +1,9 @@
-const {
+import {
 	MessageEmbed,
 	MessageAttachment
-} = require('discord.js');
-const { bot } = require('../../settings/persona');
-const MessageUtil = require('../../util/message');
+} from 'discord.js';
+import { bot } from '../../settings/persona.json';
+import * as MessageUtil from '../../util/message';
 
 class CoreView {
 	constructor(model) {
@@ -68,4 +68,4 @@ class CoreView {
 	}
 }
 
-module.exports = CoreView;
+export default CoreView;

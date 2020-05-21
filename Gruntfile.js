@@ -9,12 +9,30 @@ module.exports = (grunt) => {
 				src: 'grunt/tasks/*.js'
 			},
 			paths: {
-				config: 'grunt',
-				src: 'src/**/*.js',
-				appJs: 'src/amelie.js'
+				grunt: {
+					tasks: 'grunt',
+					eslint: 'grunt/eslint.json'
+				},
+				src: {
+					dir: 'src',
+					js: 'src/**/*.js',
+					appJs: 'src/amelie.js'
+				},
+				dist: {
+					appJs: 'dist/src/amelie.js'
+				}
 			}
 		},
 		configs = require('load-grunt-configs')(grunt, options);
+
+	grunt.registerTask('serve', [
+		'shell:build',
+		'shell:start'
+	]);
+
+	grunt.registerTask('dev', ['shell:dev']);
+
+	grunt.registerTask('lint', ['watch:js']);
 
 	grunt.initConfig(configs);
 };

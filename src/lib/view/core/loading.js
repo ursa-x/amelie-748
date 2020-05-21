@@ -1,8 +1,8 @@
-const CoreView = require('./view');
+import CoreView from './view';
 
 // eslint-disable-next-line one-var
 const LoadingView = class extends CoreView {
 
 };
 
-module.exports = LoadingView;
+export default LoadingView;

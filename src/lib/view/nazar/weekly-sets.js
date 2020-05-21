@@ -1,14 +1,14 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const { MessageAttachment } = require('discord.js');
-const CoreView = require('../core/view');
-const { nazar } = require('../../settings/persona');
-const ArgumentUtil = require('../../util/argument');
-const MessageUtil = require('../../util/message');
-const {
+import { MessageAttachment } from 'discord.js';
+import CoreView from '../core/view';
+import * as ArgumentUtil from '../../util/argument';
+import * as MessageUtil from '../../util/message';
+import {
 	DELIMITER,
 	QUERY_TYPE
-} = require('../../settings/general');
+} from '../../settings/general';
+import { nazar } from '../../settings/persona.json';
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
@@ -94,10 +94,10 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 			{ queryType } = queryParams;
 
 		switch (queryType) {
-			case QUERY_TYPE.ALL:
-				return self.makeWeeklySetsEmbed();
-			default:
-				return self.makeWeeklySetEmbed(queryParams);
+		case QUERY_TYPE.ALL:
+			return self.makeWeeklySetsEmbed();
+		default:
+			return self.makeWeeklySetEmbed(queryParams);
 		}
 	}
 
