@@ -4,8 +4,9 @@
 	"description": "A classy Discord bot",
 	"main": "src/amelie.js",
 	"scripts": {
-		"start": "node src/amelie.js",
-		"bot:dev": "nodemon src/amelie.js"
+		"build": "rm -rf dist && broccoli build",
+		"dev:run": "grunt dev",
+		"start": "grunt serve"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +27,11 @@
 		"voca": "^1.4.0"
 	},
 	"devDependencies": {
+		"@babel/preset-env": "^7.9.6",
+		"broccoli": "^3.4.2",
+		"broccoli-babel-transpiler": "^7.4.0",
+		"broccoli-funnel": "^3.0.3",
+		"broccoli-merge-trees": "^4.2.0",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",

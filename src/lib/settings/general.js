@@ -1,4 +1,5 @@
-const pkg = require('../../../package.json');
+const path = require('path');
+const pkg = require(path.resolve('package.json'));
 const { bot } = require('./persona');
 
 exports.BOT = {
