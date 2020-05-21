@@ -1,6 +1,7 @@
-const path = require('path');
+import path from 'path';
+import { bot } from './persona';
+
 const pkg = require(path.resolve('package.json'));
-const { bot } = require('./persona');
 
 exports.BOT = {
 	NAME: bot.name,

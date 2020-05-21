@@ -3,9 +3,9 @@
  	General > Chat Bot Info > info.js
 */
 
-const { Command } = require('klasa');
-const CoreModel = require('../../lib/model/core/model');
-const InfoView = require('../../lib/view/info');
+import { Command } from 'klasa';
+import CoreModel from '../../lib/model/core/model';
+import InfoView from '../../lib/view/info';
 
 module.exports = class extends Command {
 	constructor(...args) {

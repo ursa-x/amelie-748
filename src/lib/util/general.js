@@ -3,12 +3,12 @@
 /* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
 
 /* Exports all needed utilities for the client */
-const { existsSync, unlinkSync} = require('fs');
-const { version: DISCORDJS_VERSION } = require('discord.js');
-const { version: KLASAJS_VERSION } = require('klasa');
-const { EXCLUDES } = require('./../settings/general');
-const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('../messages/error/general');
-const APP_CONFIG = require('./../config.json');
+import { existsSync, unlinkSync} from 'fs';
+import { version as DISCORDJS_VERSION } from 'discord.js';
+import { version as  KLASAJS_VERSION } from 'klasa';
+import { EXCLUDES } from './../settings/general';
+import { SYSTEM as SYSTEM_ERROR_MESSAGES } from '../messages/error/general';
+import APP_CONFIG from './../config.json';
 
 /* Variables */
 const { commandNames: EXCLUDED_COMMAND_NAMES } = EXCLUDES;

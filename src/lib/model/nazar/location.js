@@ -1,11 +1,11 @@
-const moment = require('moment');
-const {
+import moment from 'moment';
+import {
 	titleCase,
 	lowerCase
-} = require('voca');
-const CoreModel = require('../core/model');
-const { fixTitleCase } = require('../../util/message');
-const { DATE } = require('../../settings/formats');
+} from 'voca';
+import CoreModel from '../core/model';
+import { fixTitleCase } from '../../util/message';
+import { DATE } from '../../settings/formats';
 
 class Location extends CoreModel {
 	constructor(locationJson, message) {

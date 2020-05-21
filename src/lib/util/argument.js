@@ -1,10 +1,10 @@
 /* eslint one-var: "off" */
 
-const { lowerCase } = require('voca');
-const {
+import { lowerCase } from 'voca';
+import {
 	DELIMITER,
 	REGEX
-} = require('../settings/general');
+} from '../settings/general';
 
 const ArgumentUtil = {
 	cleanParams(params) {

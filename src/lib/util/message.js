@@ -1,10 +1,10 @@
 /* eslint one-var: "off" */
 
-const {
+import {
 	titleCase,
 	lowerCase
-} = require('voca');
-const { DELIMITER } = require('../settings/general');
+} from 'voca';
+import { DELIMITER } from '../settings/general';
 
 const MessageUtil = {
 	getCommandLiteral(path, message) {

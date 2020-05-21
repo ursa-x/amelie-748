@@ -1,6 +1,6 @@
 /* eslint one-var: "off" */
-const { author } = require('../../config');
-const { BOT } = require('../../settings/general');
+import { author } from '../../config';
+import { BOT } from '../../settings/general';
 
 const LABEL = {
 	/* Common */

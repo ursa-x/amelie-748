@@ -3,13 +3,13 @@
  	General > Chat Bot Info > help.js
 */
 
-const { Command } = require('klasa');
-const { DELIMITER } = require('../../lib/settings/general');
-const HelpModel = require('../../lib/model/help');
-const CommandHelpModel = require('../../lib/model/command-help');
-const HelpView = require('../../lib/view/help');
-const CommandHelpView = require('../../lib/view/command-help');
-const { has } = require('../../lib/util/general');
+import { Command } from 'klasa';
+import { DELIMITER } from '../../lib/settings/general';
+import HelpModel from '../../lib/model/help';
+import CommandHelpModel from '../../lib/model/command-help';
+import HelpView from '../../lib/view/help';
+import CommandHelpView from '../../lib/view/command-help';
+import { has } from '../../lib/util/general';
 
 module.exports = class extends Command {
 	constructor(...args) {

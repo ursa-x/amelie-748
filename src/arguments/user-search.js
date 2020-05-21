@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 /* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
-const { Argument, util: { regExpEsc } } = require('klasa');
-const { REGEX } = require('./../lib/settings/general');
+import { Argument, util } from 'klasa';
+import { REGEX } from './../lib/settings/general';
 
 /* Possible user detection:
  * <@!679196603134902283> (Mention)
@@ -10,6 +10,8 @@ const { REGEX } = require('./../lib/settings/general');
  * Cliftos (Username)
  * Gotzey (Guild nickname)
  */
+
+const { regExpEsc } = util;
 
 module.exports = class extends Argument {
 	constructor(...args) {

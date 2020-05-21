@@ -1,19 +1,19 @@
-const { Command } = require('klasa');
-const fetch = require('node-fetch');
+import { Command } from 'klasa';
+import fetch from 'node-fetch';
 
-const NazarLocationModel = require('../../lib/model/nazar/location');
-const WeeklySetsModel = require('../../lib/model/nazar/weekly-sets');
-const LoadingModel = require('../../lib/model/loading');
-const NazarLocationView = require('../../lib/view/nazar/location');
-const WeeklySetsView = require('../../lib/view/nazar/weekly-sets');
-const LoadingView = require('../../lib/view/core/loading');
-const { getCommandLiteral } = require('../../lib/util/message');
-const { cleanParams } = require('../../lib/util/argument');
-const { QUERY_TYPE } = require('../../lib/settings/general');
-const {
+import NazarLocationModel from '../../lib/model/nazar/location';
+import WeeklySetsModel from '../../lib/model/nazar/weekly-sets';
+import LoadingModel from '../../lib/model/loading';
+import NazarLocationView from '../../lib/view/nazar/location';
+import WeeklySetsView from '../../lib/view/nazar/weekly-sets';
+import LoadingView from '../../lib/view/core/loading';
+import { getCommandLiteral } from '../../lib/util/message';
+import { cleanParams } from '../../lib/util/argument';
+import { QUERY_TYPE } from '../../lib/settings/general';
+import {
 	MADAM_NAZAR_API,
 	COLLECTOR_MAP_API
-} = require('../../lib/settings/url');
+} from '../../lib/settings/url';
 
 module.exports = class extends Command {
 	constructor(...args) {

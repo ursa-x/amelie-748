@@ -1,14 +1,14 @@
-const {
+import {
 	titleCase,
 	upperCase
-} = require('voca');
-const CoreModel = require('../core/model');
-const WEEKLY_SETS = require('../../settings/nazar/weekly-sets');
-const COLLECTIBLE_EMOJI = require('../../settings/nazar/collectible');
-const {
+} from 'voca';
+import CoreModel from '../core/model';
+import WEEKLY_SETS from '../../settings/nazar/weekly-sets';
+import COLLECTIBLE_EMOJI from '../../settings/nazar/collectible';
+import {
 	DELIMITER,
 	QUERY_TYPE
-} = require('../../settings/general');
+} from '../../settings/general';
 
 class WeeklySets extends CoreModel {
 	constructor(message, meta) {

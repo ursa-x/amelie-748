@@ -1,9 +1,9 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const { MessageAttachment } = require('discord.js');
-const CoreView = require('../core/view');
-const { nazar } = require('../../settings/persona');
-const MessageUtil = require('../../util/message');
+import { MessageAttachment } from 'discord.js';
+import CoreView from '../core/view';
+import { nazar } from '../../settings/persona';
+import MessageUtil from '../../util/message';
 
 class LocationViewHelper extends CoreView {
 	getDayField(inline = true) {

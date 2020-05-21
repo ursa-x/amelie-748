@@ -1,7 +1,7 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const CoreView = require('./core/view');
-const { DELIMITER } = require('../settings/general');
+import CoreView from './core/view';
+import { DELIMITER } from '../settings/general';
 
 class CommandHelpViewHelper extends CoreView {
 	getAuthor() {

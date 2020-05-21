@@ -1,5 +1,7 @@
-const { util: { isFunction } } = require('klasa');
-const CoreModel = require('./core/model');
+import { util } from 'klasa';
+import CoreModel from './core/model';
+
+const { isFunction } = util;
 
 class CommandHelp extends CoreModel {
 	constructor(command, message) {

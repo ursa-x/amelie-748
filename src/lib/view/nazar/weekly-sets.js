@@ -1,14 +1,14 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const { MessageAttachment } = require('discord.js');
-const CoreView = require('../core/view');
-const { nazar } = require('../../settings/persona');
-const ArgumentUtil = require('../../util/argument');
-const MessageUtil = require('../../util/message');
-const {
+import { MessageAttachment } from 'discord.js';
+import CoreView from '../core/view';
+import { nazar } from '../../settings/persona';
+import ArgumentUtil from '../../util/argument';
+import MessageUtil from '../../util/message';
+import {
 	DELIMITER,
 	QUERY_TYPE
-} = require('../../settings/general');
+} from '../../settings/general';
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {
