@@ -1,7 +1,7 @@
-const { Client } = require('klasa');
-const { checkEnvironment } = require('./lib/util/general');
-const secret = require('./lib/secrets.json');
-const config = require('./lib/config.json');
+import { Client } from 'klasa';
+import { checkEnvironment } from './lib/util/general';
+import secret from './lib/secrets.json';
+import config from './lib/config.json';
 
 // Check if system is ready to run the bot
 checkEnvironment();

@@ -2,10 +2,10 @@
 	Klasa core command piece (v0.5.0-dev)
  	General > Chat Bot Info > ping.js
 */
-const { Command } = require('klasa');
-const { getKlasaLiteral } = require('../../lib/util/message');
+import { Command } from 'klasa';
+import { getKlasaLiteral } from '../../lib/util/message';
 
-module.exports = class extends Command {
+export default class extends Command {
 	constructor(...args) {
 		super(...args, {
 			name: 'ping',
@@ -31,4 +31,4 @@ module.exports = class extends Command {
 			)
 		);
 	}
-};
+}

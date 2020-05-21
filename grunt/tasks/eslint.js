@@ -1,12 +1,12 @@
-module.exports = (grunt, options) => {
+module.exports = () => {
 	return {
 		all: {
 			options: {
-				configFile: 'grunt/eslint.json'
+				configFile: '<%= paths.grunt.eslint %>'
 			},
 			src: [
-				'src/**/*.js',
-				'src/amelie.js'
+				'<%= paths.src.js %>',
+				'<%= paths.src.appJs %>'
 			]
 		}
 	}

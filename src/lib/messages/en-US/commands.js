@@ -1,6 +1,6 @@
 /* eslint one-var: "off" */
-const { author } = require('../../config');
-const { BOT } = require('../../settings/general');
+import { author } from '../../config.json';
+import { BOT } from '../../settings/general';
 
 const LABEL = {
 	/* Common */
@@ -72,4 +72,4 @@ const COMMANDS = {
 	GT
 };
 
-module.exports = COMMANDS;
+export default COMMANDS;

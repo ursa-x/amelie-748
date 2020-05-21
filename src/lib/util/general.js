@@ -3,12 +3,12 @@
 /* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
 
 /* Exports all needed utilities for the client */
-const { existsSync, unlinkSync} = require('fs');
-const { version: DISCORDJS_VERSION } = require('discord.js');
-const { version: KLASAJS_VERSION } = require('klasa');
-const { EXCLUDES } = require('./../settings/general');
-const { SYSTEM: SYSTEM_ERROR_MESSAGES } = require('../messages/error/general');
-const APP_CONFIG = require('./../config.json');
+import { existsSync, unlinkSync} from 'fs';
+import { version as DISCORDJS_VERSION } from 'discord.js';
+import { version as  KLASAJS_VERSION } from 'klasa';
+import { EXCLUDES } from './../settings/general';
+import SYSTEM_ERROR_MESSAGES from '../messages/error/general';
+import APP_CONFIG from './../config.json';
 
 /* Variables */
 const { commandNames: EXCLUDED_COMMAND_NAMES } = EXCLUDES;
@@ -29,47 +29,46 @@ const getNodeVersion = () => {
 	return Number(`${nodeVersionParts[0]}.${nodeVersionParts[1]}`);
 };
 
-module.exports = {
+// Exports
 
-	/* Removes unnecessary commands in the default Klasa framework */
-	commandRemover: () => {
-		for (const commandName in EXCLUDED_COMMAND_NAMES) {
-			const commandPath = getCommandPath(commandName);
+/* Removes unnecessary commands in the default Klasa framework */
+export const commandRemover = () => {
+	for (const commandName in EXCLUDED_COMMAND_NAMES) {
+		const commandPath = getCommandPath(commandName);
 
-			if (existsSync(commandPath)) {
-				unlinkSync(commandPath);
-			}
+		if (existsSync(commandPath)) {
+			unlinkSync(commandPath);
 		}
-	},
-
-	/* Verifies the environment */
-	checkEnvironment: () => {
-		let nodeVersion = getNodeVersion(),
-			missingDependencies = [];
-
-		if (nodeVersion < 10.0) {
-			missingDependencies.push(
-				SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(nodeJs.packageName, nodeJs.minVersion)
-			);
-		}
-
-		if (DISCORDJS_VERSION !== discordJs.minVersion) {
-			missingDependencies.push(
-				SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(discordJs.packageName, discordJs.minVersion)
-			);
-		}
-
-		if (KLASAJS_VERSION !== klasaJs.minVersion) {
-			missingDependencies.push(
-				SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(klasaJs.packageName, klasaJs.minVersion)
-			);
-		}
-
-		if (missingDependencies.length > 0) {
-			console.log(missingDependencies.join('\n'));
-			process.exit();
-		}
-	},
-
-	has: (obj, key) => Object.prototype.hasOwnProperty.call(obj, key)
+	}
 };
+
+/* Verifies the environment */
+export const checkEnvironment = () => {
+	let nodeVersion = getNodeVersion(),
+		missingDependencies = [];
+
+	if (nodeVersion < 10.0) {
+		missingDependencies.push(
+			SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(nodeJs.packageName, nodeJs.minVersion)
+		);
+	}
+
+	if (DISCORDJS_VERSION !== discordJs.minVersion) {
+		missingDependencies.push(
+			SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(discordJs.packageName, discordJs.minVersion)
+		);
+	}
+
+	if (KLASAJS_VERSION !== klasaJs.minVersion) {
+		missingDependencies.push(
+			SYSTEM_ERROR_MESSAGES.getPackageVersionErrorMessage(klasaJs.packageName, klasaJs.minVersion)
+		);
+	}
+
+	if (missingDependencies.length > 0) {
+		console.log(missingDependencies.join('\n'));
+		process.exit();
+	}
+};
+
+export const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);

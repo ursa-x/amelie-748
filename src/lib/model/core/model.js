@@ -1,4 +1,4 @@
-const moment = require('moment');
+import moment from 'moment';
 
 class CoreModel {
 	constructor(message) {
@@ -13,4 +13,4 @@ class CoreModel {
 	}
 }
 
-module.exports = CoreModel;
+export default CoreModel;

@@ -1,5 +1,5 @@
-const CoreModel = require('./core/model');
-const { has } = require('../util/general');
+import CoreModel from './core/model';
+import { has } from '../util/general';
 
 class Help extends CoreModel {
 	constructor(catalogue, message) {
@@ -31,4 +31,4 @@ class Help extends CoreModel {
 	}
 }
 
-module.exports = Help;
+export default Help;

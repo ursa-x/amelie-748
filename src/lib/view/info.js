@@ -1,10 +1,10 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-const CoreView = require('./core/view');
-const {
+import CoreView from './core/view';
+import {
 	BOT,
 	DELIMITER
-} = require('../settings/general');
+} from '../settings/general';
 
 class InfoViewHelper extends CoreView {
 	getServerPrefixField(inline = true) {
@@ -90,4 +90,4 @@ class InfoView extends InfoViewHelper {
 	}
 }
 
-module.exports = InfoView;
+export default InfoView;
