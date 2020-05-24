@@ -29,16 +29,6 @@ export const REGEX = {
 	SET: /set|\s|_/gi
 };
 
-export const EXCLUDES = {
-	commandNames: [
-		'Admin/load',
-		'Admin/unload',
-		'Admins/transfer',
-		'General/Chat Bot Info/info',
-		'General/Chat Bot Info/stats'
-	]
-};
-
 export const QUERY_TYPE = {
 	ALL: 'all',
 	SEARCH: 'search',
