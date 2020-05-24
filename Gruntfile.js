@@ -25,14 +25,24 @@ module.exports = (grunt) => {
 		},
 		configs = require('load-grunt-configs')(grunt, options);
 
-	grunt.registerTask('serve', [
-		'shell:build',
+	// Lint all .js files
+	grunt.registerTask('lint', ['watch:js']);
+
+	// Serve dev app
+	grunt.registerTask('dev', [
+		'shell:dev_build',
 		'shell:start'
 	]);
 
-	grunt.registerTask('dev', ['shell:dev']);
+	// Serve dev app with live reload
+	grunt.registerTask('serve', ['shell:serve']);
 
-	grunt.registerTask('lint', ['watch:js']);
+
+	// Serve production-ready app
+	grunt.registerTask('prod', [
+		'shell:prod_build',
+		'shell:start'
+	]);
 
 	grunt.initConfig(configs);
 };

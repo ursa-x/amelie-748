@@ -4,9 +4,9 @@
 	"description": "A classy discord bot for Red Dead Online Gamers",
 	"main": "src/amelie.js",
 	"scripts": {
-		"build": "rm -rf dist && broccoli build",
-		"dev:run": "grunt dev",
-		"start": "grunt serve"
+		"build": "rm -rf dist && broccoli build --prod",
+		"serve": "grunt serve",
+		"start": "grunt prod"
 	},
 	"repository": {
 		"type": "git",
@@ -32,6 +32,7 @@
 		"broccoli-babel-transpiler": "^7.4.0",
 		"broccoli-funnel": "^3.0.3",
 		"broccoli-merge-trees": "^4.2.0",
+		"broccoli-string-replace": "^0.1.2",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",

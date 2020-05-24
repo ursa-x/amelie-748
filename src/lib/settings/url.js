@@ -1,7 +1,7 @@
 /* eslint one-var: "off" */
 
 export const MADAM_NAZAR_API = {
-	DOMAIN: 'https://madam-nazar-location-api-2.herokuapp.com',
+	DOMAIN: '@@madamNazarIOAPIDomain',
 
 	currentLocationAPI() {
 		return `${this.DOMAIN}/location/current`;
