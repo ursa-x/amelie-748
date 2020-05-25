@@ -1,13 +1,16 @@
 module.exports = () => {
 	return {
-		build: {
-			command: 'rm -rf dist && broccoli build'
+		dev_build: {
+			command: 'rm -rf dist && broccoli build --dev'
+		},
+		prod_build: {
+			command: 'rm -rf dist && broccoli build --prod'
 		},
 		start: {
 			command: 'node <%= paths.dist.appJs %>'
 		},
-		dev: {
-			command: 'nodemon --exec grunt serve'
+		serve: {
+			command: 'nodemon --exec grunt dev'
 		},
 		terminal_reset: {
 			command: 'reset'

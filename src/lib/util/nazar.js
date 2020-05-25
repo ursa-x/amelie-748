@@ -1,7 +1,6 @@
 /* eslint one-var: "off" */
 // TODO: Log the fetch success/failure?
 
-import { KlasaConsole as console } from 'klasa';
 import fetch from 'node-fetch';
 import {
 	MADAM_NAZAR_API,

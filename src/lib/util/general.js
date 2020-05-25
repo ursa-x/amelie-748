@@ -6,12 +6,10 @@
 import { existsSync, unlinkSync} from 'fs';
 import { version as DISCORDJS_VERSION } from 'discord.js';
 import { version as  KLASAJS_VERSION } from 'klasa';
-import { EXCLUDES } from './../settings/general';
 import SYSTEM_ERROR_MESSAGES from '../messages/error/general';
 import APP_CONFIG from './../config.json';
 
 /* Variables */
-const { commandNames: EXCLUDED_COMMAND_NAMES } = EXCLUDES;
 const {
 	nodeJs,
 	discordJs,
@@ -30,17 +28,6 @@ const getNodeVersion = () => {
 };
 
 // Exports
-
-/* Removes unnecessary commands in the default Klasa framework */
-export const commandRemover = () => {
-	for (const commandName in EXCLUDED_COMMAND_NAMES) {
-		const commandPath = getCommandPath(commandName);
-
-		if (existsSync(commandPath)) {
-			unlinkSync(commandPath);
-		}
-	}
-};
 
 /* Verifies the environment */
 export const checkEnvironment = () => {
