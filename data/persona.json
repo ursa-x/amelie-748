@@ -12,6 +12,7 @@
 		"nazar": {
 			"name": "Madam Nazar",
 			"nickName": "Nazar",
+			"tabloidName": "Madam Nazar",
 			"iconFolder": "assets/",
 			"iconFile": "madam-nazar.png"
 		}
