@@ -8,10 +8,6 @@ import WeeklySetsView from '../../lib/view/nazar/weekly-sets';
 import LoadingView from '../../lib/view/core/loading';
 import { cleanParams } from '../../lib/util/argument';
 import { getCommandLiteral } from '../../lib/util/message';
-import {
-	fetchNazarLocation,
-	fetchCurrentWeeklySet
-} from '../../lib/util/nazar';
 import { QUERY_TYPE } from '../../lib/settings/general';
 
 export default class extends Command {
@@ -106,9 +102,9 @@ export default class extends Command {
 	}
 
 	async getNazarsLocation() {
-		if (!this.client._NAZAR.LOCATION) this.client._NAZAR.LOCATION = await fetchNazarLocation();
+		const NazarService = this.client.services.get('nazar');
 
-		return this.client._NAZAR.LOCATION;
+		return NazarService.todayLocation;
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
@@ -138,8 +134,8 @@ export default class extends Command {
 
 	async getCurrentWeeklySet() {
 		// eslint-disable-next-line max-len
-		if (!this.client._NAZAR.WEEKLY_SET) this.client._NAZAR.WEEKLY_SET = await fetchCurrentWeeklySet();
+		const NazarService = this.client.services.get('nazar');
 
-		return this.client._NAZAR.WEEKLY_SET;
+		return NazarService.weeklySet;
 	}
 }
