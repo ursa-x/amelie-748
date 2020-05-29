@@ -2,8 +2,10 @@ import {
 	MessageEmbed,
 	MessageAttachment
 } from 'discord.js';
-import { bot } from '../../../../data/persona.json';
+import { data } from '../../../../data/persona.json';
 import * as MessageUtil from '../../util/message';
+
+const { bot } = data;
 
 class CoreView {
 	constructor(model) {
