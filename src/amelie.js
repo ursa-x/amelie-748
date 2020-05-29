@@ -2,10 +2,11 @@ import { Client } from 'klasa';
 import { checkEnvironment } from './lib/util/general';
 import secret from './lib/secrets.json';
 import config from './lib/config.json';
-
+import {Logger} from './lib/util/logging';
 // Check if system is ready to run the bot
 checkEnvironment();
 
+Logger.info('Init');
 new Client({
 	fetchAllMembers: false,
 	prefix: config.prefix,
