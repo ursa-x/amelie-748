@@ -1,5 +1,4 @@
 import { Task } from 'klasa';
-import { fetchNazarLocation } from '../lib/util/nazar';
 
 class FetchNazarLocation extends Task {
 	async run() {
@@ -11,14 +10,17 @@ class FetchNazarLocation extends Task {
 	}
 
 	async _fetchNazarLocation() {
+		let todayLocation = null;
+
 		try {
-			this.client._NAZAR = {
-				LOCATION: await fetchNazarLocation()
-			};
+			const NazarService = this.client.services.get('nazar');
+			todayLocation = NazarService.todayLocation;
 		} catch (error) {
 			// TODO: Handle task failure?
 			this.client.emit('wtf', error);
 		}
+
+		return todayLocation;
 	}
 }
 
