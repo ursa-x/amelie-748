@@ -1,5 +1,4 @@
 import { Task } from 'klasa';
-import { fetchCurrentWeeklySet } from '../lib/util/nazar';
 
 class FetchNazarWeeklySet extends Task {
 	async run() {
@@ -11,14 +10,17 @@ class FetchNazarWeeklySet extends Task {
 	}
 
 	async _fetchNazarWeeklySet() {
+		let currentWeeklySet = null;
+
 		try {
-			this.client._NAZAR = {
-				WEEKLY_SET: await fetchCurrentWeeklySet()
-			};
+			const NazarService = this.client.services.get('nazar');
+			currentWeeklySet = NazarService.weeklySet;
 		} catch (error) {
 			// TODO: Handle task failure?
 			this.client.emit('wtf', error);
 		}
+
+		return currentWeeklySet;
 	}
 }
 
