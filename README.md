@@ -36,8 +36,10 @@ Then kickstart the bot with,
 ### Credits
 
 - [@dirigeants/klasa](https://github.com/dirigeants/klasa)
+- [@richardwestenra/rdr2-free-roam-event-schedule](https://github.com/richardwestenra/rdr2-free-roam-event-schedule)
 - [@jeanropke/RDR2CollectorsMap](https://github.com/jeanropke/RDR2CollectorsMap)
 - [@muan/emoji](https://github.com/muan/emoji/)
+- [Red Dead Wiki](https://reddead.fandom.com/wiki/Red_Dead_Wiki)
 
 ### License
 
