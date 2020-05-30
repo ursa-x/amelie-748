@@ -15,6 +15,13 @@
 			"tabloidName": "Madam Nazar",
 			"iconFolder": "assets/",
 			"iconFile": "madam-nazar.png"
+		},
+		"sally": {
+			"name": "Sally Nash",
+			"nickName": "Sally",
+			"tabloidName": "Sally Nash",
+			"iconFolder": "assets/",
+			"iconFile": "sally-nash.png"
 		}
 	}
 }
