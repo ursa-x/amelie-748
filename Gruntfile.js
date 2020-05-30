@@ -31,7 +31,7 @@ module.exports = (grunt) => {
 	// Serve dev app
 	grunt.registerTask('dev', [
 		'shell:dev_build',
-		'shell:start'
+		'shell:dev_start'
 	]);
 
 	// Serve dev app with live reload
@@ -41,7 +41,7 @@ module.exports = (grunt) => {
 	// Serve production-ready app
 	grunt.registerTask('prod', [
 		'shell:prod_build',
-		'shell:start'
+		'shell:prod_start'
 	]);
 
 	grunt.initConfig(configs);
