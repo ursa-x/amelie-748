@@ -1,9 +1,9 @@
 import { Event }from 'klasa';
-import { Logger } from '../lib/util/logging';
+
 module.exports = class extends Event {
 
-	run(data) {
-        Logger.info(data);		
+	run(data) {		
+        this.client.services.get('logging').Logger().info(data);
 	}
 
 	init() {

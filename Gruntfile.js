@@ -19,7 +19,9 @@ module.exports = (grunt) => {
 					appJs: 'src/amelie.js'
 				},
 				dist: {
-					appJs: 'dist/src/amelie.js'
+					appJs: 'dist/src/amelie.js',
+					logs: 'dist/logs',
+					archive: 'archive'
 				}
 			}
 		},
@@ -30,7 +32,9 @@ module.exports = (grunt) => {
 
 	// Serve dev app
 	grunt.registerTask('dev', [
+		'archivePreviousState',
 		'shell:dev_build',
+		'pre_start',
 		'shell:start'
 	]);
 
@@ -40,9 +44,14 @@ module.exports = (grunt) => {
 
 	// Serve production-ready app
 	grunt.registerTask('prod', [
+		'archivePreviousState',		
 		'shell:prod_build',
+		'pre_start',
 		'shell:start'
 	]);
+
+	grunt.registerTask('archivePreviousState', ['shell:archive_logs']);
+	grunt.registerTask('pre_start', ['shell:create_logs_dir']);
 
 	grunt.initConfig(configs);
 };
