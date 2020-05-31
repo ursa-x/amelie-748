@@ -2,6 +2,7 @@ const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
 const mergeTrees = require('broccoli-merge-trees');
+const writeFile = require('broccoli-file-creator');
 
 const APP_PROPERTIES = {
 	MADAM_NAZAR_API_DOMAIN: {
@@ -12,7 +13,10 @@ const APP_PROPERTIES = {
 
 module.exports = (options) => {
 	const appSrcDir = 'src',
-		assetsDir = 'assets';
+		assetsDir = 'assets',
+		logsDir = 'logs',
+		logFileName = 'application.log',
+		logFilePath = `${logsDir}/${logFileName}`;
 
 	const transpiledSrcTree = babel(appSrcDir, {
 		// In case more options are required, presets may be moved to .babelrc
@@ -41,9 +45,11 @@ module.exports = (options) => {
 
 	const assetsTree = funnel(assetsDir, {
 		destDir: assetsDir
-	});
+	});	
+	
+	const logFile = writeFile(logFilePath, '');
 
-	const appTree = mergeTrees([srcTree, assetsTree], {
+	const appTree = mergeTrees([srcTree, assetsTree, logFile], {
 		overwrite: true
 	});
 
