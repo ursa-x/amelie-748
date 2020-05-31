@@ -1,4 +1,6 @@
 # Changelog
+---
+
 All notable changes to this project are documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the format is from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
