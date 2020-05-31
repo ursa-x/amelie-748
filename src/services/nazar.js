@@ -37,9 +37,9 @@ export default class extends Service {
 	get todayLocation() {
 		return (async (self) => {
 			// eslint-disable-next-line max-len, no-param-reassign
-			if (!self.CART_LOCATION) self.CART_CART_LOCATION = await self.constructor.fetchNazarLocation();
+			if (!self.CART_LOCATION) self.CART_LOCATION = await self.constructor.fetchNazarLocation();
 
-			return self.CART_CART_LOCATION;
+			return self.CART_LOCATION;
 		})(this);
 	}
 

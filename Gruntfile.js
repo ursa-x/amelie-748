@@ -32,10 +32,10 @@ module.exports = (grunt) => {
 
 	// Serve dev app
 	grunt.registerTask('dev', [
-		'archivePreviousState',
+		'archivePreviousState',		
 		'shell:dev_build',
-		'pre_start',
-		'shell:start'
+    'pre_start',
+		'shell:dev_start'
 	]);
 
 	// Serve dev app with live reload
@@ -47,7 +47,7 @@ module.exports = (grunt) => {
 		'archivePreviousState',		
 		'shell:prod_build',
 		'pre_start',
-		'shell:start'
+		'shell:prod_start'
 	]);
 
 	grunt.registerTask('archivePreviousState', ['shell:archive_logs']);
