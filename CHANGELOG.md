@@ -7,9 +7,9 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) 
 ## [0.1.0] - Unreleased
 
 ### Added
-- [`#19`](https://github.com/wizvishak/amelie-748/pull/19) Added this change log
+- [`#19`](https://github.com/wizvishak/amelie-748/pull/19) Kept this change log
 - [`#17`](https://github.com/wizvishak/amelie-748/pull/17) Used `pm2` to run bot app as a daemon 
-- [`#16`](https://github.com/wizvishak/amelie-748/pull/16) Add app logging using `winstonjs`  
+- [`#16`](https://github.com/wizvishak/amelie-748/pull/16) Added app logging using `winstonjs`  
 - [`#15`](https://github.com/wizvishak/amelie-748/pull/15) Introduced `service` piece
 - [`#14`](https://github.com/wizvishak/amelie-748/pull/14) **[:comet: Deploy :comet:]** Deployed `amelie-748@0.0.1` for test
 - [`#13`](https://github.com/wizvishak/amelie-748/pull/13) Added support for `ECMAScript2015 (ES6)`
