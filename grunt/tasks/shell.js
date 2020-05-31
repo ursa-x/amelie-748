@@ -18,9 +18,6 @@ module.exports = () => {
 		terminal_reset: {
 			command: 'reset'
 		},		
-		create_logs_dir: {
-			command: 'mkdir -p "<%= paths.dist.logs %>"'	 
-		},
 		archive_logs: {
 			command: [
 				'export logs_archivePath="<%= paths.dist.archive %>/logs/"$(date +"%d-%m-%Y-%H-%M-%S")""',
