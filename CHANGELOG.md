@@ -6,6 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) 
 ## [Unreleased](https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...HEAD) - 0.1.0
 
 ### Added
+- [`#18`](https://github.com/wizvishak/amelie-748/pull/18) Added this change log
 - [`#17`](https://github.com/wizvishak/amelie-748/pull/17) Used `pm2` to run bot app as a daemon 
 - [`#16`](https://github.com/wizvishak/amelie-748/pull/16) Add app logging using `winstonjs`  
 - [`#15`](https://github.com/wizvishak/amelie-748/pull/15) Introduced `service` piece
