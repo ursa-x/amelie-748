@@ -3,17 +3,23 @@ import { checkEnvironment } from './lib/util/general';
 import secret from './lib/secrets.json';
 import config from './lib/config.json';
 import ServiceStore from './lib/structures/service-store';
-
+import Logger from './lib/plugins/winston';
 // Check if system is ready to run the bot
 checkEnvironment();
+
 
 class BotClient extends Client {
 	constructor(...args) {
 		super(...args);
+		this.initializeLogger();
 
 		// Register the 'Service' piece store
 		this.services = new ServiceStore(this);
 		this.registerStore(this.services);
+	}
+
+	initializeLogger() {
+		Logger.info('Logger Initialized');
 	}
 }
 
