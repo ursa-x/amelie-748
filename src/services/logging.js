@@ -1,5 +1,5 @@
 import Service from '../lib/structures/service';
-import { Logger } from '../lib/plugins/winston';
+import Logger from '../lib/plugins/winston';
 
 
 export default class extends Service {

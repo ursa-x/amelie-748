@@ -13,7 +13,10 @@ const APP_PROPERTIES = {
 
 module.exports = (options) => {
 	const appSrcDir = 'src',
-		assetsDir = 'assets';
+		assetsDir = 'assets',
+		logsDir = 'logs',
+		logFileName = 'application.log',
+		logFilePath = `${logsDir}/${logFileName}`;
 
 	const transpiledSrcTree = babel(appSrcDir, {
 		// In case more options are required, presets may be moved to .babelrc
@@ -42,11 +45,7 @@ module.exports = (options) => {
 
 	const assetsTree = funnel(assetsDir, {
 		destDir: assetsDir
-	});
-
-	const logsDir = 'logs',
-		logFileName = 'application.log',
-		logFilePath = `${logsDir}/${logFileName}`;
+	});	
 	
 	const logFile = writeFile(logFilePath, '');
 
