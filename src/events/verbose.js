@@ -3,7 +3,7 @@ import { Event }from 'klasa';
 module.exports = class extends Event {
 
 	run(data) {
-        this.client.services.get('logging').Logger().verbose(data);		
+        this.client.services.get('logging').logger.verbose(data);		
 	}
 
 	init() {

@@ -2,6 +2,7 @@ const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
 const mergeTrees = require('broccoli-merge-trees');
+const writeFile = require('broccoli-file-creator');
 
 const APP_PROPERTIES = {
 	MADAM_NAZAR_API_DOMAIN: {
@@ -43,7 +44,13 @@ module.exports = (options) => {
 		destDir: assetsDir
 	});
 
-	const appTree = mergeTrees([srcTree, assetsTree], {
+	const logsDir = 'logs',
+		logFileName = 'application.log',
+		logFilePath = `${logsDir}/${logFileName}`;
+	
+	const logFile = writeFile(logFilePath, '');
+
+	const appTree = mergeTrees([srcTree, assetsTree, logFile], {
 		overwrite: true
 	});
 

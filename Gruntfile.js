@@ -32,9 +32,8 @@ module.exports = (grunt) => {
 
 	// Serve dev app
 	grunt.registerTask('dev', [
-		'archivePreviousState',		
-		'shell:dev_build',
-    'pre_start',
+		'archive_Previous_State',		
+		'shell:dev_build',   
 		'shell:dev_start'
 	]);
 
@@ -44,14 +43,12 @@ module.exports = (grunt) => {
 
 	// Serve production-ready app
 	grunt.registerTask('prod', [
-		'archivePreviousState',		
-		'shell:prod_build',
-		'pre_start',
+		'archive_Previous_State',		
+		'shell:prod_build',		
 		'shell:prod_start'
 	]);
 
-	grunt.registerTask('archivePreviousState', ['shell:archive_logs']);
-	grunt.registerTask('pre_start', ['shell:create_logs_dir']);
+	grunt.registerTask('archive_Previous_State', ['shell:archive_logs']);	
 
 	grunt.initConfig(configs);
 };
