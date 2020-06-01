@@ -25,7 +25,7 @@ export default class extends Command {
 		message.channel.send(cantUnderstandMessage);
 	}
 
-	/* Gives you event schedule */
+	/* Gives you the free roam event schedule */
 	async events(message, params) {
 		const self = this,
 			nextEventName = null;
@@ -67,7 +67,7 @@ export default class extends Command {
 		});
 	}
 
-	/* Displays a free roam event schedule, in general or for roles */
+	/* Displays a free roam event schedule, the general or one for roles */
 	sendSchedule(message, options) {
 		const scheduleEmbed = this.createScheduleEmbed(options, message);
 

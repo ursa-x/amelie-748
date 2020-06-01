@@ -1,8 +1,8 @@
 const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
-const mergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
+const mergeTrees = require('broccoli-merge-trees');
 
 const APP_PROPERTIES = {
 	MADAM_NAZAR_API_DOMAIN: {
@@ -24,10 +24,10 @@ module.exports = (options) => {
 		presets: [
 			[
 				'@babel/env', {
-					'targets': {
-						'node': true
-					}
+				'targets': {
+					'node': true
 				}
+			}
 			]
 		]
 	});

@@ -1,7 +1,4 @@
-import {
-	titleCase,
-	upperCase
-} from 'voca';
+import { titleCase } from 'voca';
 import CoreModel from '../core/model';
 import { data as FREE_ROAM_EVENTS } from '../../../../data/free-roam-events.json';
 import {
@@ -33,6 +30,7 @@ class FreeRoamEvents extends CoreModel {
 		const self = this,
 			EVENT_TIME_POSITION = 0,
 			EVENT_NAME_POSITION = 1,
+			// eslint-disable-next-line arrow-body-style
 			cleanEventSchedule = (eventsList) => {
 				return eventsList.map((freeRoamEvent) => {
 					const freeRoamEventName = titleCase(
@@ -48,7 +46,7 @@ class FreeRoamEvents extends CoreModel {
 				});
 			};
 
-		for(const [categoryName, schedule] of Object.entries(FREE_ROAM_EVENTS)) {
+		for (const [categoryName, schedule] of Object.entries(FREE_ROAM_EVENTS)) {
 			self.eventSchedule[categoryName] = cleanEventSchedule(schedule);
 		}
 	}

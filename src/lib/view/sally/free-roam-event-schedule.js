@@ -8,7 +8,7 @@ import {
 	DELIMITER,
 	QUERY_TYPE
 } from '../../settings/general';
-import { CATEGORY_NAMES } from "../../settings/sally/free-roam-events";
+import { CATEGORY_NAMES } from '../../settings/sally/free-roam-events';
 import { data } from '../../../../data/persona.json';
 
 const { sally } = data;
@@ -37,6 +37,7 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			EVENT_TIME_POSITION = 0,
 			EVENT_NAME_POSITION = 1;
 
+		// eslint-disable-next-line one-var
 		const generalEventSchedule = self.model.eventSchedule.general
 			.reduce((scheduleText, freeRoamEvent) => {
 				const eventScheduleItem = `\`${freeRoamEvent[EVENT_TIME_POSITION]}\` ${DELIMITER.HYPHEN} ${freeRoamEvent[EVENT_NAME_POSITION]}`;
@@ -60,6 +61,7 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			EVENT_TIME_POSITION = 0,
 			EVENT_NAME_POSITION = 1;
 
+		// eslint-disable-next-line one-var
 		const roleEventSchedule = self.model.eventSchedule.role
 			.reduce((scheduleText, freeRoamEvent) => {
 				const eventScheduleItem = `\`${freeRoamEvent[EVENT_TIME_POSITION]}\` ${DELIMITER.HYPHEN} ${freeRoamEvent[EVENT_NAME_POSITION]}`;
@@ -87,12 +89,12 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			};
 
 		switch (eventType) {
-			case CATEGORY_NAMES.GENERAL:
-				return this.makeGeneralScheduleEmbed(noInline);
-			case CATEGORY_NAMES.ROLE:
-				return this.makeRoleScheduleEmbed(noInline);
-			default:
-				return makeCompleteScheduleEmbed();
+		case CATEGORY_NAMES.GENERAL:
+			return this.makeGeneralScheduleEmbed(noInline);
+		case CATEGORY_NAMES.ROLE:
+			return this.makeRoleScheduleEmbed(noInline);
+		default:
+			return makeCompleteScheduleEmbed();
 		}
 	}
 
@@ -102,12 +104,12 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			{ queryType } = queryParams;
 
 		switch (queryType) {
-			case QUERY_TYPE.ALL:
-				return self.makeScheduleEmbed();
-			case QUERY_TYPE.SEARCH:
-				return self.makeScheduleEmbed(queryParams.searchQuery);
-			default:
-				return self.makeScheduleEmbed();
+		case QUERY_TYPE.ALL:
+			return self.makeScheduleEmbed();
+		case QUERY_TYPE.SEARCH:
+			return self.makeScheduleEmbed(queryParams.searchQuery);
+		default:
+			return self.makeScheduleEmbed();
 		}
 	}
 
