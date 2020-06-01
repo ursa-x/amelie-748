@@ -3,7 +3,7 @@
 import { MessageAttachment } from 'discord.js';
 import CoreView from '../core/view';
 import { makeAttachmentString } from '../../util/message';
-import { nazar } from '../../settings/persona.json';
+import { nazar } from '../../../../data/persona.json';
 
 class LocationViewHelper extends CoreView {
 	getDayField(inline = true) {

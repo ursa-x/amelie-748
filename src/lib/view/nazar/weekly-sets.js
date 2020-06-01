@@ -8,7 +8,7 @@ import {
 	DELIMITER,
 	QUERY_TYPE
 } from '../../settings/general';
-import { nazar } from '../../settings/persona.json';
+import { nazar } from '../../../../data/persona.json';
 
 class WeeklySetsViewHelper extends CoreView {
 	getTitleText() {

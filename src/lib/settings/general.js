@@ -1,7 +1,7 @@
 /* eslint one-var: "off" */
 
 import path from 'path';
-import { bot } from './persona.json';
+import { bot } from '../../../data/persona.json';
 
 // eslint-disable-next-line import/no-dynamic-require
 const pkg = require(path.resolve('package.json'));

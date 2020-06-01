@@ -2,7 +2,7 @@ import {
 	MessageEmbed,
 	MessageAttachment
 } from 'discord.js';
-import { bot } from '../../settings/persona.json';
+import { bot } from '../../../../data/persona.json';
 import * as MessageUtil from '../../util/message';
 
 class CoreView {

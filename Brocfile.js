@@ -14,6 +14,7 @@ const APP_PROPERTIES = {
 module.exports = (options) => {
 	const appSrcDir = 'src',
 		assetsDir = 'assets',
+		dataDir = 'data',
 		logsDir = 'logs',
 		logFileName = 'application.log',
 		logFilePath = `${logsDir}/${logFileName}`;
@@ -23,10 +24,10 @@ module.exports = (options) => {
 		presets: [
 			[
 				'@babel/env', {
-				'targets': {
-					'node': true
+					'targets': {
+						'node': true
+					}
 				}
-			}
 			]
 		]
 	});
@@ -45,11 +46,15 @@ module.exports = (options) => {
 
 	const assetsTree = funnel(assetsDir, {
 		destDir: assetsDir
-	});	
-	
+	});
+
+	const dataTree = funnel(dataDir, {
+		destDir: dataDir
+	});
+
 	const logFile = writeFile(logFilePath, '');
 
-	const appTree = mergeTrees([srcTree, assetsTree, logFile], {
+	const appTree = mergeTrees([srcTree, assetsTree, dataTree, logFile], {
 		overwrite: true
 	});
 
