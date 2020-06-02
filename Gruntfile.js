@@ -18,36 +18,48 @@ module.exports = (grunt) => {
 					appJs: 'src/amelie.js'
 				},
 				dist: {
-					appJs: 'dist/src/amelie.js',
+					appJs: 'dist/app/src/amelie.js',
 					logs: 'dist/logs',
-					archive: 'archive'
+					logFile: 'dist/logs/application.log',
+					archive: 'dist/archive'
 				}
 			}
 		},
 		configs = require('load-grunt-configs')(grunt, options);
 
-	// Lint all .js files
-	grunt.registerTask('lint', ['watch:js']);
+	// Serve production-ready app after archiving
+	grunt.registerTask('prod', 'Serve the production app', [
+		'shell:archive_logs',
+		'shell:prod_build',
+		'create:log',
+		'shell:prod_start'
+	]);
 
-	// Serve dev app
-	grunt.registerTask('dev', [
-		'archive_previous_state',
+	// Serve dev app after archiving
+	grunt.registerTask('dev', 'Serve the development app', [
+		'shell:archive_logs',
 		'shell:dev_build',
+		'create:log',
 		'shell:dev_start'
 	]);
 
 	// Serve dev app with live reload
-	grunt.registerTask('serve', ['shell:serve']);
+	grunt.registerTask('serve', 'Serve the development app with live reload', ['shell:serve']);
 
+	// Lint all .js files
+	grunt.registerTask('lint', 'Lint all js files', ['watch:js']);
 
-	// Serve production-ready app
-	grunt.registerTask('prod', [
-		'archive_previous_state',
-		'shell:prod_build',
-		'shell:prod_start'
+	// Serve dev app
+	grunt.registerTask('dev:live', 'Run on nodemon\'s command after a file save', [
+		'shell:dev_build',
+		'create:log',
+		'shell:dev_start'
 	]);
 
-	grunt.registerTask('archive_previous_state', ['shell:archive_logs']);
+	// Create a log file
+	grunt.registerTask('create:log', 'Creates application.log inside \'logs\' directory', function() {
+		grunt.file.write(`${options.paths.dist.logFile}`);
+	});
 
 	grunt.initConfig(configs);
 };

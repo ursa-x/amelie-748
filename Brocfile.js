@@ -16,11 +16,9 @@ const paths = {
 		src: 'src',
 		assets: 'assets'
 	},
-	dist: {
+	app: {
 		src: 'src',
 		assets: 'assets',
-		log: 'logs',
-		logFile: 'logs/application.log'
 	}
 };
 
@@ -50,21 +48,16 @@ module.exports = (options) => {
 
 	// Write the transpiled app source files to dist/src
 	const srcTree = funnel(transpiledSrcTree, {
-		destDir: paths.dist.src
+		destDir: paths.app.src
 	});
 
 	// Copy the assets directory
 	const assetsTree = funnel(paths.raw.assets, {
-		destDir: paths.dist.assets
+		destDir: paths.app.assets
 	});
 
-	// Create application.log files
-	const logFile = writeFile(paths.dist.logFile, '');
-
-	// Merge all trees and write to dist
-	const appTree = mergeTrees([srcTree, assetsTree, logFile], {
+	// Merge all trees and write to destination folder
+	return mergeTrees([srcTree, assetsTree], {
 		overwrite: true
 	});
-
-	return appTree;
 };
