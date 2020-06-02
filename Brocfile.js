@@ -1,8 +1,8 @@
 const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
-const mergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
+const mergeTrees = require('broccoli-merge-trees');
 
 const APP_PROPERTIES = {
 	MADAM_NAZAR_API_DOMAIN: {
@@ -11,14 +11,31 @@ const APP_PROPERTIES = {
 	}
 }
 
-module.exports = (options) => {
-	const appSrcDir = 'src',
-		assetsDir = 'assets',
-		logsDir = 'logs',
-		logFileName = 'application.log',
-		logFilePath = `${logsDir}/${logFileName}`;
+const paths = {
+	raw: {
+		src: 'src',
+		assets: 'assets'
+	},
+	dist: {
+		src: 'src',
+		assets: 'assets',
+		log: 'logs',
+		logFile: 'logs/application.log'
+	}
+};
 
-	const transpiledSrcTree = babel(appSrcDir, {
+module.exports = (options) => {
+	// Replace strings in 'src' files
+	const replaceSrcTree = replace(paths.raw.src, {
+		files: ['lib/settings/url.js'],
+		pattern: {
+			match: /@@madamNazarIOAPIDomain/g,
+			replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
+		}
+	});
+
+	// Transpile the ES6 files in string-replaced 'src'
+	const transpiledSrcTree = babel(replaceSrcTree, {
 		// In case more options are required, presets may be moved to .babelrc
 		presets: [
 			[
@@ -31,24 +48,20 @@ module.exports = (options) => {
 		]
 	});
 
-	const replaceSrcTree = replace(transpiledSrcTree, {
-		files: ['lib/settings/url.js'],
-		pattern: {
-			match: /@@madamNazarIOAPIDomain/g,
-			replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
-		}
+	// Write the transpiled app source files to dist/src
+	const srcTree = funnel(transpiledSrcTree, {
+		destDir: paths.dist.src
 	});
 
-	const srcTree = funnel(replaceSrcTree, {
-		destDir: appSrcDir
+	// Copy the assets directory
+	const assetsTree = funnel(paths.raw.assets, {
+		destDir: paths.dist.assets
 	});
 
-	const assetsTree = funnel(assetsDir, {
-		destDir: assetsDir
-	});	
-	
-	const logFile = writeFile(logFilePath, '');
+	// Create application.log files
+	const logFile = writeFile(paths.dist.logFile, '');
 
+	// Merge all trees and write to dist
 	const appTree = mergeTrees([srcTree, assetsTree, logFile], {
 		overwrite: true
 	});
