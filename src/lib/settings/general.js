@@ -35,6 +35,10 @@ export const QUERY_TYPE = {
 	DEFAULT: 'default'
 };
 
-export const LOG_FILE_NAME = 'application.log';
-export const LOG_FILE_MAX_SIZE = 1048576;
-export const LOG_MAX_FILES = 10;
+export const LOGGER = {
+	FILE: {
+		NAME: 'application.log',
+		MAX_SIZE: 1048576
+	},
+	MAX_FILES: 10
+};

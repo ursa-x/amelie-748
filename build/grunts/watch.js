@@ -2,8 +2,8 @@ module.exports = () => {
 	return {
 		js: {
 			files: [
-				'<%= paths.src.js %>',
-				'<%= paths.src.appJs %>'
+				'<%= paths.raw.js %>',
+				'<%= paths.raw.appJs %>'
 			],
 			tasks: [
 				'shell:terminal_reset',
