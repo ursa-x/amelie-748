@@ -6,12 +6,11 @@ module.exports = (grunt) => {
 	let options = {
 			config: {
 				pkg: grunt.file.readJSON('package.json'),
-				src: 'grunt/tasks/*.js'
+				src: 'build/grunts/*.js'
 			},
 			paths: {
 				grunt: {
-					tasks: 'grunt',
-					eslint: 'grunt/eslint.json'
+					eslint: 'build/eslint.json'
 				},
 				raw: {
 					src: 'src',
