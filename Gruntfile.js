@@ -13,8 +13,8 @@ module.exports = (grunt) => {
 					tasks: 'grunt',
 					eslint: 'grunt/eslint.json'
 				},
-				src: {
-					dir: 'src',
+				raw: {
+					src: 'src',
 					js: 'src/**/*.js',
 					appJs: 'src/amelie.js'
 				},
@@ -32,8 +32,8 @@ module.exports = (grunt) => {
 
 	// Serve dev app
 	grunt.registerTask('dev', [
-		'archive_previous_state',		
-		'shell:dev_build',   
+		'archive_previous_state',
+		'shell:dev_build',
 		'shell:dev_start'
 	]);
 
@@ -43,12 +43,12 @@ module.exports = (grunt) => {
 
 	// Serve production-ready app
 	grunt.registerTask('prod', [
-		'archive_previous_state',		
-		'shell:prod_build',		
+		'archive_previous_state',
+		'shell:prod_build',
 		'shell:prod_start'
 	]);
 
-	grunt.registerTask('archive_previous_state', ['shell:archive_logs']);	
+	grunt.registerTask('archive_previous_state', ['shell:archive_logs']);
 
 	grunt.initConfig(configs);
 };
