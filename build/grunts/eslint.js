@@ -5,8 +5,8 @@ module.exports = () => {
 				configFile: '<%= paths.grunt.eslint %>'
 			},
 			src: [
-				'<%= paths.src.js %>',
-				'<%= paths.src.appJs %>'
+				'<%= paths.raw.js %>',
+				'<%= paths.raw.appJs %>'
 			]
 		}
 	}

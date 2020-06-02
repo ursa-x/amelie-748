@@ -1,7 +1,6 @@
 const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
-const writeFile = require('broccoli-file-creator');
 const mergeTrees = require('broccoli-merge-trees');
 
 const APP_PROPERTIES = {
@@ -11,15 +10,31 @@ const APP_PROPERTIES = {
 	}
 }
 
-module.exports = (options) => {
-	const appSrcDir = 'src',
-		assetsDir = 'assets',
-		dataDir = 'data',
-		logsDir = 'logs',
-		logFileName = 'application.log',
-		logFilePath = `${logsDir}/${logFileName}`;
+const paths = {
+	raw: {
+		src: 'src',
+		assets: 'assets',
+		data: 'data'
+	},
+	app: {
+		src: 'src',
+		assets: 'assets',
+		data: 'data'
+	}
+};
 
-	const transpiledSrcTree = babel(appSrcDir, {
+module.exports = (options) => {
+	// Replace strings in 'src' files
+	const replaceSrcTree = replace(paths.raw.src, {
+		files: ['lib/settings/url.js'],
+		pattern: {
+			match: /@@madamNazarIOAPIDomain/g,
+			replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
+		}
+	});
+
+	// Transpile the ES6 files in string-replaced 'src'
+	const transpiledSrcTree = babel(replaceSrcTree, {
 		// In case more options are required, presets may be moved to .babelrc
 		presets: [
 			[
@@ -32,31 +47,23 @@ module.exports = (options) => {
 		]
 	});
 
-	const replaceSrcTree = replace(transpiledSrcTree, {
-		files: ['lib/settings/url.js'],
-		pattern: {
-			match: /@@madamNazarIOAPIDomain/g,
-			replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
-		}
+	// Write the transpiled app source files to dist/src
+	const srcTree = funnel(transpiledSrcTree, {
+		destDir: paths.app.src
 	});
 
-	const srcTree = funnel(replaceSrcTree, {
-		destDir: appSrcDir
+	// Copy the assets directory
+	const assetsTree = funnel(paths.raw.assets, {
+		destDir: paths.app.assets
 	});
 
-	const assetsTree = funnel(assetsDir, {
-		destDir: assetsDir
-	});
-
+	// Copy the data directory
 	const dataTree = funnel(dataDir, {
 		destDir: dataDir
 	});
 
-	const logFile = writeFile(logFilePath, '');
-
-	const appTree = mergeTrees([srcTree, assetsTree, dataTree, logFile], {
+	// Merge all trees and write to destination folder
+	return mergeTrees([srcTree, assetsTree, dataTree], {
 		overwrite: true
 	});
-
-	return appTree;
 };
