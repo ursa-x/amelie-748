@@ -1,7 +1,6 @@
 const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const replace = require('broccoli-string-replace');
-const writeFile = require('broccoli-file-creator');
 const mergeTrees = require('broccoli-merge-trees');
 
 const APP_PROPERTIES = {
