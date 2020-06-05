@@ -36,27 +36,39 @@ class WeeklySets extends CoreModel {
 
 	populateWeeklySets() {
 		const self = this,
-			itemSelector = 'item',
+			// itemSelector = 'item',
 			SET_TYPE_POSITION = 0;
 
-		for (const [setCode, itemObjects] of Object.entries(WEEKLY_SETS)) {
+		for (const [setCode, setObject] of Object.entries(WEEKLY_SETS)) {
 			const setName = titleCase(
 				setCode
 					.split(DELIMITER.UNDERSCORE)
 					.join(DELIMITER.SPACE)
 			);
 
-			self.chests[setName] = itemObjects.map((itemObject) => {
-				const itemDescriptorParts = itemObject[itemSelector]
+			self.chests[setName] = setObject.items.map((item) => {
+				const itemLabel = item
 					.split(DELIMITER.UNDERSCORE)
 					.map(titleCase);
 
-				itemDescriptorParts[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[upperCase(
-					itemDescriptorParts[SET_TYPE_POSITION]
+				itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[upperCase(
+					itemLabel[SET_TYPE_POSITION]
 				)];
 
-				return itemDescriptorParts.join(DELIMITER.SPACE);
+				return itemLabel.join(DELIMITER.SPACE);
 			});
+
+			// self.chests[setName] = itemObjects.map((itemObject) => {
+			// 	const itemDescriptorParts = itemObject[itemSelector]
+			// 		.split(DELIMITER.UNDERSCORE)
+			// 		.map(titleCase);
+			//
+			// 	itemDescriptorParts[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[upperCase(
+			// 		itemDescriptorParts[SET_TYPE_POSITION]
+			// 	)];
+			//
+			// 	return itemDescriptorParts.join(DELIMITER.SPACE);
+			// });
 		}
 	}
 }
