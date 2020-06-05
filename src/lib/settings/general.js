@@ -35,6 +35,10 @@ export const QUERY_TYPE = {
 	DEFAULT: 'default'
 };
 
+export const ACTION_TYPE = {
+	UPDATE: 'update'
+};
+
 export const LOGGER = {
 	FILE: {
 		NAME: 'application.log',
