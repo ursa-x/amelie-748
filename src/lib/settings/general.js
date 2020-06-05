@@ -31,8 +31,13 @@ export const REGEX = {
 
 export const QUERY_TYPE = {
 	ALL: 'all',
+	UPDATE: 'update',
 	SEARCH: 'search',
 	DEFAULT: 'default'
+};
+
+export const ACTION_TYPE = {
+	UPDATE: 'update'
 };
 
 export const LOGGER = {

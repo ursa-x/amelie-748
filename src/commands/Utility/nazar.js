@@ -8,7 +8,10 @@ import WeeklySetsView from '../../lib/view/nazar/weekly-sets';
 import LoadingView from '../../lib/view/core/loading';
 import { cleanParams } from '../../lib/util/argument';
 import { getCommandLiteral } from '../../lib/util/message';
-import { QUERY_TYPE } from '../../lib/settings/general';
+import {
+	QUERY_TYPE,
+	ACTION_TYPE
+} from '../../lib/settings/general';
 
 export default class extends Command {
 	constructor(...args) {
@@ -53,8 +56,11 @@ export default class extends Command {
 	}
 
 	/* Tells you the location of Madam Nazar */
-	async wya(message) {
+	async wya(message, params) {
 		const self = this,
+			todayLocation = (params.length === 0)
+				? await this.getNazarsLocation()
+				: await this.getNazarsLocation(ACTION_TYPE.UPDATE === cleanParams(params[0])),
 			getLocale = (key) => getCommandLiteral(key, message),
 			loadingView = new LoadingView(new LoadingModel(message)),
 			loadingEmbed = loadingView.messageEmbed
@@ -69,7 +75,7 @@ export default class extends Command {
 			.then(async (msg) => {
 				self.wyaReply(
 					msg,
-					await self.getNazarsLocation()
+					todayLocation
 				);
 			});
 	}
@@ -81,9 +87,13 @@ export default class extends Command {
 		let response;
 
 		if (params.length === 0) {
-			response = await self.sendCurrentSet(message, currentSetName);
+			response = await self.sendCurrentSet(
+				message,
+				await self.getCurrentWeeklySet()
+			);
 		} else {
 			const tidyParams = cleanParams(params[0]),
+				currentSetName = await self.getCurrentWeeklySet(tidyParams === ACTION_TYPE.UPDATE),
 				// eslint-disable-next-line arrow-body-style
 				reply = (option, activeMessage) => {
 					return (option === QUERY_TYPE.ALL)
@@ -101,10 +111,12 @@ export default class extends Command {
 		return response;
 	}
 
-	async getNazarsLocation() {
+	async getNazarsLocation(forceUpdate = false) {
 		const NazarService = this.client.services.get('nazar');
 
-		return NazarService.todayLocation;
+		return (!forceUpdate)
+			? NazarService.todayLocation
+			: NazarService.freshTodayLocation;
 	}
 
 	/* Displays all of Madam Nazar's Weekly Sets */
@@ -132,10 +144,11 @@ export default class extends Command {
 		});
 	}
 
-	async getCurrentWeeklySet() {
-		// eslint-disable-next-line max-len
+	async getCurrentWeeklySet(forceUpdate = false) {
 		const NazarService = this.client.services.get('nazar');
 
-		return NazarService.weeklySet;
+		return (!forceUpdate)
+			? NazarService.weeklySet
+			: NazarService.freshWeeklySet;
 	}
 }
