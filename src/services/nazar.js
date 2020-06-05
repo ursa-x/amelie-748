@@ -36,6 +36,7 @@ export default class extends Service {
 			});
 	}
 
+	// Fetches cart location from cache
 	get todayLocation() {
 		return (async (self) => {
 			// eslint-disable-next-line max-len, no-param-reassign
@@ -45,8 +46,10 @@ export default class extends Service {
 		})(this);
 	}
 
+	// Fetches cart location from external source
 	get freshTodayLocation() {
 		return (async (self) => {
+			// eslint-disable-next-line max-len, no-param-reassign
 			self.CART_LOCATION = await self.constructor.fetchNazarLocation();
 
 			return self.CART_LOCATION;
@@ -66,7 +69,8 @@ export default class extends Service {
 	// Fetches weekly set from external source
 	get freshWeeklySet() {
 		return (async (self) => {
-			self.CURRENT_WEEKLY_SET = await self.constructor.fetchCurrentWeeklySet()
+			// eslint-disable-next-line max-len, no-param-reassign
+			self.CURRENT_WEEKLY_SET = await self.constructor.fetchCurrentWeeklySet();
 
 			return self.CURRENT_WEEKLY_SET;
 		})(this);

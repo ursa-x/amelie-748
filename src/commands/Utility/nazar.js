@@ -60,7 +60,7 @@ export default class extends Command {
 		const self = this,
 			todayLocation = (params.length === 0)
 				? await this.getNazarsLocation()
-				: await this.getNazarsLocation(ACTION_TYPE.UPDATE === cleanParams(params[0])),
+				: await this.getNazarsLocation(cleanParams(params[0]) === ACTION_TYPE.UPDATE),
 			getLocale = (key) => getCommandLiteral(key, message),
 			loadingView = new LoadingView(new LoadingModel(message)),
 			loadingEmbed = loadingView.messageEmbed
@@ -82,8 +82,7 @@ export default class extends Command {
 
 	/* Gives you details on Madam Nazar's Weekly Sets */
 	async weekly(message, params) {
-		const self = this,
-			currentSetName = await self.getCurrentWeeklySet();
+		const self = this;
 		let response;
 
 		if (params.length === 0) {

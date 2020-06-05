@@ -31,7 +31,6 @@ export const REGEX = {
 
 export const QUERY_TYPE = {
 	ALL: 'all',
-	UPDATE: 'update',
 	SEARCH: 'search',
 	DEFAULT: 'default'
 };
