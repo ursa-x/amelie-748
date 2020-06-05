@@ -17,6 +17,7 @@ export default class extends Service {
 	static async fetchNazarLocation() {
 		return fetch(MADAM_NAZAR_API.currentLocationAPI())
 			.then((response) => response.json())
+			// TODO: Log fetches, along with source
 			.then((responseJson) => responseJson)
 			.catch((error) => {
 				super.client.emit('wtf', error);
@@ -27,6 +28,7 @@ export default class extends Service {
 	static async fetchCurrentWeeklySet() {
 		return fetch(COLLECTOR_MAP_API.getCurrentWeeklySetAPI())
 			.then((response) => response.json())
+			// TODO: Log fetches, along with source
 			.then((responseJson) => responseJson.current)
 			.catch((error) => {
 				super.client.emit('wtf', error);
@@ -34,6 +36,7 @@ export default class extends Service {
 			});
 	}
 
+	// Fetches cart location from cache
 	get todayLocation() {
 		return (async (self) => {
 			// eslint-disable-next-line max-len, no-param-reassign
@@ -43,11 +46,31 @@ export default class extends Service {
 		})(this);
 	}
 
+	// Fetches cart location from external source
+	get freshTodayLocation() {
+		return (async (self) => {
+			// eslint-disable-next-line max-len, no-param-reassign
+			self.CART_LOCATION = await self.constructor.fetchNazarLocation();
 
+			return self.CART_LOCATION;
+		})(this);
+	}
+
+	// Fetches weekly set from cache
 	get weeklySet() {
 		return (async (self) => {
 			// eslint-disable-next-line max-len, no-param-reassign
 			if (!self.CURRENT_WEEKLY_SET) self.CURRENT_WEEKLY_SET = await self.constructor.fetchCurrentWeeklySet();
+
+			return self.CURRENT_WEEKLY_SET;
+		})(this);
+	}
+
+	// Fetches weekly set from external source
+	get freshWeeklySet() {
+		return (async (self) => {
+			// eslint-disable-next-line max-len, no-param-reassign
+			self.CURRENT_WEEKLY_SET = await self.constructor.fetchCurrentWeeklySet();
 
 			return self.CURRENT_WEEKLY_SET;
 		})(this);
