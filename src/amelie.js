@@ -11,6 +11,8 @@ checkEnvironment();
 class BotClient extends Client {
 	constructor(...args) {
 		super(...args);
+
+		// Setup the logger
 		this.initializeLogger();
 
 		// Register the 'Service' piece store
@@ -19,7 +21,7 @@ class BotClient extends Client {
 	}
 
 	initializeLogger() {
-		Logger.info('Logger Initialized');
+		Logger.info('Initialized logger');
 	}
 }
 
