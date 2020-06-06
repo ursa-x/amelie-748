@@ -7,6 +7,10 @@ const APP_PROPERTIES = {
 	MADAM_NAZAR_API_DOMAIN: {
 		development: 'https://madam-nazar-location-api-2.herokuapp.com',
 		production: 'https://madam-nazar-location-api.herokuapp.com'
+	},
+	SERVER_PREFIX: {
+		development: '+',
+		production: 'r!'
 	}
 }
 
@@ -26,11 +30,20 @@ const paths = {
 module.exports = (options) => {
 	// Replace strings in 'src' files
 	const replaceSrcTree = replace(paths.raw.src, {
-		files: ['lib/settings/url.js'],
-		pattern: {
-			match: /@@madamNazarIOAPIDomain/g,
-			replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
-		}
+		files: [
+			'lib/settings/url.js',
+			'lib/config.json'
+		],
+		patterns: [
+			{
+				match: /@@madamNazarIOAPIDomain/g,
+				replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
+			},
+			{
+				match: /@@serverPrefix/g,
+				replacement: APP_PROPERTIES.SERVER_PREFIX[options.env]
+			}
+		]
 	});
 
 	// Transpile the ES6 files in string-replaced 'src'

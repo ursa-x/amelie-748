@@ -59,3 +59,5 @@ export const checkEnvironment = () => {
 };
 
 export const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+
+export const empty = (obj) => Object.keys(obj).length === 0 && obj.constructor === Object;
