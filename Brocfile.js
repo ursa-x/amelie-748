@@ -71,8 +71,8 @@ module.exports = (options) => {
 	});
 
 	// Copy the data directory
-	const dataTree = funnel(dataDir, {
-		destDir: dataDir
+	const dataTree = funnel(paths.raw.data, {
+		destDir: paths.app.data
 	});
 
 	// Merge all trees and write to destination folder
