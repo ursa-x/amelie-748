@@ -16,6 +16,8 @@ const LABEL = {
 	REGION: 'Region',
 	NEAR_BY: 'Near By',
 	COLLECTIBLES: 'Collectibles',
+	GENERAL: 'General',
+	ROLE: 'Role',
 
 	/* Command */
 	NAZAR: 'nazar'
