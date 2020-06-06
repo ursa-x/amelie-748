@@ -10,7 +10,7 @@ const { bot } = data;
 class CoreView {
 	constructor(model) {
 		this.model = model;
-		this.footerText = this.model.originUser.username;
+		this.footerText = `@${this.model.originUser.username}`;
 		this.imageAttachments = [];
 
 		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);
