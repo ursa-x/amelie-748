@@ -2,9 +2,8 @@ import { Command } from 'klasa';
 
 import FreeRoamEventsModel from '../../lib/model/sally/free-roam-events';
 import ScheduleView from '../../lib/view/sally/free-roam-event-schedule';
-import NextEventView from "../../lib/view/sally/next-event";
+import NextEventView from '../../lib/view/sally/next-event';
 import { cleanParams } from '../../lib/util/argument';
-import { getCommandLiteral } from '../../lib/util/message';
 import { QUERY_TYPE } from '../../lib/settings/general';
 
 export default class extends Command {
@@ -15,15 +14,17 @@ export default class extends Command {
 			runIn: ['text'],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.SALLY_DESC,
-			usage: '[events] [eventQuery:...string]',
+			usage: '[events|next] [eventQuery:...string]',
 			usageDelim: ' '
 		});
 	}
 
-	/* Sends the closest general and role events */
 	run(message) {
-		// const cantUnderstandMessage = getCommandLiteral('MESSAGE.ERROR_GENERAL_REPLY', message);
-		// message.channel.send(cantUnderstandMessage);
+		return this.next(message);
+	}
+
+	/* Sends the general and role events that are closest to now */
+	next(message) {
 		const nextEventEmbed = this.createNextEventEmbed(message);
 
 		return message.channel.send({

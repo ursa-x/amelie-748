@@ -1,11 +1,9 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
 import { MessageAttachment } from 'discord.js';
-import { capitalize } from 'voca';
-import moment from 'moment';
 import CoreView from '../core/view';
 import * as MessageUtil from '../../util/message';
-import { DELIMITER } from '../../settings/general';
+import * as DateTimeUtil from '../../util/date-time';
 import DATE from '../../settings/formats';
 import { CATEGORY_NAMES } from '../../settings/sally/free-roam-events';
 import { data } from '../../../../data/persona.json';
@@ -13,40 +11,36 @@ import { data } from '../../../../data/persona.json';
 const { sally } = data;
 
 class NextEventViewHelper extends CoreView {
-	getNextGeneralEvent(inline = false) {
-		const self = this,
-			gcl = self.getCommandLiteral,
-			now = moment.utc(),
-			generalEvent = self.model.eventSchedule.general
-				.find((event) => now.isSameOrBefore(moment(event[0], DATE.SALLY.EVENT_TIME).utc()));
+	getGeneralEventField(inline = false) {
+		const gcl = this.getCommandLiteral,
+			generalEvent = this.getNextEvent(CATEGORY_NAMES.GENERAL),
+			formattedEventDetails = this.getFormattedEventDetails(generalEvent);
 
 		return [
 			gcl('LABEL.GENERAL'),
-			`\`${generalEvent[0]}\` - ${generalEvent[1]}`,
+			formattedEventDetails,
 			inline
-		]
+		];
 	}
 
-	getNextRoleEvent(inline = false) {
-		const self = this,
-			gcl = self.getCommandLiteral,
-			now = moment.utc(),
-			roleEvent = self.model.eventSchedule.role
-				.find((event) => now.isSameOrBefore(moment(event[0], DATE.SALLY.EVENT_TIME).utc()));
+	getRoleEventField(inline = false) {
+		const gcl = this.getCommandLiteral,
+			roleEvent = this.getNextEvent(CATEGORY_NAMES.ROLE),
+			formattedEventDetails = this.getFormattedEventDetails(roleEvent);
 
 		return [
 			gcl('LABEL.ROLE'),
-			`\`${roleEvent[0]}\` - ${roleEvent[1]}`,
+			formattedEventDetails,
 			inline
-		]
+		];
 	}
 
 	getTitleText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
+		return this.getCommandLiteral('MESSAGE.SALLY_NEXT_EVENTS_TITLE');
 	}
 
 	getDescriptionText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+		return this.getCommandLiteral('MESSAGE.SALLY_NEXT_EVENTS_DESC');
 	}
 
 	getThumbnail() {
@@ -54,14 +48,53 @@ class NextEventViewHelper extends CoreView {
 			url: MessageUtil.makeAttachmentString(sally.iconFile)
 		};
 	}
+
+	getFormattedEventDetails(event) {
+		return `**${event.name}**`
+			+ `\nStarts ${event.diff}`
+			+ `\n\`${event.time} GMT\``;
+	}
+
+	humanizeEventTimeDiff(nowInUTC, untidyLater) {
+		const laterInUTC = DateTimeUtil.dateTimeUTC(
+			untidyLater,
+			DATE.SALLY.EVENT_TIME
+		);
+
+		return DateTimeUtil.humanizedDiff(nowInUTC, laterInUTC);
+	}
+
+	// Sift through the schedule to find closest event to now
+	getNextEventAsRow(eventSchedule, now) {
+		return eventSchedule.find(
+			(event) => now.isSameOrBefore(
+				DateTimeUtil.dateTimeUTC(
+					event[0],
+					DATE.SALLY.EVENT_TIME
+				)
+			)
+		);
+	}
+
+	getNextEvent(categoryName) {
+		const eventSchedule = this.model.eventSchedule[categoryName],
+			now = DateTimeUtil.nowUTC(),
+			flattenedNextEvent = this.getNextEventAsRow(eventSchedule, now),
+			humanizedDiff = this.humanizeEventTimeDiff(now, flattenedNextEvent[0]);
+
+		return {
+			time: flattenedNextEvent[0],
+			name: flattenedNextEvent[1],
+			diff: humanizedDiff
+		};
+	}
 }
 
 class NextEventView extends NextEventViewHelper {
 	makeNextEventEmbed() {
-		const self = this,
-			nextGeneralEventField = this.getNextGeneralEvent(),
-			nextRoleEventField = this.getNextRoleEvent(),
-			NextEventEmbed = self.embed
+		const nextGeneralEventField = this.getGeneralEventField(),
+			nextRoleEventField = this.getRoleEventField(),
+			NextEventEmbed = this.embed
 				.addField(...nextGeneralEventField)
 				.addField(...nextRoleEventField);
 
