@@ -2,7 +2,7 @@
 
 [![discord.js](https://img.shields.io/badge/discord.js-v12.2.0-brightgreen)](https://www.npmjs.com/package/discord.js)
 
-> :robot: A classy discord bot for Red Dead Online gamers, made using klasa.js.
+> :woman_artist: A classy discord bot for Red Dead Online gamers, made using klasa.js.
 
 **Amelie Bellerose** is a lively little bot to help the cowgirls and cowboys of *Red Dead Redemption 2 Online*. She rides the treacherous landscapes of the wild west, engages in witty banter, and hustles with brusque men, to tell you about
 
