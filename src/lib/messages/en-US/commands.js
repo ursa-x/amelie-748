@@ -40,7 +40,7 @@ const MESSAGE = {
 
 	INFO_TITLE: '',
 	INFO_DESC: '',
-	INFO_AMELIE_QUOTE: `> *Oh ain't it a lovely day to commit a perfect crime?*\n> ~ ${BOT.NAME}`,
+	INFO_AMELIE_QUOTE: `> *I'd like to remember that there’s a path for everyone.*\n> ~ ${BOT.NAME}`,
 	INFO_AMELIE_BIO: `A lass too modern for 1898, the lively **${BOT.TABLOID_NAME}**, `
 		+ 'is an orphan who learned to survive on the treacherous streets of Valentine.'
 		+ '\n\nLittle does Marshal Davies know that the ghost in unsolved Case No. 1137, '

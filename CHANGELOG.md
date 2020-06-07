@@ -4,9 +4,13 @@ All notable changes to this project are documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the format is from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.1.0] - Unreleased
+## 0.1.0 - 2020-06-08
 
 ### Added
+- [`#23`](https://github.com/wizvishak/amelie-748/pull/23) Added a few things,
+  - **[:tada: Command :tada:]** `sally`
+  - **[:woman: Persona :woman:]** Sally Nash
+- [`#22`](https://github.com/wizvishak/amelie-748/pull/22) Logs for `nazar` service activities 
 - [`#19`](https://github.com/wizvishak/amelie-748/pull/19) Kept this change log
 - [`#17`](https://github.com/wizvishak/amelie-748/pull/17) Used `pm2` to run bot app as a daemon 
 - [`#16`](https://github.com/wizvishak/amelie-748/pull/16) Added app logging using `winstonjs`  
@@ -27,6 +31,8 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) 
 - [`#3`](https://github.com/wizvishak/amelie-748/pull/3) Setup project for bot, using `klasajs`
 
 ### Changed
+- [`#21`](https://github.com/wizvishak/amelie-748/pull/21) Force update commands to fetch latest `nazar` informaton 
+- [`#20`](https://github.com/wizvishak/amelie-748/pull/20) `build/` and `dist/` folder structure for better logging 
 - [`#10`](https://github.com/wizvishak/amelie-748/pull/10) Override klasa commands - `help`, `info`, and `ping`
 - [`#9`](https://github.com/wizvishak/amelie-748/pull/9) Rebranded project and bot to `amelie-748`
 - [`#5`](https://github.com/wizvishak/amelie-748/pull/5) Moved messages to `languages/en-US.js`
