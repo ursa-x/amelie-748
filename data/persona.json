@@ -1,0 +1,27 @@
+{
+	"version": "0.1.0",
+	"comment": "The first friends of Amelie.",
+	"data": {
+		"bot": {
+			"name": "Amelie Bellerose",
+			"nickName": "Amelie",
+			"tabloidName": "Amelie \"White Glove\" Bellerose",
+			"iconFolder": "assets/",
+			"iconFile": "amelie-bellerose.png"
+		},
+		"nazar": {
+			"name": "Madam Nazar",
+			"nickName": "Nazar",
+			"tabloidName": "Madam Nazar",
+			"iconFolder": "assets/",
+			"iconFile": "madam-nazar.png"
+		},
+		"sally": {
+			"name": "Sally Nash",
+			"nickName": "Sally",
+			"tabloidName": "Sally Nash",
+			"iconFolder": "assets/",
+			"iconFile": "sally-nash.png"
+		}
+	}
+}

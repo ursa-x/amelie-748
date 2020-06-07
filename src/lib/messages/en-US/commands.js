@@ -1,4 +1,5 @@
 /* eslint one-var: "off" */
+
 import { author } from '../../config.json';
 import { BOT } from '../../settings/general';
 
@@ -16,6 +17,8 @@ const LABEL = {
 	REGION: 'Region',
 	NEAR_BY: 'Near By',
 	COLLECTIBLES: 'Collectibles',
+	GENERAL: 'General',
+	ROLE: 'Role',
 
 	/* Command */
 	NAZAR: 'nazar'
@@ -59,6 +62,15 @@ const MESSAGE = {
 	NAZAR_SETS_DESC: 'She is after one of these sets every week. Collector\'s take note.',
 	NAZAR_SET_DESC: 'Deliver this set to Madam Nazar, when she\'s looking for it, to earn $ and XP.',
 	NAZAR_SET_CURRENT_DESC: 'Find and deliver the items to Madam Nazar this week to earn $ and XP.',
+
+	SALLY_DESC: 'Find useful info on Free Roam events from Sally Nash.',
+	SALLY_EVENTS_TITLE: 'Free roam event schedule',
+	SALLY_EVENTS_DESC: 'Here is a list of free roam events you can '
+		+ 'participate in each day, for gold, $ and XP.'
+		+ '\n\n*All times are in GMT*.',
+	SALLY_NEXT_EVENTS_TITLE: ':hourglass: Upcoming events',
+	SALLY_NEXT_EVENTS_DESC: 'These are next set of free roam events. '
+		+ 'Hands on your holster!',
 
 	/* Error */
 	ERROR_GENERAL_REPLY: 'Sorry I don\'t understand',

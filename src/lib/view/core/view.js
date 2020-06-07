@@ -2,13 +2,15 @@ import {
 	MessageEmbed,
 	MessageAttachment
 } from 'discord.js';
-import { bot } from '../../settings/persona.json';
+import { data } from '../../../../data/persona.json';
 import * as MessageUtil from '../../util/message';
+
+const { bot } = data;
 
 class CoreView {
 	constructor(model) {
 		this.model = model;
-		this.footerText = this.model.originUser.username;
+		this.footerText = `@${this.model.originUser.username}`;
 		this.imageAttachments = [];
 
 		this.getCommandLiteral = (key) => MessageUtil.getCommandLiteral(key, this.model.originMessage);

@@ -17,11 +17,13 @@ const APP_PROPERTIES = {
 const paths = {
 	raw: {
 		src: 'src',
-		assets: 'assets'
+		assets: 'assets',
+		data: 'data'
 	},
 	app: {
 		src: 'src',
 		assets: 'assets',
+		data: 'data'
 	}
 };
 
@@ -68,8 +70,13 @@ module.exports = (options) => {
 		destDir: paths.app.assets
 	});
 
+	// Copy the data directory
+	const dataTree = funnel(paths.raw.data, {
+		destDir: paths.app.data
+	});
+
 	// Merge all trees and write to destination folder
-	return mergeTrees([srcTree, assetsTree], {
+	return mergeTrees([srcTree, assetsTree, dataTree], {
 		overwrite: true
 	});
 };

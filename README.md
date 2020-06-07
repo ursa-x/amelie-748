@@ -33,10 +33,12 @@ Then kickstart the bot with,
 
 `npm start`
 
-### Credits
+### Thanks To
 
 - [@dirigeants/klasa](https://github.com/dirigeants/klasa)
 - [@jeanropke/RDR2CollectorsMap](https://github.com/jeanropke/RDR2CollectorsMap)
+- [@richardwestenra/rdr2-free-roam-event-schedule](https://github.com/richardwestenra/rdr2-free-roam-event-schedule)
+- [Red Dead Wiki](https://reddead.fandom.com/wiki/Red_Dead_Wiki)
 - [@muan/emoji](https://github.com/muan/emoji/)
 
 ### License
