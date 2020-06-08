@@ -4,9 +4,10 @@
 */
 import { BOT as PERSONA } from './general';
 
+// Carries both display order and display name of command categories
 const CATEGORY_NAMES = {
-	Bot: PERSONA.NICKNAME,
-	Utility: 'Friends'
+	UTILITY: 'Friends',
+	BOT: PERSONA.NICKNAME
 };
 
 export default CATEGORY_NAMES;
