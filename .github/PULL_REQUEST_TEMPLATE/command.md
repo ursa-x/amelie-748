@@ -7,20 +7,20 @@
 
 **Added**
 
-- *What's new*
+- *(what's new)*
 
 
 **Changed**
 
-- *What's shifted around*
+- *(what's shifted around)*
 
 **Fixed**
 
-- *Broken but put back together*
+- *(broken but put back together)*
 
 **Removed**
 
-- *What's no more, RIP!*
+- *(anything gone with the wind? RIP!)*
 
 ---
 

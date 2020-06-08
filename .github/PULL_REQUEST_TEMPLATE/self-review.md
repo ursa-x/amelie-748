@@ -1,23 +1,23 @@
-*(A concise description)*
+*(a concise description)*
 
 ---
 
 **Added**
 
-- *What's new*
+- *(what's new)*
 
 
 **Changed**
 
-- *What's shifted around*
+- *(what's shifted around)*
 
 **Fixed**
 
-- *Broken but put back together*
+- *(broken but put back together)*
 
 **Removed**
 
-- *Anything gone with the wind? RIP!*
+- *(anything gone with the wind? RIP!)*
 
 ---
 
