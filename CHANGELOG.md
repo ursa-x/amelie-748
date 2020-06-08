@@ -31,6 +31,7 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) 
 - [`#3`](https://github.com/wizvishak/amelie-748/pull/3) Setup project for bot, using `klasajs`
 
 ### Changed
+- [`#24`](https://github.com/wizvishak/amelie-748/pull/24) Updated readme, changelog and package.json to accommodate 0.1.0 release.  
 - [`#21`](https://github.com/wizvishak/amelie-748/pull/21) Force update commands to fetch latest `nazar` informaton 
 - [`#20`](https://github.com/wizvishak/amelie-748/pull/20) `build/` and `dist/` folder structure for better logging 
 - [`#10`](https://github.com/wizvishak/amelie-748/pull/10) Override klasa commands - `help`, `info`, and `ping`

@@ -2,6 +2,7 @@
 
 import CoreView from './core/view';
 import { has } from '../util/general';
+import { fixTitleCase } from '../util/message';
 import { DELIMITER } from '../settings/general';
 import CATEGORIES from '../settings/commands';
 
@@ -41,14 +42,14 @@ class HelpView extends HelpViewHelper {
 			} = DELIMITER,
 			maxCommandLength = _breathingSpace + serverPrefix.length;
 
-		for (const [category, subCategories] of Object.entries(catalogue)) {
-			// Ignore __appendix with list of all commands
-			if (!category.startsWith(DELIMITER.DOUBLE_UNDERSCORE)) {
-				const categoryName = has(CATEGORIES, category) ? CATEGORIES[category] : category;
+		// Iterate through constant as it holds the display order
+		for (const [category, categoryDisplayName] of Object.entries(CATEGORIES)) {
+			const tCategory = fixTitleCase(category);
 
-				// Iterate through each sub category; defaults fall under 'General'
+			if (has(catalogue, tCategory)) {
+				// Iterate through each sub category; default sub category is 'General'
 				// eslint-disable-next-line no-unused-vars
-				for (const [subCategory, commands] of Object.entries(subCategories)) {
+				for (const [subCategory, commands] of Object.entries(catalogue[tCategory])) {
 					const subCategoryCommandList = commands.reduce((commandListText, commandModel) => {
 						const commandName = `${serverPrefix}${commandModel.name}`,
 							formattedCommandName = `**${commandName.padEnd(maxCommandLength)}${TILDE}**`,
@@ -58,7 +59,7 @@ class HelpView extends HelpViewHelper {
 					}, NEW_LINE);
 
 					HelpEmbed.addField(
-						`\n\`${categoryName}\`\n`,
+						`\n\`${categoryDisplayName}\`\n`,
 						subCategoryCommandList,
 						false
 					);
