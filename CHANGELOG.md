@@ -4,6 +4,14 @@ All notable changes to this project are documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the format is from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 0.2.0 - Unreleased
+
+### Added
+- [`#26`](https://github.com/wizvishak/amelie-748/pull/26) Added 2 github PR templates, general one and for commands. 
+
+### Changed
+- [`#25`](https://github.com/wizvishak/amelie-748/pull/25) Prioritised utility commands in help embed
+
 ## 0.1.0 - 2020-06-08
 
 ### Added
