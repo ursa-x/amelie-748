@@ -11,6 +11,9 @@
 
 - *What's shifted around*
 
+**Fixed**
+
+- *Broken but put back together*
 
 **Removed**
 
