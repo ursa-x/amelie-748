@@ -1,9 +1,8 @@
 /* eslint max-classes-per-file: ["error", 2] */
 
-import { upperCase, lowerCase } from 'voca';
 import CoreView from './core/view';
 import { has } from '../util/general';
-import { fixTitleCase } from "../util/message";
+import { fixTitleCase } from '../util/message';
 import { DELIMITER } from '../settings/general';
 import CATEGORIES from '../settings/commands';
 
@@ -41,14 +40,13 @@ class HelpView extends HelpViewHelper {
 				NEW_LINE,
 				TILDE
 			} = DELIMITER,
-			maxCommandLength = _breathingSpace + serverPrefix.length
+			maxCommandLength = _breathingSpace + serverPrefix.length;
 
 		// Iterate through constant as it holds the display order
-		for(const [category, categoryDisplayName] of Object.entries(CATEGORIES)) {
+		for (const [category, categoryDisplayName] of Object.entries(CATEGORIES)) {
 			const tCategory = fixTitleCase(category);
 
-			if(has(catalogue, tCategory)) {
-
+			if (has(catalogue, tCategory)) {
 				// Iterate through each sub category; default sub category is 'General'
 				// eslint-disable-next-line no-unused-vars
 				for (const [subCategory, commands] of Object.entries(catalogue[tCategory])) {
