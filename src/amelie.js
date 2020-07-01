@@ -4,9 +4,9 @@ import secret from './lib/secrets.json';
 import config from './lib/config.json';
 import ServiceStore from './lib/structures/service-store';
 import Logger from './lib/plugins/winston';
+
 // Check if system is ready to run the bot
 checkEnvironment();
-
 
 class BotClient extends Client {
 	constructor(...args) {
@@ -36,12 +36,16 @@ const Amelie = new BotClient({
 	},
 	typing: true,
 	pieceDefaults: {
+		monitors: {
+			ignoreBots: config.settings.ignoreBots
+		},
+		// Custom piece defaults
 		services: {
 			enabled: true
 		}
 	},
 	disabledCorePieces: ['commands'],
-	readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`
+	readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`,
 }).login(secret.token);
 
 export default Amelie;

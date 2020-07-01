@@ -11,6 +11,10 @@ const APP_PROPERTIES = {
 	SERVER_PREFIX: {
 		development: '+',
 		production: 'r!'
+	},
+	CONFIG_IGNORE_BOTS: {
+		development: false,
+		production: true
 	}
 }
 
@@ -42,6 +46,10 @@ module.exports = (options) => {
 			{
 				match: /@@serverPrefix/g,
 				replacement: APP_PROPERTIES.SERVER_PREFIX[options.env]
+			},
+			{
+				match: /@@ignoreBots/g,
+				replacement: APP_PROPERTIES.CONFIG_IGNORE_BOTS[options.env]
 			}
 		]
 	});
