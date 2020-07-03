@@ -3,7 +3,6 @@
 /* FIX: Uses code from klasa.js 0.2.0 or so. Needs update to klasa.js 0.5.0-dev. */
 
 /* Exports all needed utilities for the client */
-import { existsSync, unlinkSync} from 'fs';
 import { version as DISCORDJS_VERSION } from 'discord.js';
 import { version as  KLASAJS_VERSION } from 'klasa';
 import SYSTEM_ERROR_MESSAGES from '../messages/error/general';

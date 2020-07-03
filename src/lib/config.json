@@ -1,8 +1,4 @@
 {
-	"prefix": "@@serverPrefix",
-	"settings": {
-		"ignoreBots": @@ignoreBots
-	},
 	"coreDependencies": {
 		"nodeJs": {
 			"packageName": "node.js",
