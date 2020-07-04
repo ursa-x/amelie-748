@@ -1,61 +1,30 @@
 const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
-const replace = require('broccoli-string-replace');
 const mergeTrees = require('broccoli-merge-trees');
 
-const APP_PROPERTIES = {
-	MADAM_NAZAR_API_DOMAIN: {
-		development: 'https://madam-nazar-location-api-2.herokuapp.com',
-		production: 'https://madam-nazar-location-api.herokuapp.com'
-	},
-	SERVER_PREFIX: {
-		development: '+',
-		production: 'r!'
-	},
-	CONFIG_IGNORE_BOTS: {
-		development: false,
-		production: true
-	}
-}
+// TODO: Comment build structure
 
 const paths = {
 	raw: {
 		src: 'src',
+		config: 'build/config',
 		assets: 'assets',
 		data: 'data'
 	},
 	app: {
 		src: 'src',
+		config: {
+			root: 'config',
+			file: 'properties.json'
+		},
 		assets: 'assets',
 		data: 'data'
 	}
 };
 
 module.exports = (options) => {
-	// Replace strings in 'src' files
-	const replaceSrcTree = replace(paths.raw.src, {
-		files: [
-			'lib/settings/url.js',
-			'lib/config.json'
-		],
-		patterns: [
-			{
-				match: /@@madamNazarIOAPIDomain/g,
-				replacement: APP_PROPERTIES.MADAM_NAZAR_API_DOMAIN[options.env]
-			},
-			{
-				match: /@@serverPrefix/g,
-				replacement: APP_PROPERTIES.SERVER_PREFIX[options.env]
-			},
-			{
-				match: /@@ignoreBots/g,
-				replacement: APP_PROPERTIES.CONFIG_IGNORE_BOTS[options.env]
-			}
-		]
-	});
-
 	// Transpile the ES6 files in string-replaced 'src'
-	const transpiledSrcTree = babel(replaceSrcTree, {
+	const transpiledSrcTree = babel(paths.raw.src, {
 		// In case more options are required, presets may be moved to .babelrc
 		presets: [
 			[
@@ -73,6 +42,13 @@ module.exports = (options) => {
 		destDir: paths.app.src
 	});
 
+	// Copy the single configuration file for this environment
+	const configTree = funnel(paths.raw.config, {
+		destDir: paths.app.config.root,
+		include: [`**/${options.env}.json`],
+		getDestinationPath: (relativeFile) => paths.app.config.file
+	});
+
 	// Copy the assets directory
 	const assetsTree = funnel(paths.raw.assets, {
 		destDir: paths.app.assets
@@ -84,7 +60,7 @@ module.exports = (options) => {
 	});
 
 	// Merge all trees and write to destination folder
-	return mergeTrees([srcTree, assetsTree, dataTree], {
+	return mergeTrees([srcTree, configTree, assetsTree, dataTree], {
 		overwrite: true
 	});
 };

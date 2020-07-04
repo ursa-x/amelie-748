@@ -1,11 +1,9 @@
 import { Client } from 'klasa';
+import config from '../config/properties.json';
 import { checkEnvironment } from './lib/util/general';
 import secret from './lib/secrets.json';
 import ServiceStore from './lib/structures/service-store';
 import Logger from './lib/plugins/winston';
-
-// load environment configurations
-require('dotenv').config();
 
 // Check if system is ready to run the bot
 checkEnvironment();
@@ -29,7 +27,7 @@ class BotClient extends Client {
 
 const Amelie = new BotClient({
 	fetchAllMembers: false,
-	prefix: process.env.BOT_CONFIG_PREFIX,
+	prefix: config.bot.prefix,
 	commandEditing: true,
 	commandLogging: true,
 	consoleEvents: {
@@ -39,7 +37,7 @@ const Amelie = new BotClient({
 	typing: true,
 	pieceDefaults: {
 		monitors: {
-			ignoreBots: (!!process.env.BOT_CONFIG_IGNORE_BOTS)
+			ignoreBots: config.bot.ignoreBots
 		},
 		// Custom piece defaults
 		services: {
