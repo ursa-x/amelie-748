@@ -18,15 +18,19 @@ const mergeTrees = require('broccoli-merge-trees');
 const paths = {
 	raw: {
 		src: 'src',
-		config: 'build/config',
+		config: {
+			rootDir: 'build/config',
+			commonPropertiesFile: 'common.properties.json',
+			secretsFile: 'secrets.json'
+		},
 		assets: 'assets',
 		data: 'data'
 	},
 	app: {
 		src: 'src',
 		config: {
-			root: 'config',
-			file: 'properties.json'
+			rootDir: 'config',
+			environmentPropertiesFile: 'properties.json'
 		},
 		assets: 'assets',
 		data: 'data'
@@ -34,9 +38,7 @@ const paths = {
 };
 
 module.exports = (options) => {
-	const rawCommonPropertiesFile = `common.properties.json`,
-		rawPropertiesFile = `${options.env}.json`,
-		rawSecretsFile = 'secrets.json';
+	const rawEnvironmentPropertiesFile = `${options.env}.json`;
 
 	// Transpile the ES6 files in string-replaced 'src'
 	const transpiledSrcTree = babel(paths.raw.src, {
@@ -58,15 +60,15 @@ module.exports = (options) => {
 	});
 
 	// Copy the single configuration file for this environment
-	const configTree = funnel(paths.raw.config, {
-		destDir: paths.app.config.root,
+	const configTree = funnel(paths.raw.config.rootDir, {
+		destDir: paths.app.config.rootDir,
 		include: [
-			`**/${rawCommonPropertiesFile}`,
-			`**/${rawPropertiesFile}`,
-			`**/${rawSecretsFile}`
+			`**/${paths.raw.config.commonPropertiesFile}`,
+			`**/${rawEnvironmentPropertiesFile}`,
+			`**/${paths.raw.config.secretsFile}`
 		],
-		getDestinationPath: (relativeFile) => (relativeFile === rawPropertiesFile)
-			? paths.app.config.file
+		getDestinationPath: (relativeFile) => (relativeFile === rawEnvironmentPropertiesFile)
+			? paths.app.config.environmentPropertiesFile
 			: relativeFile
 	});
 
