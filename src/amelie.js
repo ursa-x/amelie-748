@@ -1,12 +1,12 @@
 import { Client } from 'klasa';
+import config from '../config/properties.json';
+import secret from '../config/secrets.json';
 import { checkEnvironment } from './lib/util/general';
-import secret from './lib/secrets.json';
-import config from './lib/config.json';
 import ServiceStore from './lib/structures/service-store';
 import Logger from './lib/plugins/winston';
+
 // Check if system is ready to run the bot
 checkEnvironment();
-
 
 class BotClient extends Client {
 	constructor(...args) {
@@ -27,7 +27,7 @@ class BotClient extends Client {
 
 const Amelie = new BotClient({
 	fetchAllMembers: false,
-	prefix: config.prefix,
+	prefix: config.bot.prefix,
 	commandEditing: true,
 	commandLogging: true,
 	consoleEvents: {
@@ -36,6 +36,10 @@ const Amelie = new BotClient({
 	},
 	typing: true,
 	pieceDefaults: {
+		monitors: {
+			ignoreBots: config.bot.ignoreBots
+		},
+		// Custom piece defaults
 		services: {
 			enabled: true
 		}

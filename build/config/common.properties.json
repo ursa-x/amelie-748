@@ -1,5 +1,4 @@
 {
-	"prefix": "@@serverPrefix",
 	"coreDependencies": {
 		"nodeJs": {
 			"packageName": "node.js",

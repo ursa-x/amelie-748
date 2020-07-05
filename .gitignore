@@ -107,5 +107,5 @@ dist
 .idea/
 
 # App files
-/src/lib/secrets.json
+/build/config/secrets.json
 .spec/*.md !.spec/command.md

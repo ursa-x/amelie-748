@@ -1,7 +1,8 @@
 /* eslint one-var: "off" */
+import APP_CONFIG from '../../../config/properties.json';
 
 export const MADAM_NAZAR_API = {
-	DOMAIN: '@@madamNazarIOAPIDomain',
+	DOMAIN: APP_CONFIG.url.madam_nazar_api_domain,
 
 	currentLocationAPI() {
 		return `${this.DOMAIN}/location/current`;

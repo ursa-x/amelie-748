@@ -1,0 +1,9 @@
+{
+	"bot": {
+		"prefix": "+",
+		"ignoreBots": false
+	},
+	"url": {
+		"madam_nazar_api_domain": "https://madam-nazar-location-api-2.herokuapp.com"
+	}
+}
