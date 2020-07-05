@@ -1,6 +1,6 @@
 /* eslint one-var: "off" */
 
-import { author } from '../../config.json';
+import { author } from '../../../../config/common.properties.json';
 import { BOT } from '../../settings/general';
 
 const LABEL = {

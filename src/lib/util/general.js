@@ -6,7 +6,7 @@
 import { version as DISCORDJS_VERSION } from 'discord.js';
 import { version as  KLASAJS_VERSION } from 'klasa';
 import SYSTEM_ERROR_MESSAGES from '../messages/error/general';
-import APP_CONFIG from './../config.json';
+import APP_CONFIG from '../../../config/common.properties.json';
 
 /* Variables */
 const {

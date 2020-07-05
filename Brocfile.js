@@ -34,7 +34,8 @@ const paths = {
 };
 
 module.exports = (options) => {
-	const rawPropertiesFile = `${options.env}.json`,
+	const rawCommonPropertiesFile = `common.properties.json`,
+		rawPropertiesFile = `${options.env}.json`,
 		rawSecretsFile = 'secrets.json';
 
 	// Transpile the ES6 files in string-replaced 'src'
@@ -60,6 +61,7 @@ module.exports = (options) => {
 	const configTree = funnel(paths.raw.config, {
 		destDir: paths.app.config.root,
 		include: [
+			`**/${rawCommonPropertiesFile}`,
 			`**/${rawPropertiesFile}`,
 			`**/${rawSecretsFile}`
 		],
