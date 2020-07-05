@@ -1,7 +1,7 @@
 import { Client } from 'klasa';
 import config from '../config/properties.json';
+import secret from '../config/secrets.json';
 import { checkEnvironment } from './lib/util/general';
-import secret from './lib/secrets.json';
 import ServiceStore from './lib/structures/service-store';
 import Logger from './lib/plugins/winston';
 

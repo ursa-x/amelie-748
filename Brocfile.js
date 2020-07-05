@@ -2,8 +2,19 @@ const funnel = require('broccoli-funnel');
 const babel = require('broccoli-babel-transpiler');
 const mergeTrees = require('broccoli-merge-trees');
 
-// TODO: Comment build structure
+/*
+  Final build structure that is deployed:
+  dist
+  ├── app
+  │   ├── assets
+  │   ├── config
+  │   ├── data
+  │   └── src
+  ├── archive
+  └── log
+*/
 
+// Source and destination paths
 const paths = {
 	raw: {
 		src: 'src',
@@ -23,6 +34,9 @@ const paths = {
 };
 
 module.exports = (options) => {
+	const rawPropertiesFile = `${options.env}.json`,
+		rawSecretsFile = 'secrets.json';
+
 	// Transpile the ES6 files in string-replaced 'src'
 	const transpiledSrcTree = babel(paths.raw.src, {
 		// In case more options are required, presets may be moved to .babelrc
@@ -45,8 +59,13 @@ module.exports = (options) => {
 	// Copy the single configuration file for this environment
 	const configTree = funnel(paths.raw.config, {
 		destDir: paths.app.config.root,
-		include: [`**/${options.env}.json`],
-		getDestinationPath: (relativeFile) => paths.app.config.file
+		include: [
+			`**/${rawPropertiesFile}`,
+			`**/${rawSecretsFile}`
+		],
+		getDestinationPath: (relativeFile) => (relativeFile === rawPropertiesFile)
+			? paths.app.config.file
+			: relativeFile
 	});
 
 	// Copy the assets directory
