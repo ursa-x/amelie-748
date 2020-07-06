@@ -11,6 +11,7 @@ const LABEL = {
 	CREDITS: 'Credits',
 	USAGE: 'Usage',
 	MORE: 'More',
+	NEEDS_PERMISSIONS: 'Needs Permissions',
 	CHARACTER_BY: 'Character By',
 	DAY: 'Day',
 	STATE: 'State',
