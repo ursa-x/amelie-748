@@ -43,6 +43,12 @@ class CommandHelp extends CoreModel {
 			? command.extendedHelp(originMessage.language)
 			: command.extendedHelp;
 	}
+
+	get requiredPermissions() {
+		const { command } = this;
+
+		return command.requiredPermissions.toArray();
+	}
 }
 
 export default CommandHelp;

@@ -19,6 +19,10 @@ export default class extends Command {
 			name: 'nazar',
 			enabled: true,
 			runIn: ['text'],
+			requiredPermissions: [
+				'SEND_MESSAGES',
+				'ATTACH_FILES'
+			],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.NAZAR_DESC,
 			usage: '[wya|weekly] [setName:...string]',

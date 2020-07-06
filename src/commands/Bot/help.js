@@ -17,6 +17,10 @@ module.exports = class extends Command {
 			name: 'help',
 			aliases: ['commands'],
 			guarded: true,
+			requiredPermissions: [
+				'SEND_MESSAGES',
+				'ATTACH_FILES'
+			],
 			description: (language) => language.get('COMMAND_HELP_DESCRIPTION'),
 			usage: '(Command:command)'
 		});

@@ -10,6 +10,7 @@ export default class extends Command {
 		super(...args, {
 			name: 'ping',
 			guarded: true,
+			requiredPermissions: ['SEND_MESSAGES'],
 			description: (language) => language.get('COMMAND_PING_DESCRIPTION')
 		});
 	}
