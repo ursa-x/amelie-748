@@ -12,6 +12,10 @@ export default class extends Command {
 			name: 'sally',
 			enabled: true,
 			runIn: ['text'],
+			requiredPermissions: [
+				'SEND_MESSAGES',
+				'ATTACH_FILES'
+			],
 			subcommands: true,
 			description: (language) => language.get('COMMANDS').MESSAGE.SALLY_DESC,
 			usage: '[events|next] [eventQuery:...string]',

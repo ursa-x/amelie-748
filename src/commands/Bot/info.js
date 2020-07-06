@@ -14,6 +14,10 @@ export default class extends Command {
 			runIn: ['text', 'dm'],
 			aliases: ['details', 'what'],
 			guarded: true,
+			requiredPermissions: [
+				'SEND_MESSAGES',
+				'ATTACH_FILES'
+			],
 			description: (language) => language.get('COMMAND_INFO_DESCRIPTION')
 		});
 	}
