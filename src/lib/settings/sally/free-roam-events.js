@@ -18,3 +18,10 @@ export const RANDOM_EVENTS = [
 	'Sidearm Kills',
 	'Wild Animal Kills'
 ];
+
+export const SCHEDULE_ITEM_POSITION_ENUM = {
+	EVENT_TIME: 0,
+	EVENT_NAME: 1,
+	ROLE_NAME: 2
+};
+

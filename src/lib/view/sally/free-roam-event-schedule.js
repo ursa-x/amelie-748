@@ -8,7 +8,10 @@ import {
 	DELIMITER,
 	QUERY_TYPE
 } from '../../settings/general';
-import { CATEGORY_NAMES } from '../../settings/sally/free-roam-events';
+import {
+	CATEGORY_NAMES,
+	SCHEDULE_ITEM_POSITION_ENUM
+} from '../../settings/sally/free-roam-events';
 import { data } from '../../../../data/persona.json';
 
 const { sally } = data;
@@ -61,15 +64,6 @@ class ScheduleViewHelper extends CoreView {
 }
 
 class FreeRoamEventScheduleView extends ScheduleViewHelper {
-	constructor(model) {
-		super(model);
-
-		this.SCHEDULE_ITEM_POSITION_ENUM = {
-			EVENT_TIME: 0,
-			EVENT_NAME: 1,
-			ROLE_NAME: 2
-		}
-	}
 	get messageEmbed() {
 		const self = this,
 			{ meta: queryParams } = self.model,
@@ -118,8 +112,8 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		// TODO: Highlight 'next' when displaying all
 		const self = this,
 			ScheduleViewEmbed = this.embed,
-			generalScheduleList = self.model.eventSchedule.general,
-			generalEventSchedule = this.createGeneralSchedule(generalScheduleList);
+			generalScheduleCollection = self.model.eventSchedule.get(CATEGORY_NAMES.GENERAL),
+			generalEventSchedule = this.createGeneralSchedule(generalScheduleCollection);
 
 		ScheduleViewEmbed.addFields({
 			name: capitalize(CATEGORY_NAMES.GENERAL),
@@ -134,8 +128,8 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		// TODO: Highlight 'next' when displaying all
 		const self = this,
 			ScheduleViewEmbed = this.embed,
-			roleScheduleList = self.model.eventSchedule.role,
-			roleEventSchedule = this.createRoleSchedule(roleScheduleList, inline);
+			roleScheduleCollection = self.model.eventSchedule.get(CATEGORY_NAMES.ROLE),
+			roleEventSchedule = this.createRoleSchedule(roleScheduleCollection, inline);
 
 		ScheduleViewEmbed.addFields({
 			name: capitalize(CATEGORY_NAMES.ROLE),
@@ -146,51 +140,41 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		return ScheduleViewEmbed;
 	}
 
-	createGeneralSchedule(generalScheduleList) {
-		const {
-				SCHEDULE_ITEM_POSITION_ENUM,
-				formatGeneralScheduleItem
-			} = this,
-			{
-				EVENT_TIME: EVENT_TIME_POSITION,
-				EVENT_NAME: EVENT_NAME_POSITION
-			} = SCHEDULE_ITEM_POSITION_ENUM;
+	createGeneralSchedule(generalScheduleCollection) {
+		const {	formatGeneralScheduleItem } = this;
 
-		return generalScheduleList
-			.reduce((scheduleText, freeRoamEvent) => {
-				const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
-					freeRoamEventName = freeRoamEvent[EVENT_NAME_POSITION],
-					eventScheduleItem = formatGeneralScheduleItem(freeRoamEventTime, freeRoamEventName);
+		return generalScheduleCollection
+			.reduce((scheduleText, freeRoamEvent, eventTime) => {
+				const eventScheduleItem = formatGeneralScheduleItem(
+					eventTime,
+					freeRoamEvent.name
+				);
 
-				return `${scheduleText}${eventScheduleItem}${DELIMITER.NEW_LINE}`;
+				return `${scheduleText}${eventScheduleItem}\n`;
 			}, DELIMITER.NEW_LINE);
 	}
 
-	createRoleSchedule(roleScheduleList, inline = true) {
-		const 	{
-				SCHEDULE_ITEM_POSITION_ENUM,
-				formatRoleScheduleItem
-			} = this,
+	createRoleSchedule(roleScheduleCollection, inline = true) {
+		const 	{ formatRoleScheduleItem } = this,
 			{
 				EVENT_TIME: EVENT_TIME_POSITION,
 				EVENT_NAME: EVENT_NAME_POSITION,
 				ROLE_NAME: ROLE_NAME_POSITION
 			} = SCHEDULE_ITEM_POSITION_ENUM;
 
-		return roleScheduleList
-			.reduce((scheduleText, freeRoamEvent) => {
-				const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
-					freeRoamEventName = freeRoamEvent[EVENT_NAME_POSITION],
+		return roleScheduleCollection
+			.reduce((scheduleText, freeRoamEvent, eventTime) => {
+				const freeRoamEventName = freeRoamEvent.name,
 					roleEventName = () => (!inline)
-						? freeRoamEvent[ROLE_NAME_POSITION]
+						? freeRoamEvent.role
 						: '',
 					eventScheduleItem = formatRoleScheduleItem(
-						freeRoamEventTime,
+						eventTime,
 						freeRoamEventName,
 						roleEventName()
 					);
 
-				return `${scheduleText}${eventScheduleItem}${DELIMITER.NEW_LINE}`;
+				return `${scheduleText}${eventScheduleItem}\n`;
 			}, DELIMITER.NEW_LINE);
 	}
 
@@ -201,7 +185,7 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 	formatRoleScheduleItem(eventTime, eventName, roleName = '') {
 		const specifyRole = (role) => (!!role) ? `\`${role}\`` : '';
 
-		return `\`${eventTime}\` - ${specifyRole(roleName)} ${eventName}`;
+		return `\`${eventTime}\` - ${eventName} ${specifyRole(roleName)}`;
 	}
 }
 

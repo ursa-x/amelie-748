@@ -79,6 +79,21 @@ const MESSAGE = {
 	SALLY_NEXT_EVENTS_TITLE: ':hourglass: Upcoming events',
 	SALLY_NEXT_EVENTS_DESC: 'These are next set of free roam events. '
 		+ 'Hands on your holster!',
+	SALLY_NEXT_GENERAL_EVENT_DETAIL: (
+			eventTime,
+			eventName,
+			timeDiff
+		) => `**${eventName}**`
+			+ `\nStarts ${timeDiff}`
+			+ `\n\`${eventTime} GMT\``,
+	SALLY_NEXT_ROLE_EVENT_DETAIL: (
+			eventTime,
+			eventName,
+			eventRole,
+			timeDiff
+		) => `**${eventName}** \`${eventRole}\``
+			+ `\nStarts ${timeDiff}`
+			+ `\n\`${eventTime} GMT\``,
 
 	// Error
 	ERROR_GENERAL_REPLY: 'Sorry I don\'t understand',

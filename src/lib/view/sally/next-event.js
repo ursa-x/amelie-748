@@ -13,8 +13,8 @@ const { sally } = data;
 class NextEventViewHelper extends CoreView {
 	getGeneralEventField(inline = false) {
 		const gcl = this.getCommandLiteral,
-			generalEvent = this.getNextEvent(CATEGORY_NAMES.GENERAL),
-			formattedEventDetails = this.getFormattedEventDetails(generalEvent);
+			generalEvent = this.getNextFreeRoamEventAsObj(CATEGORY_NAMES.GENERAL),
+			formattedEventDetails = this.formatFreeRoamEventDetails(generalEvent);
 
 		return [
 			gcl('LABEL.GENERAL'),
@@ -25,8 +25,8 @@ class NextEventViewHelper extends CoreView {
 
 	getRoleEventField(inline = false) {
 		const gcl = this.getCommandLiteral,
-			roleEvent = this.getNextEvent(CATEGORY_NAMES.ROLE),
-			formattedEventDetails = this.getFormattedEventDetails(roleEvent);
+			roleEvent = this.getNextFreeRoamEventAsObj(CATEGORY_NAMES.ROLE),
+			formattedEventDetails = this.formatFreeRoamEventDetails(roleEvent);
 
 		return [
 			gcl('LABEL.ROLE'),
@@ -49,10 +49,19 @@ class NextEventViewHelper extends CoreView {
 		};
 	}
 
-	getFormattedEventDetails(event) {
-		return `**${event.name}**`
-			+ `\nStarts ${event.diff}`
-			+ `\n\`${event.time} GMT\``;
+	formatFreeRoamEventDetails(event) {
+		return (!!event.info.role)
+			? this.getCommandLiteral('MESSAGE.SALLY_NEXT_ROLE_EVENT_DETAIL')(
+				event.time,
+				event.info.name,
+				event.info.role,
+				event.diff
+			)
+			: this.getCommandLiteral('MESSAGE.SALLY_NEXT_GENERAL_EVENT_DETAIL')(
+				event.time,
+				event.info.name,
+				event.diff
+			);
 	}
 
 	humanizeEventTimeDiff(nowInUTC, untidyLater) {
@@ -65,26 +74,27 @@ class NextEventViewHelper extends CoreView {
 	}
 
 	// Sift through the schedule to find closest event to now
-	getNextEventAsRow(eventSchedule, now) {
-		return eventSchedule.find(
-			(event) => now.isSameOrBefore(
+	getNextFreeRoamEvent(eventSchedule, now) {
+		return eventSchedule.findKey(
+			(freeRoamEvent, eventTime) => now.isSameOrBefore(
 				DateTimeUtil.dateTimeUTC(
-					event[0],
+					eventTime,
 					DATE.SALLY.EVENT_TIME
 				)
 			)
 		);
 	}
 
-	getNextEvent(categoryName) {
-		const eventSchedule = this.model.eventSchedule[categoryName],
+	getNextFreeRoamEventAsObj(categoryName) {
+		const categoryEventSchedule = this.model.eventSchedule.get(categoryName),
 			now = DateTimeUtil.nowUTC(),
-			flattenedNextEvent = this.getNextEventAsRow(eventSchedule, now),
-			humanizedDiff = this.humanizeEventTimeDiff(now, flattenedNextEvent[0]);
+			nextFreeRoamEventTime = this.getNextFreeRoamEvent(categoryEventSchedule, now),
+			nextFreeRoamEvent = categoryEventSchedule.get(nextFreeRoamEventTime),
+			humanizedDiff = this.humanizeEventTimeDiff(now, nextFreeRoamEventTime);
 
 		return {
-			time: flattenedNextEvent[0],
-			name: flattenedNextEvent[1],
+			time: nextFreeRoamEventTime,
+			info: nextFreeRoamEvent,
 			diff: humanizedDiff
 		};
 	}
