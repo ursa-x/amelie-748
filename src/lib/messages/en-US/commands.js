@@ -72,6 +72,8 @@ const MESSAGE = {
 
 	SALLY_DESC: 'Find useful info on Free Roam events from Sally Nash.',
 	SALLY_EVENTS_TITLE: ':calendar_spiral: Free roam event schedule',
+	SALLY_GENERAL_EVENTS_TITLE: ':calendar_spiral: General event schedule',
+	SALLY_ROLE_EVENTS_TITLE: ':calendar_spiral: Role event schedule',
 	SALLY_EVENTS_DESC: 'Here is a list of free roam events you can '
 		+ 'participate in each day, for gold, $ and XP.'
 		+ '\n\n*All times are in GMT*.',

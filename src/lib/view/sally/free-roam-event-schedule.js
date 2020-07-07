@@ -18,20 +18,28 @@ const { sally } = data;
 
 class ScheduleViewHelper extends CoreView {
 	getTitleText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
+		let title = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
+
+		if(this.isGeneralSchedule())
+			title = this.getCommandLiteral('MESSAGE.SALLY_GENERAL_EVENTS_TITLE');
+
+		if(this.isRoleSchedule())
+			title = this.getCommandLiteral('MESSAGE.SALLY_ROLE_EVENTS_TITLE');
+
+		return title;
 	}
 
 	getDescriptionText() {
-		let descriptionText = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+		let description = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
 
 		// Add the Random event note for complete and general schedules
 		if (!this.isRoleSchedule()) {
 			const randomEventNote = this.getCommandLiteral('MESSAGE.SALLY_RANDOM_EVENT_NOTE');
 
-			descriptionText += `\n\n${randomEventNote}`;
+			description += `\n\n${randomEventNote}`;
 		}
 
-		return descriptionText;
+		return description;
 	}
 
 	getThumbnail() {
