@@ -23,7 +23,7 @@ export default class extends Command {
 		return this.next(message);
 	}
 
-	/* Sends the general and role events that are closest to now */
+	// Sends the general and role events that are next in line
 	next(message) {
 		const nextEventEmbed = this.createNextEventEmbed(message);
 
@@ -33,7 +33,7 @@ export default class extends Command {
 		});
 	}
 
-	/* Gives you the free roam event schedule */
+	// Gives you the free roam event schedule
 	async events(message, params) {
 		const self = this,
 			nextEventName = null;
@@ -74,7 +74,7 @@ export default class extends Command {
 		return nextEventView;
 	}
 
-	/* Displays the complete free roam event schedule */
+	// Displays the complete free roam event schedule
 	sendEventSchedule(message, nextEventName) {
 		return this.sendSchedule(message, {
 			queryType: QUERY_TYPE.ALL,
@@ -82,7 +82,7 @@ export default class extends Command {
 		});
 	}
 
-	/* Displays a free roam event schedule, the general or one for roles */
+	// Displays a free roam event schedule, the general or one for roles
 	sendSchedule(message, options) {
 		const scheduleEmbed = this.createScheduleEmbed(options, message);
 

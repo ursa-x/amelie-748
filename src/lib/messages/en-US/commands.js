@@ -2,9 +2,16 @@
 
 import { author } from '../../../../config/common.properties.json';
 import { BOT } from '../../settings/general';
+import { RANDOM_EVENTS } from "../../settings/sally/free-roam-events";
 
+// Helpers
+const randomEventsAsString = () => {
+	return RANDOM_EVENTS.join(', ');
+};
+
+// String literals
 const LABEL = {
-	/* Common */
+	// Common
 	BIO: 'Bio',
 	PREFIX: 'Prefix',
 	VERSION: 'Version',
@@ -20,7 +27,7 @@ const LABEL = {
 	GENERAL: 'General',
 	ROLE: 'Role',
 
-	/* Command */
+	// Command
 	NAZAR: 'nazar'
 };
 
@@ -29,12 +36,12 @@ const GT = {
 };
 
 const MESSAGE = {
-	/* Common */
+	// Common
 	EMPTY_TITLE: '',
 	EMPTY_DESC: '',
 	EMPTY_FOOTER: '',
 
-	/* Commands */
+	// Command
 	HELP_TITLE: 'Hello, there! :wave:',
 	HELP_DESC: (serverPrefix) => `To see what you may get out of a conversation, say \`${serverPrefix}help [word]\``,
 
@@ -64,20 +71,21 @@ const MESSAGE = {
 	NAZAR_SET_CURRENT_DESC: 'Find and deliver the items to Madam Nazar this week to earn $ and XP.',
 
 	SALLY_DESC: 'Find useful info on Free Roam events from Sally Nash.',
-	SALLY_EVENTS_TITLE: 'Free roam event schedule',
+	SALLY_EVENTS_TITLE: ':calendar_spiral: Free roam event schedule',
 	SALLY_EVENTS_DESC: 'Here is a list of free roam events you can '
 		+ 'participate in each day, for gold, $ and XP.'
 		+ '\n\n*All times are in GMT*.',
+	SALLY_RANDOM_EVENT_NOTE: `*Also, \`Random\` events include ${randomEventsAsString()}*`,
 	SALLY_NEXT_EVENTS_TITLE: ':hourglass: Upcoming events',
 	SALLY_NEXT_EVENTS_DESC: 'These are next set of free roam events. '
 		+ 'Hands on your holster!',
 
-	/* Error */
+	// Error
 	ERROR_GENERAL_REPLY: 'Sorry I don\'t understand',
 	ERROR_NAZAR_WYA: ''
 };
 
-
+// Package all string literals
 const COMMANDS = {
 	LABEL,
 	MESSAGE,

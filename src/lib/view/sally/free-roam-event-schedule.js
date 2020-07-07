@@ -19,7 +19,16 @@ class ScheduleViewHelper extends CoreView {
 	}
 
 	getDescriptionText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+		let descriptionText = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+
+		// Add the Random event note for complete and general schedules
+		if (!this.isRoleSchedule()) {
+			const randomEventNote = this.getCommandLiteral('MESSAGE.SALLY_RANDOM_EVENT_NOTE');
+
+			descriptionText += `\n\n${randomEventNote}`;
+		}
+
+		return descriptionText;
 	}
 
 	getThumbnail() {
@@ -27,9 +36,55 @@ class ScheduleViewHelper extends CoreView {
 			url: MessageUtil.makeAttachmentString(sally.iconFile)
 		};
 	}
+
+	isCompleteSchedule() {
+		const scheduleMeta = this.model.meta;
+
+		return scheduleMeta.queryType === QUERY_TYPE.ALL;
+	}
+
+	isSpecificSchedule(eventType) {
+		const scheduleMeta = this.model.meta;
+
+		return scheduleMeta.queryType === QUERY_TYPE.SEARCH
+			&& !!scheduleMeta.searchQuery
+			&& scheduleMeta.searchQuery === eventType;
+	}
+
+	isGeneralSchedule() {
+		return this.isSpecificSchedule(CATEGORY_NAMES.GENERAL);
+	}
+
+	isRoleSchedule() {
+		return this.isSpecificSchedule(CATEGORY_NAMES.ROLE);
+	}
 }
 
 class FreeRoamEventScheduleView extends ScheduleViewHelper {
+	get messageEmbed() {
+		const self = this,
+			{ meta: queryParams } = self.model,
+			{ queryType } = queryParams;
+
+		switch (queryType) {
+			case QUERY_TYPE.ALL:
+				return self.makeScheduleEmbed();
+			case QUERY_TYPE.SEARCH:
+				return self.makeScheduleEmbed(queryParams.searchQuery);
+			default:
+				return self.makeScheduleEmbed();
+		}
+	}
+
+	get messageAttachments() {
+		const { imageAttachments } = this,
+			sallyThumbnailAttachment = new MessageAttachment(`./${sally.iconFolder}${sally.iconFile}`);
+
+		imageAttachments.push(sallyThumbnailAttachment);
+
+		return imageAttachments;
+	}
+
 	makeGeneralScheduleEmbed(inline = true) {
 		// TODO: Highlight 'next' when displaying all
 		const self = this,
@@ -96,30 +151,6 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		default:
 			return makeCompleteScheduleEmbed();
 		}
-	}
-
-	get messageEmbed() {
-		const self = this,
-			{ meta: queryParams } = self.model,
-			{ queryType } = queryParams;
-
-		switch (queryType) {
-		case QUERY_TYPE.ALL:
-			return self.makeScheduleEmbed();
-		case QUERY_TYPE.SEARCH:
-			return self.makeScheduleEmbed(queryParams.searchQuery);
-		default:
-			return self.makeScheduleEmbed();
-		}
-	}
-
-	get messageAttachments() {
-		const { imageAttachments } = this,
-			sallyThumbnailAttachment = new MessageAttachment(`./${sally.iconFolder}${sally.iconFile}`);
-
-		imageAttachments.push(sallyThumbnailAttachment);
-
-		return imageAttachments;
 	}
 }
 
