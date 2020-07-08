@@ -2,6 +2,7 @@ import { Collection} from "discord.js";
 import { titleCase } from 'voca';
 import CoreModel from '../core/model';
 import { data as FREE_ROAM_EVENTS } from '../../../../data/free-roam-events.json';
+import { getTitleCaseFromSnakeCase } from "../../util/message";
 import {
 	DELIMITER,
 	QUERY_TYPE
@@ -10,12 +11,6 @@ import {
 	CATEGORY_NAMES,
 	SCHEDULE_ITEM_POSITION_ENUM
 } from "../../settings/sally/free-roam-events";
-
-const cleanKey = (key) => titleCase(
-	key
-		.split(DELIMITER.UNDERSCORE)
-		.join(DELIMITER.SPACE)
-);
 
 class FreeRoamEvents extends CoreModel {
 	constructor(message, meta) {
@@ -45,9 +40,6 @@ class FreeRoamEvents extends CoreModel {
 				? this.cleanRoleEventSchedule(schedule)
 				: this.cleanEventSchedule(schedule)
 			);
-			// self.eventSchedule[categoryName] = (categoryName === CATEGORY_NAMES.ROLE)
-			// 	? this.cleanRoleEventSchedule(schedule)
-			// 	: this.cleanEventSchedule(schedule);
 		}
 	}
 
@@ -60,7 +52,7 @@ class FreeRoamEvents extends CoreModel {
 
 		eventsList.forEach((freeRoamEvent) => {
 			const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
-				freeRoamEventName = cleanKey(freeRoamEvent[EVENT_NAME_POSITION]);
+				freeRoamEventName = getTitleCaseFromSnakeCase(freeRoamEvent[EVENT_NAME_POSITION]);
 
 			eventSchedule.set(
 				freeRoamEventTime,
@@ -81,8 +73,8 @@ class FreeRoamEvents extends CoreModel {
 
 		roleEventsList.forEach((freeRoamEvent) => {
 			const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
-				freeRoamEventName = cleanKey(freeRoamEvent[EVENT_NAME_POSITION]),
-				roleName = cleanKey(freeRoamEvent[ROLE_NAME_POSITION]);
+				freeRoamEventName = getTitleCaseFromSnakeCase(freeRoamEvent[EVENT_NAME_POSITION]),
+				roleName = getTitleCaseFromSnakeCase(freeRoamEvent[ROLE_NAME_POSITION]);
 
 			roleEventSchedule.set(
 				freeRoamEventTime,

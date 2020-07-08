@@ -2,7 +2,7 @@
 
 import { author } from '../../../../config/common.properties.json';
 import { BOT } from '../../settings/general';
-import { RANDOM_EVENTS } from "../../settings/sally/free-roam-events";
+import { RANDOM_EVENTS } from "./constants";
 
 // Helpers
 const randomEventsAsString = () => {

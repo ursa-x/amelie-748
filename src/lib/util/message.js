@@ -24,3 +24,9 @@ export const getKlasaLiteral = (path, args, message) => {
 export const makeAttachmentString = (imageName) => `attachment://${imageName}`;
 
 export const fixTitleCase = (text) => titleCase(lowerCase(text));
+
+export const getTitleCaseFromSnakeCase = (text) => titleCase(
+	text
+		.split(DELIMITER.UNDERSCORE)
+		.join(DELIMITER.SPACE)
+);
