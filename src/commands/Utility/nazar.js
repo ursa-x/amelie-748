@@ -6,7 +6,7 @@ import LoadingModel from '../../lib/model/loading';
 import NazarLocationView from '../../lib/view/nazar/location';
 import WeeklySetsView from '../../lib/view/nazar/weekly-sets';
 import LoadingView from '../../lib/view/core/loading';
-import { cleanParams } from '../../lib/util/argument';
+import { cleanSearchParams } from '../../lib/util/argument';
 import { getCommandLiteral } from '../../lib/util/message';
 import {
 	QUERY_TYPE,
@@ -60,7 +60,7 @@ export default class extends Command {
 		const self = this,
 			todayLocation = (params.length === 0)
 				? await this.getNazarsLocation()
-				: await this.getNazarsLocation(cleanParams(params[0]) === ACTION_TYPE.UPDATE),
+				: await this.getNazarsLocation(cleanSearchParams(params[0]) === ACTION_TYPE.UPDATE),
 			getLocale = (key) => getCommandLiteral(key, message),
 			loadingView = new LoadingView(new LoadingModel(message)),
 			loadingEmbed = loadingView.messageEmbed
@@ -91,7 +91,7 @@ export default class extends Command {
 				await self.getCurrentWeeklySet()
 			);
 		} else {
-			const tidyParams = cleanParams(params[0]),
+			const tidyParams = cleanSearchParams(params[0]),
 				currentSetName = await self.getCurrentWeeklySet(tidyParams === ACTION_TYPE.UPDATE),
 				// eslint-disable-next-line arrow-body-style
 				reply = (option, activeMessage) => {
