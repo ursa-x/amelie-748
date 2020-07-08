@@ -3,7 +3,7 @@ import {
 	upperCase
 } from 'voca';
 import CoreModel from '../core/model';
-import { getTitleCaseFromSnakeCase } from "../../util/message";
+import { getTitleCaseFromSnakeCase } from '../../util/message';
 import { data as WEEKLY_SETS } from '../../../../data/weekly-sets.json';
 import COLLECTIBLE_EMOJI from '../../settings/nazar/collectible';
 import {

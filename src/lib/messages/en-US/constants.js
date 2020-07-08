@@ -1,4 +1,4 @@
-export const RANDOM_EVENTS = [
+const RANDOM_EVENTS = [
 	'Bow Kills',
 	'Fishing Challenge',
 	'Headshot Kills',
@@ -7,3 +7,5 @@ export const RANDOM_EVENTS = [
 	'Sidearm Kills',
 	'Wild Animal Kills'
 ];
+
+export default RANDOM_EVENTS;

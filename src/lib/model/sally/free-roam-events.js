@@ -1,16 +1,12 @@
-import { Collection} from "discord.js";
-import { titleCase } from 'voca';
+import { Collection } from 'discord.js';
 import CoreModel from '../core/model';
 import { data as FREE_ROAM_EVENTS } from '../../../../data/free-roam-events.json';
-import { getTitleCaseFromSnakeCase } from "../../util/message";
-import {
-	DELIMITER,
-	QUERY_TYPE
-} from '../../settings/general';
+import { getTitleCaseFromSnakeCase } from '../../util/message';
+import { QUERY_TYPE } from '../../settings/general';
 import {
 	CATEGORY_NAMES,
 	SCHEDULE_ITEM_POSITION_ENUM
-} from "../../settings/sally/free-roam-events";
+} from '../../settings/sally/free-roam-events';
 
 class FreeRoamEvents extends CoreModel {
 	constructor(message, meta) {
@@ -36,9 +32,11 @@ class FreeRoamEvents extends CoreModel {
 		const self = this;
 
 		for (const [categoryName, schedule] of Object.entries(FREE_ROAM_EVENTS)) {
-			self.eventSchedule.set(categoryName, (categoryName === CATEGORY_NAMES.ROLE)
-				? this.cleanRoleEventSchedule(schedule)
-				: this.cleanEventSchedule(schedule)
+			self.eventSchedule.set(
+				categoryName,
+				(categoryName === CATEGORY_NAMES.ROLE)
+					? this.cleanRoleEventSchedule(schedule)
+					: this.cleanEventSchedule(schedule)
 			);
 		}
 	}

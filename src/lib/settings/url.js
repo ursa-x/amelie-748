@@ -1,4 +1,6 @@
 /* eslint one-var: "off" */
+
+// eslint-disable-next-line import/no-unresolved
 import APP_CONFIG from '../../../config/properties.json';
 
 export const MADAM_NAZAR_API = {

@@ -1,5 +1,7 @@
 import { Client } from 'klasa';
+// eslint-disable-next-line import/no-unresolved
 import config from '../config/properties.json';
+// eslint-disable-next-line import/no-unresolved
 import secret from '../config/secrets.json';
 import { checkEnvironment } from './lib/util/general';
 import ServiceStore from './lib/structures/service-store';

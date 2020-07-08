@@ -10,7 +10,7 @@ import * as DateTimeUtil from '../../util/date-time';
 import DATE from '../../settings/formats';
 import { CATEGORY_NAMES } from '../../settings/sally/free-roam-events';
 import { data } from '../../../../data/persona.json';
-import { cleanSearchParams as lowerCaseMash } from "../../util/argument";
+import { cleanSearchParams as lowerCaseMash } from '../../util/argument';
 
 const { sally } = data;
 
@@ -52,7 +52,7 @@ class FreeRoamEventWhenViewHelper extends CoreView {
 	}
 
 	formatFreeRoamEventDetails(occurrences) {
-		return (!!occurrences.eventInfo.role)
+		return (occurrences.eventInfo.role)
 			? this.getCommandLiteral('MESSAGE.SALLY_NEXT_ROLE_EVENT_DETAIL')(
 				occurrences.nearest,
 				occurrences.eventInfo.name,
@@ -79,7 +79,7 @@ class FreeRoamEventWhenView extends FreeRoamEventWhenViewHelper {
 			FreeRoamEventWhenEmbed = this.embed;
 
 		// If there is a match, add the event details to the embed
-		if(freeRoamEventCollection.size !== 0) {
+		if (freeRoamEventCollection.size !== 0) {
 			const freeRoamEventOccurrences = this.getOccurrences(freeRoamEventCollection),
 				eventInfoField = this.getFreeRoamEventField(freeRoamEventOccurrences),
 				otherOccurrencesField = this.getOtherOccurrencesField(freeRoamEventOccurrences.others);
@@ -88,6 +88,7 @@ class FreeRoamEventWhenView extends FreeRoamEventWhenViewHelper {
 				.addField(...eventInfoField)
 				.addField(...otherOccurrencesField);
 		} else {
+			// Handle no match for search
 			const gcl = this.getCommandLiteral;
 
 			FreeRoamEventWhenEmbed
@@ -102,7 +103,7 @@ class FreeRoamEventWhenView extends FreeRoamEventWhenViewHelper {
 		const self = this,
 			{ meta: queryParams } = self.model;
 
-			return self.makeFreeRoamEventWhenEmbed(queryParams);
+		return self.makeFreeRoamEventWhenEmbed(queryParams);
 	}
 
 	get messageAttachments() {
@@ -127,45 +128,36 @@ class FreeRoamEventWhenView extends FreeRoamEventWhenViewHelper {
 
 		let freeRoamEventCollection;
 
-		if(inEventCollection(freeRoamEventName, generalEventsCollection))
+		if (inEventCollection(freeRoamEventName, generalEventsCollection)) {
 			freeRoamEventCollection = filterEventCollection(
 				freeRoamEventName,
 				generalEventsCollection
 			);
-		else if (inEventCollection(freeRoamEventName, roleEventsCollection))
+		} else if (inEventCollection(freeRoamEventName, roleEventsCollection)) {
 			freeRoamEventCollection = filterEventCollection(
 				freeRoamEventName,
 				roleEventsCollection
 			);
-		else
-			freeRoamEventCollection = new Collection();
+		} else freeRoamEventCollection = new Collection();
 
 		return freeRoamEventCollection;
 	}
 
 	inEventCollection(name, collection) {
-		return !!collection.find((eventInfo) => {
-			return lowerCaseMash(eventInfo.name) === name;
-		});
+		return !!collection.find((eventInfo) => lowerCaseMash(eventInfo.name) === name);
 	}
 
 	filterEventCollection(name, collection) {
-		return collection.filter((eventInfo) => {
-			return lowerCaseMash(eventInfo.name) === name;
-		});
+		return collection.filter((eventInfo) => lowerCaseMash(eventInfo.name) === name);
 	}
 
 	getOccurrences(freeRoamEventCollection) {
-		const categoryEventSchedule = (!!freeRoamEventCollection)
-			? freeRoamEventCollection
-			: new Collection(),
-			now = DateTimeUtil.nowUTC(),
-			nextFreeRoamEventTime = this.getNextFreeRoamEvent(categoryEventSchedule, now),
-			nextFreeRoamEvent = categoryEventSchedule.get(nextFreeRoamEventTime),
+		const now = DateTimeUtil.nowUTC(),
+			nextFreeRoamEventTime = this.getNextFreeRoamEvent(freeRoamEventCollection, now),
+			nextFreeRoamEvent = freeRoamEventCollection.get(nextFreeRoamEventTime),
 			humanizedDiff = this.humanizeEventTimeDiff(now, nextFreeRoamEventTime),
-			otherOccurrences = categoryEventSchedule.filter((value,key) => {
-				return key !== nextFreeRoamEventTime;
-			}),
+			otherOccurrences = freeRoamEventCollection
+				.filter((eventInfo, eventTime) => eventTime !== nextFreeRoamEventTime),
 			others = Array.from(otherOccurrences.keys());
 
 		return {

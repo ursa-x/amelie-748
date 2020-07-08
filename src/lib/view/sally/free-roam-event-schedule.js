@@ -8,10 +8,7 @@ import {
 	DELIMITER,
 	QUERY_TYPE
 } from '../../settings/general';
-import {
-	CATEGORY_NAMES,
-	SCHEDULE_ITEM_POSITION_ENUM
-} from '../../settings/sally/free-roam-events';
+import { CATEGORY_NAMES } from '../../settings/sally/free-roam-events';
 import { data } from '../../../../data/persona.json';
 
 const { sally } = data;
@@ -20,11 +17,13 @@ class ScheduleViewHelper extends CoreView {
 	getTitleText() {
 		let title = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
 
-		if(this.isGeneralSchedule())
+		if (this.isGeneralSchedule()) {
 			title = this.getCommandLiteral('MESSAGE.SALLY_GENERAL_EVENTS_TITLE');
+		}
 
-		if(this.isRoleSchedule())
+		if (this.isRoleSchedule()) {
 			title = this.getCommandLiteral('MESSAGE.SALLY_ROLE_EVENTS_TITLE');
+		}
 
 		return title;
 	}
@@ -78,12 +77,12 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			{ queryType } = queryParams;
 
 		switch (queryType) {
-			case QUERY_TYPE.ALL:
-				return self.makeScheduleEmbed();
-			case QUERY_TYPE.SEARCH:
-				return self.makeScheduleEmbed(queryParams.searchQuery);
-			default:
-				return self.makeScheduleEmbed();
+		case QUERY_TYPE.ALL:
+			return self.makeScheduleEmbed();
+		case QUERY_TYPE.SEARCH:
+			return self.makeScheduleEmbed(queryParams.searchQuery);
+		default:
+			return self.makeScheduleEmbed();
 		}
 	}
 
@@ -107,12 +106,12 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 			};
 
 		switch (eventType) {
-			case CATEGORY_NAMES.GENERAL:
-				return this.makeGeneralScheduleEmbed(noInline);
-			case CATEGORY_NAMES.ROLE:
-				return this.makeRoleScheduleEmbed(noInline);
-			default:
-				return makeCompleteScheduleEmbed();
+		case CATEGORY_NAMES.GENERAL:
+			return this.makeGeneralScheduleEmbed(noInline);
+		case CATEGORY_NAMES.ROLE:
+			return this.makeRoleScheduleEmbed(noInline);
+		default:
+			return makeCompleteScheduleEmbed();
 		}
 	}
 
@@ -163,19 +162,12 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 	}
 
 	createRoleSchedule(roleScheduleCollection, inline = true) {
-		const 	{ formatRoleScheduleItem } = this,
-			{
-				EVENT_TIME: EVENT_TIME_POSITION,
-				EVENT_NAME: EVENT_NAME_POSITION,
-				ROLE_NAME: ROLE_NAME_POSITION
-			} = SCHEDULE_ITEM_POSITION_ENUM;
+		const 	{ formatRoleScheduleItem } = this;
 
 		return roleScheduleCollection
 			.reduce((scheduleText, freeRoamEvent, eventTime) => {
 				const freeRoamEventName = freeRoamEvent.name,
-					roleEventName = () => (!inline)
-						? freeRoamEvent.role
-						: '',
+					roleEventName = (!inline) ? freeRoamEvent.role : '',
 					eventScheduleItem = formatRoleScheduleItem(
 						eventTime,
 						freeRoamEventName,
@@ -191,7 +183,8 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 	}
 
 	formatRoleScheduleItem(eventTime, eventName, roleName = '') {
-		const specifyRole = (role) => (!!role) ? `\`${role}\`` : '';
+		// eslint-disable-next-line no-confusing-arrow
+		const specifyRole = (role) => (role) ? `\`${role}\`` : '';
 
 		return `\`${eventTime}\` - ${eventName} ${specifyRole(roleName)}`;
 	}

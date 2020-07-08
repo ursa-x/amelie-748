@@ -1,14 +1,14 @@
 /* eslint one-var: "off" */
 
+// eslint-disable-next-line import/no-unresolved
 import { author } from '../../../../config/common.properties.json';
+// eslint-disable-next-line import/no-unresolved
 import * as appProperties from '../../../../config/properties.json';
 import { BOT } from '../../settings/general';
-import { RANDOM_EVENTS } from "./constants";
+import RANDOM_EVENTS from './constants';
 
 // Helpers
-const randomEventsAsString = () => {
-	return RANDOM_EVENTS.join(', ');
-};
+const randomEventsAsString = () => RANDOM_EVENTS.join(', ');
 
 // String literals
 const LABEL = {
@@ -102,7 +102,7 @@ const MESSAGE = {
 		+ '\n\n*All times are in GMT*.',
 	SALLY_RANDOM_EVENT_NOTE: `*Also, \`Random\` events include ${randomEventsAsString()}*`,
 	SALLY_WHEN_TITLE: ':bellhop: Free roam event details',
-	SALLY_WHEN_DESC: `Aight' here's what I can tell you about the event that you are looking for...`,
+	SALLY_WHEN_DESC: 'Aight\' here\'s what I can tell you about the event that you are looking for...',
 
 	// Error
 	ERROR_GENERAL_REPLY: 'Sorry I don\'t understand',
@@ -110,7 +110,7 @@ const MESSAGE = {
 
 	ERROR_SALLY_WHEN: 'Couldn\'t find the event that you are looking for partner! :neutral_face:'
 		+ `\n\n\`${appProperties.bot.prefix}sally events\` will give you the `
-		+ `complete schedule for Red Dead Online events.`
+		+ 'complete schedule for Red Dead Online events.'
 };
 
 // Package all string literals

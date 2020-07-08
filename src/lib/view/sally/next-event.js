@@ -50,7 +50,7 @@ class NextEventViewHelper extends CoreView {
 	}
 
 	formatFreeRoamEventDetails(event) {
-		return (!!event.info.role)
+		return (event.info.role)
 			? this.getCommandLiteral('MESSAGE.SALLY_NEXT_ROLE_EVENT_DETAIL')(
 				event.time,
 				event.info.name,

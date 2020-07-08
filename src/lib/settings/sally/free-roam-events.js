@@ -14,4 +14,3 @@ export const SCHEDULE_ITEM_POSITION_ENUM = {
 	EVENT_NAME: 1,
 	ROLE_NAME: 2
 };
-
