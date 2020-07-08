@@ -167,11 +167,11 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		return roleScheduleCollection
 			.reduce((scheduleText, freeRoamEvent, eventTime) => {
 				const freeRoamEventName = freeRoamEvent.name,
-					roleEventName = (!inline) ? freeRoamEvent.role : '',
+					roleName = (!inline) ? freeRoamEvent.role : '',
 					eventScheduleItem = formatRoleScheduleItem(
 						eventTime,
 						freeRoamEventName,
-						roleEventName()
+						roleName
 					);
 
 				return `${scheduleText}${eventScheduleItem}\n`;
