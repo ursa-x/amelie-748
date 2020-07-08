@@ -15,11 +15,30 @@ const { sally } = data;
 
 class ScheduleViewHelper extends CoreView {
 	getTitleText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
+		let title = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_TITLE');
+
+		if (this.isGeneralSchedule()) {
+			title = this.getCommandLiteral('MESSAGE.SALLY_GENERAL_EVENTS_TITLE');
+		}
+
+		if (this.isRoleSchedule()) {
+			title = this.getCommandLiteral('MESSAGE.SALLY_ROLE_EVENTS_TITLE');
+		}
+
+		return title;
 	}
 
 	getDescriptionText() {
-		return this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+		let description = this.getCommandLiteral('MESSAGE.SALLY_EVENTS_DESC');
+
+		// Add the Random event note for complete and general schedules
+		if (!this.isRoleSchedule()) {
+			const randomEventNote = this.getCommandLiteral('MESSAGE.SALLY_RANDOM_EVENT_NOTE');
+
+			description += `\n\n${randomEventNote}`;
+		}
+
+		return description;
 	}
 
 	getThumbnail() {
@@ -27,77 +46,31 @@ class ScheduleViewHelper extends CoreView {
 			url: MessageUtil.makeAttachmentString(sally.iconFile)
 		};
 	}
+
+	isCompleteSchedule() {
+		const scheduleMeta = this.model.meta;
+
+		return scheduleMeta.queryType === QUERY_TYPE.ALL;
+	}
+
+	isSpecificSchedule(eventType) {
+		const scheduleMeta = this.model.meta;
+
+		return scheduleMeta.queryType === QUERY_TYPE.SEARCH
+			&& !!scheduleMeta.searchQuery
+			&& scheduleMeta.searchQuery === eventType;
+	}
+
+	isGeneralSchedule() {
+		return this.isSpecificSchedule(CATEGORY_NAMES.GENERAL);
+	}
+
+	isRoleSchedule() {
+		return this.isSpecificSchedule(CATEGORY_NAMES.ROLE);
+	}
 }
 
 class FreeRoamEventScheduleView extends ScheduleViewHelper {
-	makeGeneralScheduleEmbed(inline = true) {
-		// TODO: Highlight 'next' when displaying all
-		const self = this,
-			ScheduleViewEmbed = this.embed,
-			EVENT_TIME_POSITION = 0,
-			EVENT_NAME_POSITION = 1;
-
-		// eslint-disable-next-line one-var
-		const generalEventSchedule = self.model.eventSchedule.general
-			.reduce((scheduleText, freeRoamEvent) => {
-				const eventScheduleItem = `\`${freeRoamEvent[EVENT_TIME_POSITION]}\` ${DELIMITER.HYPHEN} ${freeRoamEvent[EVENT_NAME_POSITION]}`;
-
-				return `${scheduleText}${eventScheduleItem}${DELIMITER.NEW_LINE}`;
-			}, DELIMITER.NEW_LINE);
-
-		ScheduleViewEmbed.addFields({
-			name: capitalize(CATEGORY_NAMES.GENERAL),
-			value: generalEventSchedule,
-			inline
-		});
-
-		return ScheduleViewEmbed;
-	}
-
-	makeRoleScheduleEmbed(inline = true) {
-		// TODO: Highlight 'next' when displaying all
-		const self = this,
-			ScheduleViewEmbed = this.embed,
-			EVENT_TIME_POSITION = 0,
-			EVENT_NAME_POSITION = 1;
-
-		// eslint-disable-next-line one-var
-		const roleEventSchedule = self.model.eventSchedule.role
-			.reduce((scheduleText, freeRoamEvent) => {
-				const eventScheduleItem = `\`${freeRoamEvent[EVENT_TIME_POSITION]}\` ${DELIMITER.HYPHEN} ${freeRoamEvent[EVENT_NAME_POSITION]}`;
-
-				return `${scheduleText}${eventScheduleItem}${DELIMITER.NEW_LINE}`;
-			}, DELIMITER.NEW_LINE);
-
-		ScheduleViewEmbed.addFields({
-			name: capitalize(CATEGORY_NAMES.ROLE),
-			value: roleEventSchedule,
-			inline
-		});
-
-		return ScheduleViewEmbed;
-	}
-
-	makeScheduleEmbed(eventType = QUERY_TYPE.ALL) {
-		const self = this,
-			noInline = false,
-			makeCompleteScheduleEmbed = () => {
-				self.embed = this.makeGeneralScheduleEmbed();
-				self.embed = this.makeRoleScheduleEmbed();
-
-				return self.embed;
-			};
-
-		switch (eventType) {
-		case CATEGORY_NAMES.GENERAL:
-			return this.makeGeneralScheduleEmbed(noInline);
-		case CATEGORY_NAMES.ROLE:
-			return this.makeRoleScheduleEmbed(noInline);
-		default:
-			return makeCompleteScheduleEmbed();
-		}
-	}
-
 	get messageEmbed() {
 		const self = this,
 			{ meta: queryParams } = self.model,
@@ -120,6 +93,100 @@ class FreeRoamEventScheduleView extends ScheduleViewHelper {
 		imageAttachments.push(sallyThumbnailAttachment);
 
 		return imageAttachments;
+	}
+
+	makeScheduleEmbed(eventType = QUERY_TYPE.ALL) {
+		const self = this,
+			noInline = false,
+			makeCompleteScheduleEmbed = () => {
+				self.embed = this.makeGeneralScheduleEmbed();
+				self.embed = this.makeRoleScheduleEmbed();
+
+				return self.embed;
+			};
+
+		switch (eventType) {
+		case CATEGORY_NAMES.GENERAL:
+			return this.makeGeneralScheduleEmbed(noInline);
+		case CATEGORY_NAMES.ROLE:
+			return this.makeRoleScheduleEmbed(noInline);
+		default:
+			return makeCompleteScheduleEmbed();
+		}
+	}
+
+	makeGeneralScheduleEmbed(inline = true) {
+		// TODO: Highlight 'next' when displaying all
+		const self = this,
+			ScheduleViewEmbed = this.embed,
+			generalScheduleCollection = self.model.eventSchedule.get(CATEGORY_NAMES.GENERAL),
+			generalEventSchedule = this.createGeneralSchedule(generalScheduleCollection);
+
+		ScheduleViewEmbed.addFields({
+			name: capitalize(CATEGORY_NAMES.GENERAL),
+			value: generalEventSchedule,
+			inline
+		});
+
+		return ScheduleViewEmbed;
+	}
+
+	makeRoleScheduleEmbed(inline = true) {
+		// TODO: Highlight 'next' when displaying all
+		const self = this,
+			ScheduleViewEmbed = this.embed,
+			roleScheduleCollection = self.model.eventSchedule.get(CATEGORY_NAMES.ROLE),
+			roleEventSchedule = this.createRoleSchedule(roleScheduleCollection, inline);
+
+		ScheduleViewEmbed.addFields({
+			name: capitalize(CATEGORY_NAMES.ROLE),
+			value: roleEventSchedule,
+			inline
+		});
+
+		return ScheduleViewEmbed;
+	}
+
+	createGeneralSchedule(generalScheduleCollection) {
+		const {	formatGeneralScheduleItem } = this;
+
+		return generalScheduleCollection
+			.reduce((scheduleText, freeRoamEvent, eventTime) => {
+				const eventScheduleItem = formatGeneralScheduleItem(
+					eventTime,
+					freeRoamEvent.name
+				);
+
+				return `${scheduleText}${eventScheduleItem}\n`;
+			}, DELIMITER.NEW_LINE);
+	}
+
+	createRoleSchedule(roleScheduleCollection, inline = true) {
+		const 	{ formatRoleScheduleItem } = this;
+
+		return roleScheduleCollection
+			.reduce((scheduleText, freeRoamEvent, eventTime) => {
+				const freeRoamEventName = freeRoamEvent.name,
+					roleName = (!inline) ? freeRoamEvent.role : '',
+					eventScheduleItem = formatRoleScheduleItem(
+						eventTime,
+						freeRoamEventName,
+						roleName
+					);
+
+				return `${scheduleText}${eventScheduleItem}\n`;
+			}, DELIMITER.NEW_LINE);
+	}
+
+	formatGeneralScheduleItem(eventTime, eventName) {
+		return `\`${eventTime}\` - ${eventName}`;
+	}
+
+	formatRoleScheduleItem(eventTime, eventName, roleName = '') {
+		// eslint-disable-next-line no-confusing-arrow
+		const specifyRole = (role) => (role) ? `\`${role}\`` : '';
+
+		return `\`${eventTime}\` - ${eventName} ${specifyRole(roleName)}`;
 	}
 }
 

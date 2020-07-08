@@ -3,6 +3,7 @@ import {
 	upperCase
 } from 'voca';
 import CoreModel from '../core/model';
+import { getTitleCaseFromSnakeCase } from '../../util/message';
 import { data as WEEKLY_SETS } from '../../../../data/weekly-sets.json';
 import COLLECTIBLE_EMOJI from '../../settings/nazar/collectible';
 import {
@@ -39,20 +40,16 @@ class WeeklySets extends CoreModel {
 			SET_TYPE_POSITION = 0;
 
 		for (const [setCode, setObject] of Object.entries(WEEKLY_SETS)) {
-			const setName = titleCase(
-				setCode
-					.split(DELIMITER.UNDERSCORE)
-					.join(DELIMITER.SPACE)
-			);
+			const setName = getTitleCaseFromSnakeCase(setCode);
 
 			self.chests[setName] = setObject.items.map((item) => {
 				const itemLabel = item
 					.split(DELIMITER.UNDERSCORE)
 					.map(titleCase);
 
-				itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[upperCase(
-					itemLabel[SET_TYPE_POSITION]
-				)];
+				itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[
+					upperCase(itemLabel[SET_TYPE_POSITION])
+				];
 
 				return itemLabel.join(DELIMITER.SPACE);
 			});

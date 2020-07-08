@@ -1,10 +1,12 @@
-import { titleCase } from 'voca';
+import { Collection } from 'discord.js';
 import CoreModel from '../core/model';
 import { data as FREE_ROAM_EVENTS } from '../../../../data/free-roam-events.json';
+import { getTitleCaseFromSnakeCase } from '../../util/message';
+import { QUERY_TYPE } from '../../settings/general';
 import {
-	DELIMITER,
-	QUERY_TYPE
-} from '../../settings/general';
+	CATEGORY_NAMES,
+	SCHEDULE_ITEM_POSITION_ENUM
+} from '../../settings/sally/free-roam-events';
 
 class FreeRoamEvents extends CoreModel {
 	constructor(message, meta) {
@@ -22,33 +24,66 @@ class FreeRoamEvents extends CoreModel {
 			searchQuery: null
 		};
 
-		this.eventSchedule = {};
+		this.eventSchedule = new Collection();
 		this.meta = queryParams;
 	}
 
 	populateEventSchedule() {
-		const self = this,
-			EVENT_TIME_POSITION = 0,
-			EVENT_NAME_POSITION = 1,
-			// eslint-disable-next-line arrow-body-style
-			cleanEventSchedule = (eventsList) => {
-				return eventsList.map((freeRoamEvent) => {
-					const freeRoamEventName = titleCase(
-						freeRoamEvent[EVENT_NAME_POSITION]
-							.split(DELIMITER.UNDERSCORE)
-							.join(DELIMITER.SPACE)
-					);
-
-					return [
-						freeRoamEvent[EVENT_TIME_POSITION],
-						freeRoamEventName
-					];
-				});
-			};
+		const self = this;
 
 		for (const [categoryName, schedule] of Object.entries(FREE_ROAM_EVENTS)) {
-			self.eventSchedule[categoryName] = cleanEventSchedule(schedule);
+			self.eventSchedule.set(
+				categoryName,
+				(categoryName === CATEGORY_NAMES.ROLE)
+					? this.cleanRoleEventSchedule(schedule)
+					: this.cleanEventSchedule(schedule)
+			);
 		}
+	}
+
+	cleanEventSchedule(eventsList) {
+		const {
+				EVENT_TIME: EVENT_TIME_POSITION,
+				EVENT_NAME: EVENT_NAME_POSITION
+			} = SCHEDULE_ITEM_POSITION_ENUM,
+			eventSchedule = new Collection();
+
+		eventsList.forEach((freeRoamEvent) => {
+			const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
+				freeRoamEventName = getTitleCaseFromSnakeCase(freeRoamEvent[EVENT_NAME_POSITION]);
+
+			eventSchedule.set(
+				freeRoamEventTime,
+				{ name: freeRoamEventName }
+			);
+		});
+
+		return eventSchedule;
+	}
+
+	cleanRoleEventSchedule(roleEventsList) {
+		const {
+				EVENT_TIME: EVENT_TIME_POSITION,
+				EVENT_NAME: EVENT_NAME_POSITION,
+				ROLE_NAME: ROLE_NAME_POSITION
+			} = SCHEDULE_ITEM_POSITION_ENUM,
+			roleEventSchedule = new Collection();
+
+		roleEventsList.forEach((freeRoamEvent) => {
+			const freeRoamEventTime = freeRoamEvent[EVENT_TIME_POSITION],
+				freeRoamEventName = getTitleCaseFromSnakeCase(freeRoamEvent[EVENT_NAME_POSITION]),
+				roleName = getTitleCaseFromSnakeCase(freeRoamEvent[ROLE_NAME_POSITION]);
+
+			roleEventSchedule.set(
+				freeRoamEventTime,
+				{
+					name: freeRoamEventName,
+					role: roleName
+				}
+			);
+		});
+
+		return roleEventSchedule;
 	}
 }
 

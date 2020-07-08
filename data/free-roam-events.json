@@ -1,5 +1,5 @@
 {
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"comment": "General and role events since the Red Dead Online Trader/Collector/Bounty Hunter update.",
 	"data": {
 		"general": [
@@ -135,67 +135,83 @@
 		"role": [
 			[
 				"00:22",
-				"day_of_reckoning"
+				"day_of_reckoning",
+				"bounty_hunter"
 			],
 			[
 				"01:52",
-				"day_of_reckoning"
+				"day_of_reckoning",
+				"bounty_hunter"
 			],
 			[
 				"03:22",
-				"salvage"
+				"salvage",
+				"collector"
 			],
 			[
 				"04:52",
-				"trade_route"
+				"trade_route",
+				"trader"
 			],
 			[
 				"06:22",
-				"manhunt"
+				"manhunt",
+				"bounty_hunter"
 			],
 			[
 				"07:52",
-				"condor_egg"
+				"condor_egg",
+				"collector"
 			],
 			[
 				"09:22",
-				"day_of_reckoning"
+				"day_of_reckoning",
+				"bounty_hunter"
 			],
 			[
 				"10:52",
-				"salvage"
+				"salvage",
+				"collector"
 			],
 			[
 				"12:22",
-				"trade_route"
+				"trade_route",
+				"trader"
 			],
 			[
 				"13:52",
-				"manhunt"
+				"manhunt",
+				"bounty_hunter"
 			],
 			[
 				"15:22",
-				"condor_egg"
+				"condor_egg",
+				"collector"
 			],
 			[
 				"16:52",
-				"day_of_reckoning"
+				"day_of_reckoning",
+				"bounty_hunter"
 			],
 			[
 				"18:22",
-				"salvage"
+				"salvage",
+				"collector"
 			],
 			[
 				"19:52",
-				"trade_route"
+				"trade_route",
+				"trader"
 			],
 			[
 				"21:22",
-				"manhunt"
+				"manhunt",
+				"bounty_hunter"
 			],
 			[
 				"22:52",
-				"condor_egg"
+				"condor_egg",
+				"collector"
 			]
 		]
 	}

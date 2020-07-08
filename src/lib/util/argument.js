@@ -6,7 +6,7 @@ import {
 	REGEX
 } from '../settings/general';
 
-export const cleanParams = (params) => lowerCase(
+export const cleanSearchParams = (params) => lowerCase(
 	params
 		.trim()
 		.split(DELIMITER.SPACE)

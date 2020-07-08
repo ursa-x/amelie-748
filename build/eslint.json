@@ -6,6 +6,7 @@
 			"tab"
 		],
 		"no-tabs": "off",
+		"no-return-await": "off",
 		"one-var": [
 			"warn",
 			{
