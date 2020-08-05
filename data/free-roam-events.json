@@ -1,6 +1,6 @@
 {
-	"version": "0.2.0",
-	"comment": "General and role events since the Red Dead Online Trader/Collector/Bounty Hunter update.",
+	"version": "0.3.0",
+	"comment": "General and role events since the Red Dead Online Naturalist role was added in update 1.20.",
 	"data": {
 		"general": [
 			[
@@ -135,8 +135,8 @@
 		"role": [
 			[
 				"00:22",
-				"day_of_reckoning",
-				"bounty_hunter"
+				"animal_tagging",
+				"naturalist"
 			],
 			[
 				"01:52",
@@ -145,73 +145,73 @@
 			],
 			[
 				"03:22",
-				"salvage",
-				"collector"
+				"protect_legendary_animal",
+				"naturalist"
 			],
 			[
 				"04:52",
-				"trade_route",
-				"trader"
+				"animal_tagging",
+				"naturalist"
 			],
 			[
 				"06:22",
-				"manhunt",
-				"bounty_hunter"
+				"salvage",
+				"collector"
 			],
 			[
 				"07:52",
-				"condor_egg",
-				"collector"
+				"protect_legendary_animal",
+				"naturalist"
 			],
 			[
 				"09:22",
-				"day_of_reckoning",
-				"bounty_hunter"
+				"animal_tagging",
+				"naturalist"
 			],
 			[
 				"10:52",
-				"salvage",
-				"collector"
-			],
-			[
-				"12:22",
 				"trade_route",
 				"trader"
 			],
 			[
+				"12:22",
+				"protect_legendary_animal",
+				"naturalist"
+			],
+			[
 				"13:52",
+				"animal_tagging",
+				"naturalist"
+			],
+			[
+				"15:22",
 				"manhunt",
 				"bounty_hunter"
 			],
 			[
-				"15:22",
+				"16:52",
+				"protect_legendary_animal",
+				"naturalist"
+			],
+			[
+				"18:22",
+				"animal_tagging",
+				"naturalist"
+			],
+			[
+				"19:52",
 				"condor_egg",
 				"collector"
 			],
 			[
-				"16:52",
-				"day_of_reckoning",
-				"bounty_hunter"
-			],
-			[
-				"18:22",
-				"salvage",
-				"collector"
-			],
-			[
-				"19:52",
-				"trade_route",
-				"trader"
-			],
-			[
 				"21:22",
-				"manhunt",
+				"day_of_reckoning",
 				"bounty_hunter"
 			],
 			[
 				"22:52",
-				"condor_egg",
-				"collector"
+				"protect_legendary_animal",
+				"naturalist"
 			]
 		]
 	}
