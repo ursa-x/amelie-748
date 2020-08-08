@@ -291,41 +291,41 @@
 		},
 		"trophy_hunter_set": {
 			"items": [
-				"legendary_item_bison_horn",
-				"legendary_item_boar_tusk",
-				"legendary_item_moose_antler"
+				"legendary_bison_horn",
+				"legendary_boar_tusk",
+				"legendary_moose_antler"
 			],
 			"value": 75
 		},
 		"beasts_of_prey_set": {
 			"items": [
-				"legendary_item_panther_eye",
-				"legendary_item_wolf_heart",
+				"legendary_panther_eye",
+				"legendary_wolf_heart",
 				"fossil_tooth_serrated"
 			],
 			"value": 85
 		},
 		"tooth_and_nail_set": {
 			"items": [
-				"legendary_item_beaver_tooth",
-				"legendary_item_coyote_fang",
-				"provision_badger_claw"
+				"legendary_beaver_tooth",
+				"legendary_coyote_fang",
+				"item_badger_claw"
 			],
 			"value": 65
 		},
 		"shot_in_the_dark_set": {
 			"items": [
-				"provision_opossum_fur_pristine",
-				"provision_raccoon_fur_pristine",
-				"provision_owl_feather"
+				"item_opossum_fur_pristine",
+				"item_raccoon_fur_pristine",
+				"item_owl_feather"
 			],
 			"value": 40
 		},
 		"black_and_white_set": {
 			"items": [
-				"provision_skunk_fur_pristine",
-				"provision_badger_pelt_pristine",
-				"provision_seagull_feather"
+				"item_skunk_fur_pristine",
+				"item_badger_pelt_pristine",
+				"item_seagull_feather"
 			],
 			"value": 30
 		},
@@ -349,7 +349,7 @@
 			"items": [
 				"fossil_tully_monster",
 				"fossil_cephalopod",
-				"provision_fish_rock_bass"
+				"item_fish_rock_bass"
 			],
 			"value": 95
 		},
@@ -357,15 +357,15 @@
 			"items": [
 				"fossil_sea_scorpion",
 				"fossil_trilobite_crypto",
-				"carcass_crab_perfect"
+				"item_carcass_crab_perfect"
 			],
 			"value": 90
 		},
 		"bite_sized_set": {
 			"items": [
-				"provision_cougar_fang",
+				"item_cougar_fang",
 				"fossil_tooth_mega",
-				"provision_alligator_tooth"
+				"item_alligator_tooth"
 			],
 			"value": 75
 		}
