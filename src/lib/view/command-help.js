@@ -73,7 +73,8 @@ class CommandHelpViewHelper extends CoreView {
 				);
 
 				return `\`${formattedPermission}\``;
-		}).join(', ');
+			})
+			.join(', ');
 	}
 }
 
@@ -84,7 +85,7 @@ class CommandHelpView extends CommandHelpViewHelper {
 			permissionsField = this.getRequiredPermissionsField(),
 			CommandHelpEmbed = self.embed;
 
-		CommandHelpEmbed.addField(...usageField)
+		CommandHelpEmbed.addField(...usageField);
 
 		if (self.hasExtendedHelp(self.model.extendedHelp)) {
 			const extendedHelpField = this.getExtendedHelpField();
