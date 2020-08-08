@@ -17,7 +17,9 @@ const COLLECTIBLE_EMOJI = {
 	WANDS: ':crystal_ball:',
 	PENTACLES: ':trident:',
 	SWORDS: ':crossed_swords:',
-	ITEM: ':pick:'
+	FOSSIL: ':sauropod:',
+	ITEM: ':salt:',
+	LEGENDARY: ':deer:'
 };
 
 export default COLLECTIBLE_EMOJI;
