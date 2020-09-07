@@ -35,8 +35,8 @@ class FreeRoamEvents extends CoreModel {
 			self.eventSchedule.set(
 				categoryName,
 				(categoryName === CATEGORY_NAMES.ROLE)
-					? this.cleanRoleEventSchedule(schedule)
-					: this.cleanEventSchedule(schedule)
+					? self.cleanRoleEventSchedule(schedule)
+					: self.cleanEventSchedule(schedule)
 			);
 		}
 	}

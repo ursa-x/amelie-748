@@ -1,6 +1,6 @@
 {
 	"name": "amelie-748",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A classy discord bot for Red Dead Online Gamers",
 	"main": "src/amelie.js",
 	"scripts": {
