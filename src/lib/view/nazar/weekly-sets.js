@@ -33,14 +33,16 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		// TODO: Highlight 'current' when displaying all
 		const inline = true,
 			{
-				chests,
+				model: {
+					chests
+				},
 				embed: LocationViewEmbed
 			} = this;
 
-		chests.each((chest) => {
+		chests.each((setItems, setName) => {
 			LocationViewEmbed.addFields({
-				name: chest.setName,
-				value: chest.items.join(DELIMITER.NEW_LINE),
+				name: setName,
+				value: setItems.join(DELIMITER.NEW_LINE),
 				inline
 			});
 		});
@@ -52,11 +54,17 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 		const self = this,
 			inline = true,
 			lookupSetName = self.getLookupSetName(queryParams),
-			LocationViewEmbed = self.embed,
-			{ currentSetName } = self.model,
-			chest = this.findChest(lookupSetName);
+			{
+				embed: LocationViewEmbed,
+				model: {
+					currentSetName
+				},
+				isChestExist
+			} = self,
+			chest = self.findChest(lookupSetName),
+			currentWeekChest = self.findChest(currentSetName);
 
-		if (typeof chest !== 'undefined' && chest.size !== 0) {
+		if (isChestExist(chest)) {
 			LocationViewEmbed
 				.setTitle(chest.firstKey())
 				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_DESC'))
@@ -65,18 +73,19 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 					value: chest.first().join(DELIMITER.NEW_LINE),
 					inline
 				});
-		} else {
-			const tidyCurrentSetName = ArgumentUtil.cleanSetName(currentSetName),
-				currentChest = this.findChest(tidyCurrentSetName);
-
+		} else if (isChestExist(currentWeekChest)) {
 			LocationViewEmbed
-				.setTitle(currentChest.firstKey())
+				.setTitle(currentWeekChest.firstKey())
 				.setDescription(self.getCommandLiteral('MESSAGE.NAZAR_SET_CURRENT_DESC'))
 				.addFields({
 					name: self.getCommandLiteral('LABEL.COLLECTIBLES'),
-					value: currentChest.first().join(DELIMITER.NEW_LINE),
+					value: currentWeekChest.first().join(DELIMITER.NEW_LINE),
 					inline
 				});
+		} else {
+			LocationViewEmbed
+				.setTitle(self.getCommandLiteral('MESSAGE.ERROR_NAZAR_WEEKLY_TITLE'))
+				.setDescription(self.getCommandLiteral('MESSAGE.ERROR_NAZAR_WEEKLY_DESC'));
 		}
 
 		return LocationViewEmbed;
@@ -115,11 +124,17 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 	}
 
 	findChest(chestName) {
-		const { chests } = this.model;
+		const { chests } = this.model,
+			{ cleanSetName } = ArgumentUtil,
+			tidyChestName = cleanSetName(chestName);
 
 		return chests.filter((setItems, setName) => {
-			return ArgumentUtil.cleanSetName(setName) === chestName;
+			return cleanSetName(setName) === tidyChestName;
 		});
+	}
+
+	isChestExist(chest) {
+		return typeof chest !== 'undefined' && chest.size !== 0;
 	}
 }
 

@@ -107,7 +107,11 @@ const MESSAGE = {
 
 	// Error
 	ERROR_GENERAL_REPLY: 'Sorry I don\'t understand',
+
 	ERROR_NAZAR_WYA: '',
+	ERROR_NAZAR_WEEKLY_TITLE: 'Couldn\'t find what you\'re looking for!',
+	ERROR_NAZAR_WEEKLY_DESC: 'Ugh looks like Nazar won\'t let me in on the set she seeks this week. ' +
+		'Check the [Red Dead Online Collector\'s Map](https://jeanropke.github.io/RDR2CollectorsMap/) for more information.',
 
 	ERROR_SALLY_WHEN: 'Couldn\'t find the event that you are looking for partner! :neutral_face:'
 		+ `\n\n\`${appProperties.bot.prefix}sally events\` will give you the `
