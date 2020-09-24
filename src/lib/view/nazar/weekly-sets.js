@@ -128,9 +128,7 @@ class WeeklySetsView extends WeeklySetsViewHelper {
 			{ cleanSetName } = ArgumentUtil,
 			tidyChestName = cleanSetName(chestName);
 
-		return chests.filter((setItems, setName) => {
-			return cleanSetName(setName) === tidyChestName;
-		});
+		return chests.filter((setItems, setName) => cleanSetName(setName) === tidyChestName);
 	}
 
 	isChestExist(chest) {

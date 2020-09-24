@@ -5,6 +5,7 @@ import { author } from '../../../../config/common.properties.json';
 // eslint-disable-next-line import/no-unresolved
 import * as appProperties from '../../../../config/properties.json';
 import { BOT } from '../../settings/general';
+import * as URL from '../../settings/url';
 import RANDOM_EVENTS from './constants';
 
 // Helpers
@@ -110,8 +111,8 @@ const MESSAGE = {
 
 	ERROR_NAZAR_WYA: '',
 	ERROR_NAZAR_WEEKLY_TITLE: 'Couldn\'t find what you\'re looking for!',
-	ERROR_NAZAR_WEEKLY_DESC: 'Ugh looks like Nazar won\'t let me in on the set she seeks this week. ' +
-		'Check the [Red Dead Online Collector\'s Map](https://jeanropke.github.io/RDR2CollectorsMap/) for more information.',
+	ERROR_NAZAR_WEEKLY_DESC: 'Ugh looks like Nazar won\'t let me in on the set she seeks this week. '
+		+ `Check the [Red Dead Online Collector's Map](${URL.COLLECTOR_MAP}) for more information.`,
 
 	ERROR_SALLY_WHEN: 'Couldn\'t find the event that you are looking for partner! :neutral_face:'
 		+ `\n\n\`${appProperties.bot.prefix}sally events\` will give you the `

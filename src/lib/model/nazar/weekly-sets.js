@@ -40,7 +40,7 @@ class WeeklySets extends CoreModel {
 		const self = this;
 
 		for (const [setCode, setObject] of Object.entries(WEEKLY_SETS)) {
-			//TODO Probably consume snake case since the idea is to i18n anyways
+			// TODO: Probably consume snake case since the idea is to i18n anyways
 			const setName = getTitleCaseFromSnakeCase(setCode);
 
 			self.chests.set(
@@ -59,8 +59,8 @@ class WeeklySets extends CoreModel {
 				.map(titleCase);
 
 			itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[
-					upperCase(itemLabel[SET_TYPE_POSITION])
-				];
+				upperCase(itemLabel[SET_TYPE_POSITION])
+			];
 
 			return itemLabel.join(DELIMITER.SPACE);
 		});
