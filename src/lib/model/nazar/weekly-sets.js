@@ -1,3 +1,4 @@
+import { Collection } from 'discord.js';
 import {
 	titleCase,
 	upperCase
@@ -31,29 +32,38 @@ class WeeklySets extends CoreModel {
 			searchSetName: null
 		};
 
-		this.chests = {};
+		this.chests = new Collection();
 		this.meta = queryParams;
 	}
 
 	populateWeeklySets() {
-		const self = this,
-			SET_TYPE_POSITION = 0;
+		const self = this;
 
 		for (const [setCode, setObject] of Object.entries(WEEKLY_SETS)) {
+			// TODO: Probably consume snake case since the idea is to i18n anyways
 			const setName = getTitleCaseFromSnakeCase(setCode);
 
-			self.chests[setName] = setObject.items.map((item) => {
-				const itemLabel = item
-					.split(DELIMITER.UNDERSCORE)
-					.map(titleCase);
-
-				itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[
-					upperCase(itemLabel[SET_TYPE_POSITION])
-				];
-
-				return itemLabel.join(DELIMITER.SPACE);
-			});
+			self.chests.set(
+				setName,
+				self.getSetItemsList(setObject.items)
+			);
 		}
+	}
+
+	getSetItemsList(items) {
+		const SET_TYPE_POSITION = 0;
+
+		return items.map((item) => {
+			const itemLabel = item
+				.split(DELIMITER.UNDERSCORE)
+				.map(titleCase);
+
+			itemLabel[SET_TYPE_POSITION] = COLLECTIBLE_EMOJI[
+				upperCase(itemLabel[SET_TYPE_POSITION])
+			];
+
+			return itemLabel.join(DELIMITER.SPACE);
+		});
 	}
 }
 

@@ -6,7 +6,7 @@ import { empty } from '../lib/util/general';
 import {
 	MADAM_NAZAR_API,
 	COLLECTOR_MAP_API
-} from '../lib/settings/url';
+} from '../lib/settings/api';
 
 export default class extends Service {
 	constructor(...args) {

@@ -82,11 +82,18 @@ class FreeRoamEventWhenView extends FreeRoamEventWhenViewHelper {
 		if (freeRoamEventCollection.size !== 0) {
 			const freeRoamEventOccurrences = this.getOccurrences(freeRoamEventCollection),
 				eventInfoField = this.getFreeRoamEventField(freeRoamEventOccurrences),
-				otherOccurrencesField = this.getOtherOccurrencesField(freeRoamEventOccurrences.others);
+				{ others: otherOccurrences } = freeRoamEventOccurrences;
 
-			FreeRoamEventWhenEmbed
-				.addField(...eventInfoField)
-				.addField(...otherOccurrencesField);
+			FreeRoamEventWhenEmbed.addField(...eventInfoField);
+
+			// If there are other occurrences, add a field displaying them
+			if (typeof otherOccurrences !== 'undefined' && otherOccurrences.length !== 0) {
+				const otherOccurrencesField = this.getOtherOccurrencesField(
+					freeRoamEventOccurrences.others
+				);
+
+				FreeRoamEventWhenEmbed.addField(...otherOccurrencesField);
+			}
 		} else {
 			// Handle no match for search
 			const gcl = this.getCommandLiteral;
